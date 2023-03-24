@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'package:email_validator/email_validator.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
+
+
 
 import 'ConnectionSettings.dart';
 
@@ -29,15 +32,19 @@ class CreateAccountForm extends StatefulWidget {
   State<CreateAccountForm> createState() => _CreateAccountFormState();
 }
 
+
 //This class holds data related to the form
+
 class _CreateAccountFormState extends State<CreateAccountForm>{
+
+ 
 
   //These variables store the first name, last name, email, and password entered by the user
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  
   //Create a global key that uniquely identifies the Form widget
   //and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
@@ -91,6 +98,7 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                 },
               ),
             ),
+
             Container(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
@@ -104,7 +112,12 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                   if (value == null || value.isEmpty) {
                     return 'This field cannot be empty';
                   }
-                  return null;
+                  else if(!EmailValidator.validate(value.trim())){
+                    return 'Please enter valid email';
+                  }
+                  else {
+                    return null;
+                  }
                 },
               ),
             ),
@@ -149,12 +162,20 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                       var password = passwordController.text;
                       //Add the new user to the database (the USER table in the database needs to auto increment user_id for this command to work)
                       await conn.query('insert into USERS (user_fname, user_lname, user_email, user_password) values (?, ?, ?, ?)', [fName, lName, email, password]);
+                      //after inserting, navigate back to login page so that the user can login
+                      Navigator.of(context).pop(context);
+                    }
+                    //Trying to navigate back to the login page
+                    else if(_formKey.currentState!.validate()){
+
                     }
                   }
+
                 )
             ),
           ],
         ));
+
   }
 }
 

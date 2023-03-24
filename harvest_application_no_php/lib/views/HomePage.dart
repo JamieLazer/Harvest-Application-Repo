@@ -126,8 +126,9 @@ class _LoginFormState extends State<LoginForm> {
                       var results = await conn.query('select * from USERS where user_email = ? and user_password = ?', [email, password]);
                       //If the result of the request is exactly one row, the login was successful
                       if(results.length == 1){
-                        print('Sucessful login');
+
                       }
+
                     }
                   }
 
