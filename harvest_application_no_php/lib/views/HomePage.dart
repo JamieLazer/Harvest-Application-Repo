@@ -5,17 +5,13 @@ import 'package:mysql1/mysql1.dart';
 import 'ConnectionSettings.dart';
 import 'CreateAccountPage.dart';
 
-//A stateless widget never changes
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
-    //MaterialApp is the starting point of your app, it tells Flutter that you are going to use Material components and follow material design in your app.
-    //We only have one MaterialApp in the project so that we only have one navigator to allow for pushing and popping of routes
-    //Any named routes needed in the app must be added to this MaterialApp's routes
+    //MaterialApp is the starting point of the app.
     return MaterialApp(
-      //Scaffold is used under MaterialApp, it gives you many basic functionalities, like AppBar, BottomNavigationBar, Drawer, FloatingActionButton etc.
       home: Scaffold(
         //This is the title at the top of the screen
         appBar: AppBar(title: const Text('Harvest')),
@@ -30,24 +26,61 @@ class HomePage extends StatelessWidget {
       routes: {
         //When navigating to the "/createAccount" route, open the CreateAccountPage.
         '/createAccount': (context) => const CreateAccountPage(),
+        '/homePage': (context) => const HomePage(),
       },
-
     );
   }
 }
 
-//If a widget can change when a user interacts with it for example, it is stateful 
-//This is our form widget
+
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
-  
-  //StatefulWidget instances themselves are immutable and can store their mutable state in separate State objects that are created by the createState method, 
+
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
 
-//This class holds data related to the form
 class _LoginFormState extends State<LoginForm> {
+
+  bool _isLoading = false;
+
+  // This async method connects To the remote mySQL database.
+  Future<MySqlConnection> getConnection() async {
+    var settings = new ConnectionSettings(
+        host: 'db4free.net',
+        port: 3306,
+        user: 'hardcoded',
+        password: '5Scrummies@SD',
+        db: 'harvestapp');
+    return await MySqlConnection.connect(settings);
+  }
+
+  // 
+  Future<bool> login(String email, String password) async {
+    // Establish a connection to the database
+    final conn = await getConnection();
+    try {
+      // Execute a query to check if the user's email and password match
+      final results = await conn.query(
+          'SELECT * FROM USERS WHERE user_email = ? AND user_password = ?',
+          [email, password]);
+
+      // If the query returns exactly one row, the login was successful
+      if (results.length == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the query execution
+      print('Error during login: $e');
+      return false;
+    } finally {
+      // Close the connection when done
+      await conn.close();
+    }
+  }
+
   //These variables store the email and password entered by the user
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -55,7 +88,7 @@ class _LoginFormState extends State<LoginForm> {
   //Create a global key that uniquely identifies the Form widget
   //and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
- 
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -66,7 +99,8 @@ class _LoginFormState extends State<LoginForm> {
                 height: 200,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
-                child: Image.asset('assets/images/Logo.jpg', fit: BoxFit.cover),),
+                child: Image.asset('assets/images/Logo.jpg', fit: BoxFit.cover),
+            ),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
@@ -115,19 +149,42 @@ class _LoginFormState extends State<LoginForm> {
                 child: ElevatedButton(
                   child: const Text('Login', style: TextStyle(fontSize: 20)),
                   onPressed: () async {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      //If the form is valid
-                      //Establish connection with the database
-                      var conn = await MySqlConnection.connect(settings);
-                      var email = emailController.text;
-                      var password = passwordController.text;
-                      //Make a request for the user with the specified email and password
-                      var results = await conn.query('select * from USERS where user_email = ? and user_password = ?', [email, password]);
-                      //If the result of the request is exactly one row, the login was successful
-                      if(results.length == 1){
-                        print('Sucessful login');
-                      }
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    
+                    // The program or waits for login() to return a result before continuing.
+                    bool loginSuccessful = await login(emailController.text, passwordController.text);
+
+                    setState(() {
+                      _isLoading = false;
+                    });
+
+                    // If the login is successful move to the next view. 
+                    // Otherwise, display an error message through an AlertDialog.
+                    if (loginSuccessful) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Login failed"),
+                            content: Text("Please try again."),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     }
                   }
 

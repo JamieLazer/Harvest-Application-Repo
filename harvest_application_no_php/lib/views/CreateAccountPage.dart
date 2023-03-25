@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'ConnectionSettings.dart';
+import 'HomePage.dart';
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
@@ -31,6 +33,48 @@ class CreateAccountForm extends StatefulWidget {
 
 //This class holds data related to the form
 class _CreateAccountFormState extends State<CreateAccountForm>{
+
+  Future<MySqlConnection> getConnection() async {
+    var settings = new ConnectionSettings(
+        host: 'db4free.net',
+        port: 3306,
+        user: 'hardcoded',
+        password: '5Scrummies@SD',
+        db: 'harvestapp');
+    return await MySqlConnection.connect(settings);
+  }
+
+  Future<bool> checkEmailExists(String email) async {
+    var conn = await getConnection();
+    var results = await conn.query(
+        'SELECT COUNT(*) AS count FROM USERS WHERE user_email = ?',
+        [email]);
+    var count = results.first['count'];
+    await conn.close();
+    return count > 0;
+  }
+
+  Future<void> signUp(String name, String surname, String email, String password) async {
+    try {
+      var emailExists = await checkEmailExists(email);
+      if (emailExists) {
+        Fluttertoast.showToast(msg: 'Email already exists');
+        return;
+      }
+      var conn = await getConnection();
+      await conn.query(
+          'INSERT INTO USERS (user_fname, user_lname, user_email, user_password) VALUES (?, ?, ?, ?)',
+          [name, surname, email, password]);
+      await conn.close();
+      Fluttertoast.showToast(msg: 'Sign-up successful');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Error: $e');
+    }
+  }
 
   //These variables store the first name, last name, email, and password entered by the user
   TextEditingController firstNameController = TextEditingController();
@@ -136,19 +180,14 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                     if (_formKey.currentState!.validate()) {
                       //If the form is valid
                       //Establish connection with the database
-                      var conn = await MySqlConnection.connect(ConnectionSettings(
-                          host: 'db4free.net',
-                          port: 3306,
-                          user: 'hardcoded',
-                          password: '5Scrummies@SD',
-                          db: 'harvestapp'
-                      ));
+
                       var fName = firstNameController.text;
                       var lName = lastNameController.text;
                       var email = emailController.text;
                       var password = passwordController.text;
+
+                      await signUp(fName, lName, email, password);
                       //Add the new user to the database (the USER table in the database needs to auto increment user_id for this command to work)
-                      await conn.query('insert into USERS (user_fname, user_lname, user_email, user_password) values (?, ?, ?, ?)', [fName, lName, email, password]);
                     }
                   }
                 )
