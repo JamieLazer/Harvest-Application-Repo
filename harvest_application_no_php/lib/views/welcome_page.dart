@@ -42,7 +42,9 @@ class WelcomePage extends StatelessWidget {
               //get started button
               Center(
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //go to sign up page
+                  },
 
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(

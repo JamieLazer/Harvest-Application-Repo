@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 
+//some text styles
 const TextStyle welcomePageText = TextStyle(
   fontSize: 20,
   color: Colors.white,
+  decoration: TextDecoration.none,
+  fontFamily: 'AbeeZee',
+  fontWeight: FontWeight.normal,
+);
+
+const TextStyle loginPageText = TextStyle(
+  fontSize: 18,
+  color: Color(0xFF80A87A), //primary colour
   decoration: TextDecoration.none,
   fontFamily: 'AbeeZee',
   fontWeight: FontWeight.normal,
