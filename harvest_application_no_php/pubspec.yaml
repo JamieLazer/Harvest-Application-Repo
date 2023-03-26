@@ -82,8 +82,8 @@ flutter:
   fonts:
     - family: AbeeZee
       fonts:
-        - asset: fonts/AbeeZee-Regular.ttf
-        - asset: fonts/AbeeZee-Italic.ttf
+        - asset: assets/fonts/ABeeZee-Regular.ttf
+        - asset: assets/fonts/ABeeZee-Italic.ttf
           style: italic
   
   # For details regarding fonts from package dependencies,

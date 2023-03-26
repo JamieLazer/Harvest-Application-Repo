@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../styles.dart'
+import '../styles.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -30,7 +30,8 @@ class WelcomePage extends StatelessWidget {
               Text(
                 'Track your harvest yields, view previous yields and share gardens with other users',  
                 style: welcomePageText.copyWith(
-                  fontSize: 18
+                  fontSize: 16,
+                  // fontStyle: FontStyle.italic
                 )
               ),
 
@@ -38,24 +39,27 @@ class WelcomePage extends StatelessWidget {
                 padding: EdgeInsets.only(top:30)
                 ),
 
-              //get started
+              //get started button
               Center(
                 child: OutlinedButton(
                   onPressed: () {},
 
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(
-                      color: primaryColour,
-                      width: 2.5),
+                      color: tertiaryColour,
+                      width: 1.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0))
                   ),
                   
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    child: const Text(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    child: Text(
                       'Get Started!',
-                      style: welcomePageText
+                      style: welcomePageText.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: tertiaryColour,
+                      )
                     ),
                   ),
                 ),
