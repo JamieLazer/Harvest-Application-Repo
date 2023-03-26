@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'views/HomePage.dart';
+
+import 'views/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,12 +8,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      //Opens the home page when the app launches
-      home: const HomePage(),
+    return const MaterialApp(
+      home: WelcomePage(),
     );
   }
 }
