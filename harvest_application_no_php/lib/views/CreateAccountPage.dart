@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 import 'ConnectionSettings.dart';
 
@@ -104,7 +105,12 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                   if (value == null || value.isEmpty) {
                     return 'This field cannot be empty';
                   }
-                  return null;
+                  else if(!EmailValidator.validate(value.trim())){
+                    return 'Please enter valid email';
+                  }
+                  else {
+                    return null;
+                  }
                 },
               ),
             ),
@@ -149,6 +155,12 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                       var password = passwordController.text;
                       //Add the new user to the database (the USER table in the database needs to auto increment user_id for this command to work)
                       await conn.query('insert into USERS (user_fname, user_lname, user_email, user_password) values (?, ?, ?, ?)', [fName, lName, email, password]);
+                      //after inserting, navigate back to login page so that the user can login
+                        Navigator.of(context).pop(context);
+                      }
+                      //Trying to navigate back to the login page
+                      else if (_formKey.currentState!.validate()) {
+
                     }
                   }
                 )
