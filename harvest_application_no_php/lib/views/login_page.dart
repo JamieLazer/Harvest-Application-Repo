@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
 
 import 'ConnectionSettings.dart';
-import 'CreateAccountPage.dart';
+import 'sign_up.dart';
 import '../styles.dart';
 
 class LoginPage extends StatefulWidget {
@@ -231,13 +231,15 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
                          'Log in',
                           style: loginPageText.copyWith(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
                           ),
-                        textAlign: TextAlign.left,
+                        ),
                         ),
     
                       const SizedBox(height: 50),
