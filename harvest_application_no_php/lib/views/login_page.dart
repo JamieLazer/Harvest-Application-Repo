@@ -20,12 +20,6 @@ Widget buildEmail(TextEditingController emailController) {
     crossAxisAlignment: CrossAxisAlignment.start,
 
     children: <Widget>[
-      //username text
-      const Text(
-        'Username',
-        style: loginPageText
-      ),
-      const SizedBox(height: 2),
       
       //the text box
       Container(
@@ -35,7 +29,7 @@ Widget buildEmail(TextEditingController emailController) {
           borderRadius: BorderRadius.circular(6),
         ),
 
-        height: 45, //container height
+        height: 60, //container height
 
           child: Material(
             color: Colors.transparent,
@@ -51,6 +45,8 @@ Widget buildEmail(TextEditingController emailController) {
             decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              labelText: "Username",
+              labelStyle: loginPageText
             ),
 
             // The validator receives the text that the user has entered.
@@ -74,13 +70,6 @@ Widget buildPassword(TextEditingController passwordController) {
     children: <Widget>[
       const SizedBox(height: 10),
 
-      const Text(
-        'Password',
-        style: loginPageText
-      ),
-
-      const SizedBox(height: 2),
-
       //password box
       Container(
         alignment: Alignment.centerLeft,
@@ -89,7 +78,7 @@ Widget buildPassword(TextEditingController passwordController) {
             borderRadius: BorderRadius.circular(6),
             
         ),
-        height: 45,
+        height: 60,
 
         child: Material(
           color: Colors.transparent,
@@ -105,6 +94,8 @@ Widget buildPassword(TextEditingController passwordController) {
           decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              labelText: "Password",
+              labelStyle: loginPageText
           ),
 
           // The validator receives the text that the user has entered.
@@ -147,7 +138,7 @@ Widget buildLoginButton(TextEditingController emailController, TextEditingContro
         style: OutlinedButton.styleFrom(
           side: BorderSide(
           color: primaryColour,
-          width: 1
+          width: 1.5,
           ),
         ),
 

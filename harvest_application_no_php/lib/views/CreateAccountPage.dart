@@ -12,10 +12,7 @@ class CreateAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
-      //This is the title at the top of the screen
-      appBar: AppBar(
-        title: const Text('Harvest'),
-      ),
+      
       //The body is filled with the CreateAccountForm class below
       body: const CreateAccountForm(),
     );

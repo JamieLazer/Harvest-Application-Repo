@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:harvest_application_no_php/views/login_page.dart';
+
 import 'views/welcome_page.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: WelcomePage(),
+      home: LoginPage(),
     );
   }
 }
