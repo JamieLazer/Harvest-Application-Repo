@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
 
 import 'ConnectionSettings.dart';
@@ -14,40 +15,60 @@ class LoginPage extends StatefulWidget {
   }
 }
 
-Widget buildEmail() {
+Widget buildEmail(TextEditingController emailController) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
 
     children: <Widget>[
+      //username text
       const Text(
         'Username',
         style: loginPageText
       ),
       const SizedBox(height: 2),
+      
+      //the text box
       Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           color: primaryColour.withOpacity(0.2),
           borderRadius: BorderRadius.circular(6),
         ),
-        height: 45,
-          child: const TextField(
+
+        height: 45, //container height
+
+          child: Material(
+            color: Colors.transparent,
+            child: TextFormField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
+
+            style: const TextStyle(
               color: Colors.black87,
               fontSize: 17,
             ),
-            decoration: InputDecoration(
+
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             ),
-          ),
+
+            // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'This field cannot be empty';
+                  }
+                  
+                  return null;
+                },
+            ),
+          )
       )
     ],
   );
 }
 
-Widget buildPassword() {
+Widget buildPassword(TextEditingController passwordController) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -59,6 +80,8 @@ Widget buildPassword() {
       ),
 
       const SizedBox(height: 2),
+
+      //password box
       Container(
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
@@ -68,29 +91,58 @@ Widget buildPassword() {
         ),
         height: 45,
 
-        child: const TextField(
+        child: Material(
+          color: Colors.transparent,
+          child: TextFormField(
           obscureText: true,
-          style: TextStyle(
+          controller: passwordController,
+
+          style: const TextStyle(
               color: Colors.black87,
               fontSize: 17,
           ),
+
           decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           ),
-        ),
+
+          // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'This field cannot be empty';
+                  }
+                  return null;
+                },
+          ),
+        )
       )
     ],
   );
 }
 
-Widget buildLoginButton() {
+Widget buildLoginButton(TextEditingController emailController, TextEditingController passwordController, GlobalKey<FormState> _formKey) {
   return Column(
     children: <Widget>[
       const SizedBox(height: 50),
 
       OutlinedButton(
-        onPressed: () {}, 
+        onPressed: () async {
+          // Validate returns true if the form is valid, or false otherwise.
+          if (_formKey.currentState!.validate()) {
+            //If the form is valid
+            //Establish connection with the database
+            var conn = await MySqlConnection.connect(settings);
+            var email = emailController.text;
+            var password = passwordController.text;
+            //Make a request for the user with the specified email and password
+            var results = await conn.query('select * from USERS where user_email = ? and user_password = ?', [email, password]);
+            //If the result of the request is exactly one row, the login was successful
+            if(results.length == 1){
+              print('Sucessful login');
+            }
+          }
+        }, 
 
         style: OutlinedButton.styleFrom(
           side: BorderSide(
@@ -105,7 +157,7 @@ Widget buildLoginButton() {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
 
                     child: Center(
                       child: Text (
@@ -156,46 +208,59 @@ Widget buildLoginButton() {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  //These variables store the email and password entered by the user
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  //Create a global key that uniquely identifies the Form widget
+  //and allows validation of the form.
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
           child: GestureDetector(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  color: Colors.white,
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 25,
-                      vertical: 120
-                    ),
+            child: Container(
+                color: Colors.white,
+                width: double.infinity,
+                height: double.infinity,
+                
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 25,
+                    vertical: 120
+                  ),
+
+                  child: Form(
+                    key: _formKey, 
+                      
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Log in',
+                         'Log in',
                           style: loginPageText.copyWith(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                          )
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          ),
+                        textAlign: TextAlign.left,
                         ),
-                        const SizedBox(height: 50),
-
-                        buildEmail(),
-                        buildPassword(),
-                        buildLoginButton()
+    
+                      const SizedBox(height: 50),
+    
+                      buildEmail(emailController),
+                      buildPassword(passwordController),
+                      buildLoginButton(emailController, passwordController, _formKey)
+      
                       ],
                     ),
                   ),
                 )
-              ],
+              ),
             ),
-          ),
       )
     );
   }
