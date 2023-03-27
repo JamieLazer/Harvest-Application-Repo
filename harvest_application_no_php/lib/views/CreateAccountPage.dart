@@ -1,14 +1,15 @@
 import 'dart:async';
+import 'package:email_validator/email_validator.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'ConnectionSettings.dart';
 import 'HomePage.dart';
+
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     //When you push a new screen after a MaterialApp, a back button is automatically added
@@ -26,7 +27,7 @@ class CreateAccountPage extends StatelessWidget {
 //This is our form widget
 class CreateAccountForm extends StatefulWidget {
   const CreateAccountForm({super.key});
-  
+
   @override
   State<CreateAccountForm> createState() => _CreateAccountFormState();
 }
@@ -35,7 +36,7 @@ class CreateAccountForm extends StatefulWidget {
 class _CreateAccountFormState extends State<CreateAccountForm>{
 
   Future<MySqlConnection> getConnection() async {
-    var settings = new ConnectionSettings(
+    var settings = ConnectionSettings(
         host: 'db4free.net',
         port: 3306,
         user: 'hardcoded',
@@ -67,10 +68,8 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
           [name, surname, email, password]);
       await conn.close();
       Fluttertoast.showToast(msg: 'Sign-up successful');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      //Navigate to the home page using a named route
+      Navigator.pushNamed(context, '/homePage');
     } catch (e) {
       Fluttertoast.showToast(msg: 'Error: $e');
     }
@@ -148,7 +147,12 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                   if (value == null || value.isEmpty) {
                     return 'This field cannot be empty';
                   }
-                  return null;
+                  else if(!EmailValidator.validate(value.trim())){
+                    return 'Please enter valid email';
+                  }
+                  else {
+                    return null;
+                  }
                 },
               ),
             ),
@@ -174,26 +178,22 @@ class _CreateAccountFormState extends State<CreateAccountForm>{
                 height: 60,
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('Sign up', style: TextStyle(fontSize: 20)),
-                  onPressed: () async {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      //If the form is valid
-                      //Establish connection with the database
+                    child: const Text('Sign up', style: TextStyle(fontSize: 20)),
+                    onPressed: () async {
+                      //Validate returns true if the form is valid, or false otherwise.
+                      if (_formKey.currentState!.validate()) {
+                        //If the form is valid, execute the signUp method
+                        var fName = firstNameController.text;
+                        var lName = lastNameController.text;
+                        var email = emailController.text;
+                        var password = passwordController.text;
 
-                      var fName = firstNameController.text;
-                      var lName = lastNameController.text;
-                      var email = emailController.text;
-                      var password = passwordController.text;
-
-                      await signUp(fName, lName, email, password);
-                      //Add the new user to the database (the USER table in the database needs to auto increment user_id for this command to work)
+                        await signUp(fName, lName, email, password);
+                      }
                     }
-                  }
                 )
             ),
           ],
         ));
   }
 }
-
