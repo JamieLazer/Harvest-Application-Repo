@@ -12,12 +12,12 @@ class AddGardenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
-    final arguments = ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
     //Extract the user's gardens from the arguments
     List gardens = arguments.gardens;
     //Extract the user ID from the arguments
     int userID = arguments.userID;
-
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -39,8 +39,8 @@ class AddGardenForm extends StatefulWidget {
 
   //Constructor
   AddGardenForm(int passedUserID, List passedGardens, {super.key}) {
-    this.userID = passedUserID;
-    this.gardens = passedGardens;
+    userID = passedUserID;
+    gardens = passedGardens;
   }
 
   @override
@@ -48,7 +48,7 @@ class AddGardenForm extends StatefulWidget {
 }
 
 //This class holds data related to the form
-class _AddGardenFormState extends State<AddGardenForm>{
+class _AddGardenFormState extends State<AddGardenForm> {
   //We have to initialise the variables
   int userID = 0;
   List gardens = [];
@@ -102,7 +102,8 @@ class _AddGardenFormState extends State<AddGardenForm>{
                 height: 60,
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: ElevatedButton(
-                    child: const Text('Add Garden', style: TextStyle(fontSize: 20)),
+                    child: const Text('Add Garden',
+                        style: TextStyle(fontSize: 20)),
                     onPressed: () async {
                       //Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
@@ -111,25 +112,26 @@ class _AddGardenFormState extends State<AddGardenForm>{
                         var conn = await MySqlConnection.connect(settings);
                         String gardenName = gardenController.text;
                         //Add the garden to the LOG table in the database
-                        await conn.query('CALL ADD_GARDEN(?, ?)', [userID, gardenName]);
+                        await conn.query(
+                            'CALL ADD_GARDEN(?, ?)', [userID, gardenName]);
 
                         //Request the updated users gardens from the database
-                        var updatedGardens = await conn.query('select * from LOG where USER_ID = ?', [userID]);
+                        var updatedGardens = await conn.query(
+                            'select * from LOG where USER_ID = ?', [userID]);
                         //Convert the results of the database query to a list
                         List updatedGardensList = updatedGardens.toList();
 
                         //Create the arguments that we will pass to the next page
                         //The arguments we pass to a new page can be any object
-                        UserInfoArguments args = UserInfoArguments(userID, updatedGardensList);
+                        UserInfoArguments args =
+                            UserInfoArguments(userID, updatedGardensList);
 
                         //Navigate back to the user garden screen using a named route and pass the new page the arguments
-                        Navigator.pushNamed(context, '/userGardens', arguments: args);
+                        Navigator.pushNamed(context, '/userGardens',
+                            arguments: args);
                       }
-                    }
-                )
-            ),
+                    })),
           ],
         ));
   }
 }
-

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:email_validator/email_validator.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:email_validator/email_validator.dart';
 
 import '../styles.dart';
 import 'HomePage.dart';
@@ -32,46 +32,6 @@ class CreateAccountForm extends StatefulWidget {
 
 //This class holds data related to the form
 class _CreateAccountFormState extends State<CreateAccountForm> {
-  Future<MySqlConnection> getConnection() async {
-    var settings = ConnectionSettings(
-        host: 'db4free.net',
-        port: 3306,
-        user: 'hardcoded',
-        password: '5Scrummies@SD',
-        db: 'harvestapp');
-    return await MySqlConnection.connect(settings);
-  }
-
-  Future<bool> checkEmailExists(String email) async {
-    var conn = await getConnection();
-    var results = await conn.query(
-        'SELECT COUNT(*) AS count FROM USERS WHERE user_email = ?', [email]);
-    var count = results.first['count'];
-    await conn.close();
-    return count > 0;
-  }
-
-  Future<void> signUp(
-      String name, String surname, String email, String password) async {
-    try {
-      var emailExists = await checkEmailExists(email);
-      if (emailExists) {
-        Fluttertoast.showToast(msg: 'Email already exists');
-        return;
-      }
-      var conn = await getConnection();
-      await conn.query(
-          'INSERT INTO USERS (user_fname, user_lname, user_email, user_password) VALUES (?, ?, ?, ?)',
-          [name, surname, email, password]);
-      await conn.close();
-      Fluttertoast.showToast(msg: 'Sign-up successful');
-      //Navigate to the home page using a named route
-      Navigator.pushNamed(context, '/homePage');
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Error: $e');
-    }
-  }
-
   //These variables store the first name, last name, email, and password entered by the user
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -87,12 +47,11 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
   Widget build(BuildContext context) {
     //we are using a form to allow for input validation
     return Padding(
-        padding: EdgeInsets.only(right: 20, left: 20, top: 75),
+        padding: const EdgeInsets.only(right: 20, left: 20, top: 75),
         child: Form(
             key: _formKey,
             child: ListView(
               children: <Widget>[
-                //Create account title
                 Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(bottom: 25),
@@ -100,7 +59,6 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                         style: signUpPageText.copyWith(
                             fontSize: 35, fontWeight: FontWeight.bold))),
 
-                //already have account?
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -110,7 +68,13 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                           fontStyle: FontStyle.italic,
                         )),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                          );
+                        },
                         child: Text(
                           'Log In Here',
                           style: loginPageText.copyWith(
@@ -122,12 +86,11 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   ],
                 ),
 
-                //first name
                 Container(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: TextFormField(
                     controller: firstNameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.white, width: 1.5)),
@@ -150,12 +113,11 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   ),
                 ),
 
-                //last name
                 Container(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: TextFormField(
                     controller: lastNameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.white, width: 1.5)),
@@ -183,7 +145,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   padding: const EdgeInsets.only(bottom: 10),
                   child: TextFormField(
                     controller: emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.white, width: 1.5)),
@@ -215,7 +177,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   child: TextFormField(
                     obscureText: true,
                     controller: passwordController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.white, width: 1.5)),
@@ -237,7 +199,6 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   ),
                 ),
 
-                //sign up button
                 Container(
                     height: 90,
                     padding: const EdgeInsets.only(top: 40),
@@ -248,14 +209,32 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                         onPressed: () async {
                           // Validate returns true if the form is valid, or false otherwise.
                           if (_formKey.currentState!.validate()) {
-                            //If the form is valid, execute the signUp method
+                            //If the form is valid
+                            //Establish connection with the database
+                            var conn = await MySqlConnection.connect(
+                                ConnectionSettings(
+                                    host: 'db4free.net',
+                                    port: 3306,
+                                    user: 'hardcoded',
+                                    password: '5Scrummies@SD',
+                                    db: 'harvestapp'));
                             var fName = firstNameController.text;
                             var lName = lastNameController.text;
                             var email = emailController.text;
                             var password = passwordController.text;
-
-                            await signUp(fName, lName, email, password);
+                            //Add the new user to the database (the USER table in the database needs to auto increment user_id for this command to work)
+                            await conn.query(
+                                'insert into USERS (user_fname, user_lname, user_email, user_password) values (?, ?, ?, ?)',
+                                [fName, lName, email, password]);
+                            //after inserting, navigate back to login page so that the user can login
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()),
+                            );
                           }
+                          //Trying to navigate back to the login page
+                          else if (_formKey.currentState!.validate()) {}
                         },
                         child: Text('SIGN UP',
                             style: signUpPageText.copyWith(
