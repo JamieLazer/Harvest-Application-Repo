@@ -1,52 +1,123 @@
 import 'dart:convert';
+import 'package:dartfactory/views/UserGardensPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
 
-import 'ConnectionSettings.dart';
+import '../ConnectionSettings.dart';
+import '../UserInfoArguments.dart';
 import 'CreateAccountPage.dart';
+import '../styles.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    //MaterialApp is the starting point of the app.
-    return MaterialApp(
-      home: Scaffold(
-        //This is the title at the top of the screen
-        appBar: AppBar(title: const Text('Harvest')),
-        //The body is filled with the LoginWidget class below
-        body: const LoginForm(),
-      ),
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-
-      //Add all of the routes for the app
-      routes: {
-        //When navigating to the "/createAccount" route, open the CreateAccountPage.
-        '/createAccount': (context) => const CreateAccountPage(),
-        '/homePage': (context) => const HomePage(),
-      },
-    );
+  _LoginPageState createState() {
+    return _LoginPageState();
   }
 }
 
+Widget buildEmail(TextEditingController emailController) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      //the text box
+      Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: primaryColour.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          height: 60, //container height
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+          child: Material(
+            color: Colors.transparent,
+            child: TextFormField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
 
-  @override
-  State<LoginForm> createState() => _LoginFormState();
+              style: const TextStyle(
+                color: Colors.black87,
+                fontSize: 17,
+              ),
+
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  labelText: "Username",
+                  labelStyle: loginPageText),
+
+              // The validator receives the text that the user has entered.
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'This field cannot be empty';
+                }
+
+                return null;
+              },
+            ),
+          ))
+    ],
+  );
 }
 
-class _LoginFormState extends State<LoginForm> {
+Widget buildPassword(TextEditingController passwordController) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      const SizedBox(height: 10),
 
+      //password box
+      Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: primaryColour.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          height: 60,
+          child: Material(
+            color: Colors.transparent,
+            child: TextFormField(
+              obscureText: true,
+              controller: passwordController,
+
+              style: const TextStyle(
+                color: Colors.black87,
+                fontSize: 17,
+              ),
+
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  labelText: "Password",
+                  labelStyle: loginPageText),
+
+              // The validator receives the text that the user has entered.
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'This field cannot be empty';
+                }
+                return null;
+              },
+            ),
+          ))
+    ],
+  );
+}
+
+Widget buildLoginButton(
+    TextEditingController emailController,
+    TextEditingController passwordController,
+    GlobalKey<FormState> formKey,
+    BuildContext context) {
   bool _isLoading = false;
 
   // This async method connects To the remote mySQL database.
   Future<MySqlConnection> getConnection() async {
-    var settings = new ConnectionSettings(
+    var settings = ConnectionSettings(
         host: 'db4free.net',
         port: 3306,
         user: 'hardcoded',
@@ -55,7 +126,7 @@ class _LoginFormState extends State<LoginForm> {
     return await MySqlConnection.connect(settings);
   }
 
-  // 
+  //
   Future<bool> login(String email, String password) async {
     // Establish a connection to the database
     final conn = await getConnection();
@@ -67,6 +138,7 @@ class _LoginFormState extends State<LoginForm> {
 
       // If the query returns exactly one row, the login was successful
       if (results.length == 1) {
+        List resultsList = results.elementAt(0).toList();
         return true;
       } else {
         return false;
@@ -81,6 +153,121 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+  return Column(
+    children: <Widget>[
+      const SizedBox(height: 50),
+      OutlinedButton(
+        onPressed: () async {
+          _isLoading = true;
+
+          // The program or waits for login() to return a result before continuing.
+          bool loginSuccessful =
+              await login(emailController.text, passwordController.text);
+
+          _isLoading = false;
+
+          // If the login is successful move to the next view.
+          // Otherwise, display an error message through an AlertDialog.
+          if (loginSuccessful) {
+            var conn = await MySqlConnection.connect(settings);
+            var email = emailController.text;
+            var password = passwordController.text;
+            //Make a request for the user with the specified email and password
+            var results = await conn.query(
+                'select * from USERS where user_email = ? and user_password = ?',
+                [email, password]);
+            //Convert the results of the database query to a list
+            List resultsList = results.elementAt(0).toList();
+            //Request the users gardens from the database
+            var gardenResults = await conn
+                .query('select * from LOG where USER_ID = ?', [resultsList[0]]);
+            //Convert the results of the database query to a list
+            List gardenResultsList = gardenResults.toList();
+
+            //Create the arguments that we will pass to the next page
+            //The arguments we pass to a new page can be any object
+            UserInfoArguments args =
+                UserInfoArguments(resultsList[0], gardenResultsList);
+            Navigator.pushNamed(context, '/userGardens', arguments: args);
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Login failed"),
+                  content: Text("Please try again."),
+                  actions: [
+                    TextButton(
+                      child: Text("OK"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        },
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(
+            color: primaryColour,
+            width: 1.5,
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+                child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Center(
+                    child: Text(
+                      'log in',
+                      style: loginPageText.copyWith(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ))
+          ],
+        ),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text('new to Harvest?',
+              style: loginPageText.copyWith(
+                fontSize: 14,
+                color: Colors.black,
+                fontStyle: FontStyle.italic,
+              )),
+          TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CreateAccountPage()),
+                );
+              },
+              child: Text(
+                'Sign Up Here',
+                style: loginPageText.copyWith(
+                  fontSize: 14,
+                  color: secondaryColour,
+                ),
+                textAlign: TextAlign.right,
+              ))
+        ],
+      ),
+    ],
+  );
+}
+
+class _LoginPageState extends State<LoginPage> {
   //These variables store the email and password entered by the user
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -91,122 +278,43 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        key: _formKey,
-        child: ListView(
-          children: <Widget>[
-            Container(
-                height: 200,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: Image.asset('assets/images/Logo.jpg', fit: BoxFit.cover),
-            ),
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'Sign in to your account',
-                  style: TextStyle(fontSize: 20),
-                )),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email',
+    return Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: GestureDetector(
+        child: Container(
+            color: Colors.white,
+            width: double.infinity,
+            height: double.infinity,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 25, vertical: 120),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Log in',
+                        style: loginPageText.copyWith(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                    buildEmail(emailController),
+                    buildPassword(passwordController),
+                    buildLoginButton(
+                        emailController, passwordController, _formKey, context)
+                  ],
                 ),
-                // The validator receives the text that the user has entered.
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'This field cannot be empty';
-                  }
-                  return null;
-                },
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: TextFormField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
-                ),
-                // The validator receives the text that the user has entered.
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'This field cannot be empty';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Container(
-                height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: ElevatedButton(
-                  child: const Text('Login', style: TextStyle(fontSize: 20)),
-                  onPressed: () async {
-                    setState(() {
-                      _isLoading = true;
-                    });
-                    
-                    // The program or waits for login() to return a result before continuing.
-                    bool loginSuccessful = await login(emailController.text, passwordController.text);
-
-                    setState(() {
-                      _isLoading = false;
-                    });
-
-                    // If the login is successful move to the next view. 
-                    // Otherwise, display an error message through an AlertDialog.
-                    if (loginSuccessful) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("Login failed"),
-                            content: Text("Please try again."),
-                            actions: [
-                              TextButton(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
-                  }
-
-                )
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text("Don't have an account?"),
-                TextButton(
-                  child: const Text(
-                    'Sign up',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {
-                    // Navigate to the create account screen using a named route.
-                    Navigator.pushNamed(context, '/createAccount');
-                  }
-                )
-              ],
-            ),
-          ],
-        ));
+            )),
+      ),
+    ));
   }
 }

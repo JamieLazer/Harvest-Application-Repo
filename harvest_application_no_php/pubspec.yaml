@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-name: harvest_application_no_php
-description: Track your harvest yield, view previous yields, analyse the progress and more!
-=======
 name: dartfactory
 description: A new Flutter project.
->>>>>>> 804b3bcbdc87bdfb5d8b962f0b3a8815c5e998ac
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -40,7 +35,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  http: ^0.13.5
   mysql1: ^0.20.0
+  email_validator: '^2.1.16'
   fluttertoast: ^8.2.1
 
 dev_dependencies:
@@ -85,8 +82,8 @@ flutter:
   fonts:
     - family: AbeeZee
       fonts:
-        - asset: fonts/AbeeZee-Regular.ttf
-        - asset: fonts/AbeeZee-Italic.ttf
+        - asset: assets/fonts/ABeeZee-Regular.ttf
+        - asset: assets/fonts/ABeeZee-Italic.ttf
           style: italic
   
   # For details regarding fonts from package dependencies,

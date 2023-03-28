@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../styles.dart'
+import '../styles.dart';
+import 'CreateAccountPage.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -9,61 +10,58 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: secondaryColour,
-
-       child: Padding(
-          padding: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
-
-          child: Column(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
+        child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
-
             children: <Widget>[
               //welcome heading
               Text(
-                'Welcome to Harvest!',  
+                'Welcome to Harvest!',
                 style: welcomePageText.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              
+
               //welcome text
               Text(
-                'Track your harvest yields, view previous yields and share gardens with other users',  
-                style: welcomePageText.copyWith(
-                  fontSize: 18
-                )
-              ),
+                  'Track your harvest yields, view previous yields and share gardens with other users',
+                  style: welcomePageText.copyWith(
+                    fontSize: 16,
+                    // fontStyle: FontStyle.italic
+                  )),
 
-              const Padding(
-                padding: EdgeInsets.only(top:30)
-                ),
+              const Padding(padding: EdgeInsets.only(top: 30)),
 
-              //get started
+              //get started button
               Center(
                 child: OutlinedButton(
-                  onPressed: () {},
-
+                  onPressed: () {
+                    //go to sign up page
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CreateAccountPage()),
+                    );
+                  },
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                      color: primaryColour,
-                      width: 2.5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0))
-                  ),
-                  
+                      side: BorderSide(color: tertiaryColour, width: 1.5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0))),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    child: const Text(
-                      'Get Started!',
-                      style: welcomePageText
-                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Text('Get Started!',
+                        style: welcomePageText.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: tertiaryColour,
+                        )),
                   ),
                 ),
               )
-            ]
-          ),
-        ),
+            ]),
+      ),
     );
   }
-
 }
