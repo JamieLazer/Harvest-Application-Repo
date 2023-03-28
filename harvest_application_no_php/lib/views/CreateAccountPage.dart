@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../ConnectionSettings.dart';
 import '../styles.dart';
+import 'HomePage.dart';
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
