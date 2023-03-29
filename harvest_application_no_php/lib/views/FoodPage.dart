@@ -111,7 +111,7 @@ class _FoodListState extends State<FoodList> {
             //This determines the text in the list tile
             title: Text(food[index]["YIELD_NAME"]),
             trailing: Text('${food[index]["YIELD_KG"]} kg'),
-            subtitle: Text('This was harvested on ${food[index]["YIELD_DATE"]}'),
+            subtitle: Text('This was harvested on ${food[index]["HARVEST_DATE"]}'),
           ),
         ),
       ),
