@@ -3,21 +3,24 @@ import 'dart:async';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 
+import '../Arguments/GardenInfoArguments.dart';
+import '../Arguments/LogFoodArguments.dart';
 import '../ConnectionSettings.dart';
 import '../Arguments/UserInfoArguments.dart';
 
-class AddGardenPage extends StatelessWidget {
-  const AddGardenPage({super.key});
+class AddFoodPage extends StatelessWidget {
+  const AddFoodPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-        ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
-    //Extract the user's gardens from the arguments
-    List gardens = arguments.gardens;
-    //Extract the user ID from the arguments
+        ModalRoute.of(context)!.settings.arguments as LogFoodArguments;
+    //Extract the info from the arguments
     int userID = arguments.userID;
+    int gardenID = arguments.gardenID;
+    List foodList = arguments.foodList;
+    String foodName = arguments.foodName;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -26,41 +29,49 @@ class AddGardenPage extends StatelessWidget {
         title: const Text('Harvest'),
       ),
       //The body is filled with the AddGardenForm class below
-      body: AddGardenForm(userID, gardens),
+      body: AddFoodForm(userID, gardenID, foodList, foodName),
     );
   }
 }
 
 //This is our form widget
-class AddGardenForm extends StatefulWidget {
+class AddFoodForm extends StatefulWidget {
   //We have to initialise the variables
-  int userID = 0;
-  List gardens = [];
+    int userID = 0;
+    int gardenID = 0;
+    List foodList = [];
+    String foodName = "";
 
   //Constructor
-  AddGardenForm(int passedUserID, List passedGardens, {super.key}) {
-    userID = passedUserID;
-    gardens = passedGardens;
+  AddFoodForm(int passedUserID, int passedGardenID, List passedFoodList, String passedFoodName, {super.key}) {
+    this.userID = passedUserID;
+    this.gardenID = passedGardenID;
+    this.foodList = passedFoodList;
+    this.foodName = passedFoodName;
   }
 
   @override
-  State<AddGardenForm> createState() => _AddGardenFormState(userID, gardens);
+  State<AddFoodForm> createState() => _AddFoodFormState(userID, gardenID, foodList, foodName);
 }
 
 //This class holds data related to the form
-class _AddGardenFormState extends State<AddGardenForm> {
+class _AddFoodFormState extends State<AddFoodForm> {
   //We have to initialise the variables
-  int userID = 0;
-  List gardens = [];
+    int userID = 0;
+    int gardenID = 0;
+    List foodList = [];
+    String foodName = "";
 
   //Constructor
-  _AddGardenFormState(int passedUserID, List passedGardens) {
+  _AddFoodFormState(int passedUserID, int passedGardenID, List passedFoodList, String passedFoodName) {
     this.userID = passedUserID;
-    this.gardens = passedGardens;
+    this.gardenID = passedGardenID;
+    this.foodList = passedFoodList;
+    this.foodName = passedFoodName;
   }
 
-  //This variable stores the name of the garden
-  TextEditingController gardenController = TextEditingController();
+  //This variable stores the weight of the harvest
+  TextEditingController weightController = TextEditingController();
 
   //Create a global key that uniquely identifies the Form widget
   //and allows validation of the form.
@@ -78,16 +89,16 @@ class _AddGardenFormState extends State<AddGardenForm> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Add a Garden',
+                  'How many kg did you harvest?',
                   style: TextStyle(fontSize: 20),
                 )),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
-                controller: gardenController,
+                controller: weightController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Garden Name',
+                  labelText: 'kg',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -102,7 +113,7 @@ class _AddGardenFormState extends State<AddGardenForm> {
                 height: 60,
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: ElevatedButton(
-                    child: const Text('Add Garden',
+                    child: const Text('Add to Garden',
                         style: TextStyle(fontSize: 20)),
                     onPressed: () async {
                       //Validate returns true if the form is valid, or false otherwise.
@@ -110,24 +121,34 @@ class _AddGardenFormState extends State<AddGardenForm> {
                         //If the form is valid
                         //Establish connection with the database
                         var conn = await MySqlConnection.connect(settings);
-                        String gardenName = gardenController.text;
-                        //Add the garden to the LOG table in the database
-                        await conn.query(
-                            'CALL ADD_GARDEN(?, ?)', [userID, gardenName]);
 
-                        //Request the updated users gardens from the database
-                        var updatedGardens = await conn.query(
-                            'select * from LOG where USER_ID = ?', [userID]);
+                        //Request the log name
+                        var gardenNameResult = await conn.query(
+                            'select LOG_NAME from LOG where LOG_ID = ?', [gardenID]);
+                        
                         //Convert the results of the database query to a list
-                        List updatedGardensList = updatedGardens.toList();
+                        List gardenNameResultList = gardenNameResult.toList();
+                        
+                        String gardenName = gardenNameResultList[0]["LOG_NAME"];
+
+                        int weight = int.parse(weightController.text);
+
+                        //Add the harvest to the YIELD table in the database
+                        await conn.query(
+                            'CALL LOGGER(?, ?, ?, ?)', [foodName, gardenName, weight, userID]);
+
+                        //Request the updated food list for this garden from the database
+                        var updatedFood = await conn.query(
+                            'select * from YIELD where LOG_ID = ?', [gardenID]);
+                        //Convert the results of the database query to a list
+                        List updatedFoodList = updatedFood.toList();
 
                         //Create the arguments that we will pass to the next page
                         //The arguments we pass to a new page can be any object
-                        UserInfoArguments args =
-                            UserInfoArguments(userID, updatedGardensList);
+                        GardenInfoArguments args = GardenInfoArguments(userID, gardenID, updatedFoodList);
 
                         //Navigate back to the user garden screen using a named route and pass the new page the arguments
-                        Navigator.pushNamed(context, '/userGardens', arguments: args);
+                        Navigator.pushNamed(context, '/foodPage',arguments: args);
                       }
                     })),
           ],

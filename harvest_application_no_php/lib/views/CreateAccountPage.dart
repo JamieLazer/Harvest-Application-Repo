@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
 import '../styles.dart';
-import 'HomePage.dart';
+import 'LoginPage.dart';
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});

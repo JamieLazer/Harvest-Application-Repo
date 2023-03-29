@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'package:dartfactory/views/UserGardensPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
 
 import '../ConnectionSettings.dart';
-import '../UserInfoArguments.dart';
+import '../Arguments/UserInfoArguments.dart';
 import 'CreateAccountPage.dart';
 import '../styles.dart';
 
