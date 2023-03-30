@@ -1,0 +1,12 @@
+language: dart
+
+dart:
+  - stable
+  - beta
+  - dev
+
+before_script:
+  - dart pub get
+
+script:
+  - dart run test
