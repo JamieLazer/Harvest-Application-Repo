@@ -21,15 +21,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const WelcomePage(),
       //All named routes used in the app
-      routes: {
-        '/createAccount': (context) => const CreateAccountPage(),
-        '/userGardens': (context) => const UserGardensPage(),
-        '/addGarden': (context) => const AddGardenPage(),
-        '/loginPage': (context) => const LoginPage(),
-        '/searchFoodPage': (context) => const SearchFoodPage(),
-        '/foodPage': (context) => const FoodPage(),
-        '/addFoodPage': (context) => const AddFoodPage(),
-      },
+      // UNCOMMENT THE LINES BELOW
+      // routes: {
+      //   '/createAccount': (context) => const CreateAccountPage(),
+      //   '/userGardens': (context) => const UserGardensPage(),
+      //   '/addGarden': (context) => const AddGardenPage(),
+      //   '/loginPage': (context) => const LoginPage(),
+      //   '/searchFoodPage': (context) => const SearchFoodPage(),
+      //   '/foodPage': (context) => const FoodPage(),
+      //   '/addFoodPage': (context) => const AddFoodPage(),
+      // },
     );
   }
 }
