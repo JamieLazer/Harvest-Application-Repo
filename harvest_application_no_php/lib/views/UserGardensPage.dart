@@ -86,23 +86,33 @@ class _UserGardensState extends State<UserGardensList> {
     return Scaffold(
       //First check if the user has any gardens
       //If they don't display the message below
+      backgroundColor: Colors.white10,
       body: gardens.isEmpty
           ? const Center(
               child: Text("You have not added any gardens yet", style: blackText,),
             )
           //We use ListView.Builder so that we don't have to know the number of gardens beforehand
           : ListView.builder(
+              
               itemCount: gardens.length,
               itemBuilder: (context, index) => Card(
                 //Design of each list item
-                color: tertiaryColour,
+                shape: RoundedRectangleBorder(
+                 borderRadius: BorderRadius.circular(7.0),
+                 ),
+                // elevation: 0.01,
+                color: tertiaryColour.withOpacity(0.5),
                 child: ListTile(
                   //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
                   //The maximum and minimum values you can set it to are 4 and -4
                   visualDensity: VisualDensity(vertical: 4),
+                  tileColor: Colors.transparent,
                   //This determines the text in the list tile
-                  title: Text(gardens[index]["LOG_NAME"]),
-                  trailing: Icon(Icons.arrow_forward_ios_rounded),
+                  title: Text(gardens[index]["LOG_NAME"], 
+                    style: blackText.copyWith(
+                      color: secondaryColour),
+                    ),
+                  trailing: Icon(Icons.arrow_forward_ios_rounded, color: secondaryColour,),
                   //What happens when the garden is tapped
                   onTap: () async {
                     var conn = await MySqlConnection.connect(settings);
