@@ -25,6 +25,14 @@ const TextStyle signUpPageText = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
+const TextStyle blackText = TextStyle(
+  fontSize: 14,
+  color: Colors.black87, //primary colour
+  decoration: TextDecoration.none,
+  fontFamily: 'AbeeZee',
+  fontWeight: FontWeight.normal,
+);
+
 //app colours
 Color primaryColour = const Color(0xFF80A87A);
 Color secondaryColour = const Color(0xFF4E7449);

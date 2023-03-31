@@ -1,4 +1,5 @@
 import 'package:dartfactory/ConnectionSettings.dart';
+import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,11 @@ class UserGardensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //This is the title at the top of the screen
-        title: const Text('Harvest'),
+        title: Text('Harvest', 
+          style: welcomePageText
+          ),
+        backgroundColor: primaryColour,
+        automaticallyImplyLeading: false, //remove back
         actions: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 50.0),
@@ -83,13 +88,14 @@ class _UserGardensState extends State<UserGardensList> {
       //If they don't display the message below
       body: gardens.isEmpty
           ? const Center(
-              child: Text("You have not added any gardens yet"),
+              child: Text("You have not added any gardens yet", style: blackText,),
             )
           //We use ListView.Builder so that we don't have to know the number of gardens beforehand
           : ListView.builder(
               itemCount: gardens.length,
               itemBuilder: (context, index) => Card(
                 //Design of each list item
+                color: tertiaryColour,
                 child: ListTile(
                   //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
                   //The maximum and minimum values you can set it to are 4 and -4
