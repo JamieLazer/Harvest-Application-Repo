@@ -1,1 +1,10 @@
-language: Dart 
+language: dart
+dart:
+  - stable
+before_script:
+  - flutter packages get
+script:
+  - dart test --coverage=coverage
+after_success:
+  - pub global activate codecov
+  - codecov
