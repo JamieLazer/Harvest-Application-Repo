@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,8 @@ class AddFoodPage extends StatelessWidget {
     return Scaffold(
       //This is the title at the top of the screen
       appBar: AppBar(
-        title: const Text('Harvest'),
+        title: const Text('Yield', style: welcomePageText,),      
+        backgroundColor: primaryColour,
       ),
       //The body is filled with the AddGardenForm class below
       body: AddFoodForm(userID, gardenID, foodList, foodName),
@@ -81,24 +83,29 @@ class _AddFoodFormState extends State<AddFoodForm> {
   // Everything below determines how the page is displayed
   Widget build(BuildContext context) {
     //we are using a form to allow for input validation
-    return Form(
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Form(
         key: _formKey,
         child: ListView(
           children: <Widget>[
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'How many kg did you harvest?',
-                  style: TextStyle(fontSize: 20),
+                child: Text(
+                  'How many kilograms did you harvest?',
+                  style: blackText.copyWith(fontSize: 20),
                 )),
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               child: TextFormField(
                 controller: weightController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'kg',
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    
+                  ),
+                  focusedBorder: UnderlineInputBorder(),
+                  hintText: 'kg',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {
@@ -113,8 +120,11 @@ class _AddFoodFormState extends State<AddFoodForm> {
                 height: 60,
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: ElevatedButton(
-                    child: const Text('Add to Garden',
-                        style: TextStyle(fontSize: 20)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: tertiaryColour,
+                    ),
+                    child: Text('Add to Garden',
+                        style: welcomePageText),
                     onPressed: () async {
                       //Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
@@ -152,6 +162,8 @@ class _AddFoodFormState extends State<AddFoodForm> {
                       }
                     })),
           ],
-        ));
+        ),
+      )
+    );
   }
 }
