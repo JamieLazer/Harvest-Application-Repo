@@ -22,7 +22,7 @@ class UserGardensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //This is the title at the top of the screen
-        title: Text('Harvest', 
+        title: Text('My Gardens', 
           style: welcomePageText
           ),
         backgroundColor: primaryColour,
