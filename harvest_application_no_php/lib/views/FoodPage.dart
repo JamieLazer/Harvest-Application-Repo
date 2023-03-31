@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,8 @@ class FoodPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //This is the title at the top of the screen
-        title: const Text('Harvest'),
+        title: Text('Harvest', style: welcomePageText,),
+        backgroundColor: primaryColour,
         actions: <Widget>[
           Padding(
               padding: EdgeInsets.only(right: 50.0),
@@ -97,7 +99,7 @@ class _FoodListState extends State<FoodList> {
       //If they don't display the message below
       body: food.isEmpty
           ? const Center(
-        child: Text("You have not added any crops yet"),
+        child: Text("You have not added any crops yet", style: blackText,),
       )
       //We use ListView.Builder so that we don't have to know the number of gardens beforehand
           : ListView.builder(
@@ -109,9 +111,9 @@ class _FoodListState extends State<FoodList> {
             //The maximum and minimum values you can set it to are 4 and -4
             visualDensity: VisualDensity(vertical: 4),
             //This determines the text in the list tile
-            title: Text(food[index]["YIELD_NAME"]),
-            trailing: Text('${food[index]["YIELD_KG"]} kg'),
-            subtitle: Text('This was harvested on ${food[index]["HARVEST_DATE"]}'),
+            title: Text(food[index]["YIELD_NAME"], style: secondaryColourText,),
+            trailing: Text('${food[index]["YIELD_KG"]} kg', style: secondaryColourText,),
+            subtitle: Text('This was harvested on ${food[index]["HARVEST_DATE"]}', style: blackText.copyWith( color: Colors.black54),),
           ),
         ),
       ),

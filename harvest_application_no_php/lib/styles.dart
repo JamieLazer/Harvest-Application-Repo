@@ -9,9 +9,9 @@ const TextStyle welcomePageText = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
-const TextStyle loginPageText = TextStyle(
+TextStyle loginPageText = TextStyle(
   fontSize: 18,
-  color: Color(0xFF80A87A), //primary colour
+  color: primaryColour,
   decoration: TextDecoration.none,
   fontFamily: 'AbeeZee',
   fontWeight: FontWeight.normal,
@@ -19,15 +19,22 @@ const TextStyle loginPageText = TextStyle(
 
 const TextStyle signUpPageText = TextStyle(
   fontSize: 18,
-  color: Colors.white, //primary colour
+  color: Colors.white,
   decoration: TextDecoration.none,
   fontFamily: 'AbeeZee',
   fontWeight: FontWeight.normal,
 );
 
 const TextStyle blackText = TextStyle(
-  fontSize: 14,
-  color: Colors.black87, //primary colour
+  fontSize: 12,
+  color: Colors.black87,
+  decoration: TextDecoration.none,
+  fontFamily: 'AbeeZee',
+  fontWeight: FontWeight.normal,
+);
+
+TextStyle secondaryColourText = TextStyle(
+  color: secondaryColour,
   decoration: TextDecoration.none,
   fontFamily: 'AbeeZee',
   fontWeight: FontWeight.normal,
