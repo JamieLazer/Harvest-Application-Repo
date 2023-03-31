@@ -41,7 +41,7 @@ Widget buildEmail(TextEditingController emailController) {
                 fontSize: 17,
               ),
 
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -87,7 +87,7 @@ Widget buildPassword(TextEditingController passwordController) {
                 fontSize: 17,
               ),
 
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10, horizontal: 10),
