@@ -28,7 +28,7 @@ class FoodPage extends StatelessWidget {
         backgroundColor: primaryColour,
         actions: <Widget>[
           Padding(
-              padding: EdgeInsets.only(right: 50.0),
+              padding: EdgeInsets.only(right: 16.0),
               //This adds the + icon on the top right of the appbar
               child: GestureDetector(
                 //What happens when the + is tapped
