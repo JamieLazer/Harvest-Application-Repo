@@ -1,0 +1,6 @@
+language: dart
+before_script:
+  - dart pub get
+
+script:
+  - dart run test
