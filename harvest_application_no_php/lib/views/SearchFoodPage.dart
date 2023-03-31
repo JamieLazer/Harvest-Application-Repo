@@ -1,3 +1,4 @@
+import 'package:dartfactory/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 
@@ -22,7 +23,8 @@ class SearchFoodPage extends StatelessWidget {
     return Scaffold(
       //This is the title at the top of the screen
       appBar: AppBar(
-        title: const Text('Harvest'),
+        title: const Text('Find Food Item', style: welcomePageText,),
+        backgroundColor: primaryColour,
       ),
       //The body is filled with the AddGardenForm class below
       body: FoodList(userID, gardenID, food),
@@ -116,6 +118,7 @@ class _FoodListState extends State<FoodList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
           Padding(
@@ -125,13 +128,25 @@ class _FoodListState extends State<FoodList> {
                 filterSearchResults(value);
               },
               controller: editingController,
-              decoration: const InputDecoration(
-                            labelText: "Search",
+              decoration:  InputDecoration(
                             hintText: "Search",
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25.0))
+                            hintStyle: secondaryColourText.copyWith(
+                              color: Colors.black54
+                            ),
+                            prefixIcon: Icon(Icons.search, color: secondaryColour,),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                              borderSide: BorderSide(
+                                color: secondaryColour,
+                              )
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                              borderSide: BorderSide(
+                                color: secondaryColour,
+                              )
                             )
+
                           ),
             ),
           ),
@@ -141,7 +156,9 @@ class _FoodListState extends State<FoodList> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(items[index]),
+                  title: Text(items[index], style: blackText.copyWith(
+                    fontSize: 16
+                  ),),
                   //What happens when the food is tapped
                   onTap: () async {
                     var conn = await MySqlConnection.connect(settings);
