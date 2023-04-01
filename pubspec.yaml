@@ -39,6 +39,10 @@ dependencies:
   mysql1: ^0.20.0
   email_validator: '^2.1.16'
   fluttertoast: ^8.2.1
+  
+  dartfactory: ^1.0.0
+  
+  codecov: ^2.0.0
 
 dev_dependencies:
   flutter_test:
