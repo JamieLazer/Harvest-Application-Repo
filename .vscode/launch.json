@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "harvest_application_no_php",
+            "cwd": "harvest_application_no_php",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "harvest_application_no_php (profile mode)",
+            "cwd": "harvest_application_no_php",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "harvest_application_no_php (release mode)",
+            "cwd": "harvest_application_no_php",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
