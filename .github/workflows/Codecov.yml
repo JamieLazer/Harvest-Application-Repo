@@ -4,7 +4,7 @@
   uses: codecov/codecov-action@v3.1.1
   with:
     # Repository upload token - get it from codecov.io. Required only for private repositories
-    token: # optional
+    token: 8782d1e7-ffa7-4d2b-81d1-1e936bd8a490
     # Comma-separated list of files to upload
     files: # optional
     # Directory to search for coverage reports.
