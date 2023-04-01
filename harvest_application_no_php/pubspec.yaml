@@ -92,5 +92,5 @@ flutter:
   assets:
     - assets/images/
     
-  dev_dependencies:
-  codecov: ^2.0.0
+  #dev_dependencies:
+  #codecov: ^2.0.0
