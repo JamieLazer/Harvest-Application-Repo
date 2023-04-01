@@ -1,1 +1,11 @@
 language: dart
+
+dart:
+  - stable
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - flutter test --coverage
+        - bash <(curl -s https://codecov.io/bash)
