@@ -1,12 +1,2 @@
 language: dart
-dart:
-  - stable
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b stable --depth 1
-  - export PATH="$PATH:`pwd`/flutter/bin"
-  - flutter doctor
-script:
-  - flutter test --coverage
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
 
