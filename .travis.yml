@@ -1,8 +1,5 @@
 language: dart
 
-dart:
-  - stable
-
 jobs:
   include:
     - stage: test
