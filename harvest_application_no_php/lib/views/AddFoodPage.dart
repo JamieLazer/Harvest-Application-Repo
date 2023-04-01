@@ -121,7 +121,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: tertiaryColour,
+                      backgroundColor: secondaryColour,
                     ),
                     child: Text('Add to Garden',
                         style: welcomePageText),
@@ -141,7 +141,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
                         
                         String gardenName = gardenNameResultList[0]["LOG_NAME"];
 
-                        int weight = int.parse(weightController.text);
+                        double weight = double.parse(weightController.text);
 
                         //Add the harvest to the YIELD table in the database
                         await conn.query(
