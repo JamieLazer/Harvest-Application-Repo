@@ -9,9 +9,13 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: secondaryColour,
+      decoration: const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/images/welcome.jpg"),
+        fit: BoxFit.cover),
+      ),
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
+        padding: const EdgeInsets.only(bottom: 25, left: 20, right: 20),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -32,7 +36,7 @@ class WelcomePage extends StatelessWidget {
                     // fontStyle: FontStyle.italic
                   )),
 
-              const Padding(padding: EdgeInsets.only(top: 30)),
+              const Padding(padding: EdgeInsets.only(top: 20)),
 
               //get started button
               Center(
