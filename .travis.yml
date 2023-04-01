@@ -1,2 +1,9 @@
 language: dart
-
+dart:
+  - stable
+install:
+  - pub get
+script:
+  - pub run test --coverage=coverage
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.json -t <CODECOV_TOKEN>
