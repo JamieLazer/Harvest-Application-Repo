@@ -113,7 +113,7 @@ class _FoodListState extends State<FoodList> {
             //This determines the text in the list tile
             title: Text(food[index]["YIELD_NAME"], style: secondaryColourText,),
             trailing: Text('${food[index]["YIELD_KG"]} kg', style: secondaryColourText,),
-            subtitle: Text('This was harvested on ${food[index]["HARVEST_DATE"]}', style: blackText.copyWith( color: Colors.black54),),
+            subtitle: Text('This was harvested on ${food[index]["HARVEST_DATE"].toString().substring(0,11)}', style: blackText.copyWith( color: Colors.black54),),
           ),
         ),
       ),
