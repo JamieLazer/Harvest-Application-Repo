@@ -45,7 +45,7 @@ Widget buildEmail(TextEditingController emailController) {
                   border: InputBorder.none,
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  labelText: "Username",
+                  labelText: "Email",
                   labelStyle: loginPageText),
 
               // The validator receives the text that the user has entered.
