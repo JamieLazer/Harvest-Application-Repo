@@ -23,14 +23,18 @@ class FoodPage extends StatelessWidget {
       appBar: AppBar(
         //This is the title at the top of the screen
         title: const Text('Harvest', style: welcomePageText,),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios), 
+          onPressed: () {
+            Navigator.popUntil(context, ModalRoute.withName('/userGardens'));
+          },
+        ),
         backgroundColor: primaryColour,
         actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              //This adds the + icon on the top right of the appbar
-              child: GestureDetector(
-                //What happens when the + is tapped
-                onTap: () async {
+          IconButton(
+            icon: Icon(Icons.add),
+                onPressed: () async {
+                  //What happens when the + is tapped
                   var conn = await MySqlConnection.connect(settings);
 
                   //Make a request for a list of all food items
@@ -44,12 +48,7 @@ class FoodPage extends StatelessWidget {
                   //Navigate to the add food screen using a named route.
                   Navigator.pushNamed(context, '/searchFoodPage', arguments: args);
                 },
-                //Specifies the design and size of the icon
-                child: const Icon(
-                  Icons.add,
-                  size: 26.0,
                 ),
-              )),
         ],
       ),
       //The body is filled with the foodList class below

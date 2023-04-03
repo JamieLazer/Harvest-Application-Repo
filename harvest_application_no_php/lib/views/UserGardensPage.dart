@@ -28,23 +28,16 @@ class UserGardensPage extends StatelessWidget {
         backgroundColor: primaryColour,
         automaticallyImplyLeading: false, //remove back
         actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              //This adds the + icon on the top right of the appbar
-              child: GestureDetector(
-                //What happens when the + is tapped
-                onTap: () {
+          IconButton(
+            icon: const Icon(Icons.add),
+                onPressed: () async {
+                  //What happens when the + is tapped
                   //Create the arguments that we will pass to the next page
                   UserInfoArguments args = UserInfoArguments(arguments.userID, arguments.gardens);
                   //Navigate to the add garden screen using a named route.
                   Navigator.pushNamed(context, '/addGarden', arguments: args);
                 },
-                //Specifies the design and size of the icon
-                child: const Icon(
-                  Icons.add,
-                  size: 26.0
-                ),
-              )),
+            ),
         ],
       ),
       //The body is filled with the UserGardensList class below
@@ -116,26 +109,24 @@ class _UserGardensState extends State<UserGardensList> {
                       gardens[index]["LOG_NAME"],
                       style: blackText.copyWith(color: secondaryColour),
                     ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: secondaryColour,
-                    ),
-                    //What happens when the garden is tapped
-                    onTap: () async {
-                      var conn = await MySqlConnection.connect(settings);
-                      //Make a request for the food in this garden
-                      var results = await conn.query(
+                    trailing: IconButton(
+                      color: secondaryColour, 
+                      icon: const Icon(Icons.arrow_forward_ios_rounded), 
+                      onPressed: () async {
+                        var conn = await MySqlConnection.connect(settings);
+                        //Make a request for the food in this garden
+                        var results = await conn.query(
                           'select * from YIELD where LOG_ID = ?',
                           [gardens[index]["LOG_ID"]]);
-                      //Convert the results of the database query to a list
-                      List foodList = results.toList();
-                      //Create the arguments that we will pass to the next page
-                      GardenInfoArguments args = GardenInfoArguments(
+                        //Convert the results of the database query to a list
+                        List foodList = results.toList();
+                        //Create the arguments that we will pass to the next page
+                        GardenInfoArguments args = GardenInfoArguments(
                           userID, gardens[index]["LOG_ID"], foodList);
-                      //Navigate to the add garden screen using a named route.
-                      Navigator.pushNamed(context, '/foodPage',
-                          arguments: args);
-                    },
+                        //Navigate to the add garden screen using a named route.
+                        Navigator.pushNamed(context, '/foodPage', arguments: args);
+                      },
+                    ),
                   ),
                 ),
               ),
