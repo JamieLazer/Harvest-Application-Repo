@@ -47,9 +47,9 @@ Color tertiaryColour = const Color(0xFFDCF9D7);
 
 //formfield styles
 class WhiteInputBorder extends OutlineInputBorder {
-  WhiteInputBorder()
+  const WhiteInputBorder()
       : super(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.white,
           width: 1.5),
         );

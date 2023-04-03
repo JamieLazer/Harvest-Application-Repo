@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +22,11 @@ class FoodPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //This is the title at the top of the screen
-        title: Text('Harvest', style: welcomePageText,),
+        title: const Text('Harvest', style: welcomePageText,),
         backgroundColor: primaryColour,
         actions: <Widget>[
           Padding(
-              padding: EdgeInsets.only(right: 16.0),
+              padding: const EdgeInsets.only(right: 16.0),
               //This adds the + icon on the top right of the appbar
               child: GestureDetector(
                 //What happens when the + is tapped
@@ -69,9 +67,9 @@ class FoodList extends StatefulWidget {
 
   //Constructor
   FoodList(int passedUserID, int passedGardenID, List passedFood, {super.key}) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.food = passedFood;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    food = passedFood;
   }
 
   @override
@@ -87,9 +85,9 @@ class _FoodListState extends State<FoodList> {
 
   //Constructor
   _FoodListState(int passedUserID, int passedGardenID, List passedFood) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.food = passedFood;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    food = passedFood;
   }
 
   @override
@@ -109,7 +107,7 @@ class _FoodListState extends State<FoodList> {
           child: ListTile(
             //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
             //The maximum and minimum values you can set it to are 4 and -4
-            visualDensity: VisualDensity(vertical: 4),
+            visualDensity: const VisualDensity(vertical: 4),
             //This determines the text in the list tile
             title: Text(food[index]["YIELD_NAME"], style: secondaryColourText,),
             trailing: Text('${food[index]["YIELD_KG"]} kg', style: secondaryColourText,),

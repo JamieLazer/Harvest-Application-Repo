@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,7 @@ class AddGardenPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: primaryColour, // Set the color of the back button
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -96,8 +94,8 @@ class _AddGardenFormState extends State<AddGardenForm> {
 
   //Constructor
   _AddGardenFormState(int passedUserID, List passedGardens) {
-    this.userID = passedUserID;
-    this.gardens = passedGardens;
+    userID = passedUserID;
+    gardens = passedGardens;
   }
 
   //This variable stores the name of the garden
@@ -113,7 +111,7 @@ class _AddGardenFormState extends State<AddGardenForm> {
     //we are using a form to allow for input validation
     return Center(
         child: Padding(
-          padding: EdgeInsets.all(25.0),
+          padding: const EdgeInsets.all(25.0),
           child: Form(
             key: _formKey,
             child: Column(
@@ -134,12 +132,12 @@ class _AddGardenFormState extends State<AddGardenForm> {
                   child: TextFormField(
                     controller: gardenController,
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
+                      enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.black54
                         )
                       ),
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black54)),
                       errorBorder: UnderlineInputBorder(),
                       labelText: 'Garden Name',

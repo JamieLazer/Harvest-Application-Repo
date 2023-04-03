@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
@@ -44,7 +43,7 @@ Widget buildEmail(TextEditingController emailController) {
               decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   labelText: "Email",
                   labelStyle: loginPageText),
 
@@ -90,7 +89,7 @@ Widget buildPassword(TextEditingController passwordController) {
               decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   labelText: "Password",
                   labelStyle: loginPageText),
 
@@ -112,7 +111,6 @@ Widget buildLoginButton(
     TextEditingController passwordController,
     GlobalKey<FormState> formKey,
     BuildContext context) {
-  bool _isLoading = false;
 
   // This async method connects To the remote mySQL database.
   Future<MySqlConnection> getConnection() async {
@@ -137,7 +135,6 @@ Widget buildLoginButton(
 
       // If the query returns exactly one row, the login was successful
       if (results.length == 1) {
-        List resultsList = results.elementAt(0).toList();
         return true;
       } else {
         return false;
@@ -157,13 +154,11 @@ Widget buildLoginButton(
       const SizedBox(height: 50),
       OutlinedButton(
         onPressed: () async {
-          _isLoading = true;
 
           // The program or waits for login() to return a result before continuing.
           bool loginSuccessful =
               await login(emailController.text, passwordController.text);
 
-          _isLoading = false;
 
           // If the login is successful move to the next view.
           // Otherwise, display an error message through an AlertDialog.

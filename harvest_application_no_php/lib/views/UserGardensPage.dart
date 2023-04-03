@@ -22,14 +22,14 @@ class UserGardensPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //This is the title at the top of the screen
-        title: Text('My Gardens', 
+        title: const Text('My Gardens',
           style: welcomePageText
           ),
         backgroundColor: primaryColour,
         automaticallyImplyLeading: false, //remove back
         actions: <Widget>[
           Padding(
-              padding: EdgeInsets.only(right: 15.0),
+              padding: const EdgeInsets.only(right: 15.0),
               //This adds the + icon on the top right of the appbar
               child: GestureDetector(
                 //What happens when the + is tapped
@@ -61,8 +61,8 @@ class UserGardensList extends StatefulWidget {
 
   //Constructor
   UserGardensList(int passedUserID, List passedGardens, {super.key}) {
-    this.userID = passedUserID;
-    this.gardens = passedGardens;
+    userID = passedUserID;
+    gardens = passedGardens;
   }
 
   @override
@@ -77,14 +77,14 @@ class _UserGardensState extends State<UserGardensList> {
 
   //Constructor
   _UserGardensState(int passedUserID, List passedGardens) {
-    this.userID = passedUserID;
-    this.gardens = passedGardens;
+    userID = passedUserID;
+    gardens = passedGardens;
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       child: Scaffold(
         //First check if the user has any gardens
         //If they don't display the message below
@@ -109,7 +109,7 @@ class _UserGardensState extends State<UserGardensList> {
                   child: ListTile(
                     //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
                     //The maximum and minimum values you can set it to are 4 and -4
-                    visualDensity: VisualDensity(vertical: 4),
+                    visualDensity: const VisualDensity(vertical: 4),
                     tileColor: Colors.transparent,
                     //This determines the text in the list tile
                     title: Text(
