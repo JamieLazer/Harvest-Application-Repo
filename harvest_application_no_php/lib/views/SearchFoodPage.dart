@@ -40,9 +40,9 @@ class FoodList extends StatefulWidget {
 
   //Constructor
   FoodList(int passedUserID, int passedGardenID, List passedFood, {super.key}) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.food = passedFood;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    food = passedFood;
   }
 
   @override
@@ -57,9 +57,9 @@ class _FoodListState extends State<FoodList> {
 
   //Constructor
   _FoodListState(int passedUserID, int passedGardenID, List passedFood) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.food = passedFood;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    food = passedFood;
   }
 
   TextEditingController editingController = TextEditingController();
@@ -135,13 +135,13 @@ class _FoodListState extends State<FoodList> {
                             ),
                             prefixIcon: Icon(Icons.search, color: secondaryColour,),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                              borderRadius: const BorderRadius.all(Radius.circular(25.0)),
                               borderSide: BorderSide(
                                 color: secondaryColour,
                               )
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                              borderRadius: const BorderRadius.all(Radius.circular(25.0)),
                               borderSide: BorderSide(
                                 color: secondaryColour,
                               )
