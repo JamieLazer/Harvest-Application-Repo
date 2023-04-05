@@ -1,6 +1,6 @@
 codecov:
   require_ci_to_pass: yes
-  token: ${{ secrets.CODECOV_TOKEN }}
+  token: 8782d1e7-ffa7-4d2b-81d1-1e936bd8a490
 
 coverage: 
   precision: 2 
