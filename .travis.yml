@@ -15,7 +15,7 @@ before_script:
 script:
   - ./flutter/bin/flutter test --coverage
 after_success:
-    - bash <(curl -Os https://uploader.codecov.io/latest/linux/codecov) -t CODECOV_TOKEN
+    - bash <(curl -s https://codecov.io/bash)
 cache:
   directories:
     - $HOME/.pub-cache  
