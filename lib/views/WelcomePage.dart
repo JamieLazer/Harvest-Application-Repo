@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../styles.dart';
-import 'CreateAccountPage.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -43,11 +41,7 @@ class WelcomePage extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () {
                     //go to sign up page
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CreateAccountPage()),
-                    );
+                    Navigator.pushNamed(context, '/createAccount');
                   },
                   style: OutlinedButton.styleFrom(
                       side: BorderSide(color: tertiaryColour, width: 1.5),

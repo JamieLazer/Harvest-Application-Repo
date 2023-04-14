@@ -1,4 +1,5 @@
 import 'package:dartfactory/views/AddFoodPage.dart';
+import 'package:dartfactory/views/AnalyticsPage.dart';
 import 'package:dartfactory/views/SearchFoodPage.dart';
 import 'package:dartfactory/views/AddGardenPage.dart';
 import 'package:dartfactory/views/CreateAccountPage.dart';
@@ -21,14 +22,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const WelcomePage(),
-       routes: {
+      routes: {
         '/createAccount': (context) => const CreateAccountPage(),
-         '/userGardens': (context) => const UserGardensPage(),
-         '/addGarden': (context) => const AddGardenPage(),
-         '/loginPage': (context) => const LoginPage(),
-         '/searchFoodPage': (context) => const SearchFoodPage(),
-         '/foodPage': (context) => const FoodPage(),
-         '/addFoodPage': (context) => const AddFoodPage(),
+        '/userGardens': (context) => const UserGardensPage(),
+        '/addGarden': (context) => const AddGardenPage(),
+        '/loginPage': (context) => const LoginPage(),
+        '/searchFoodPage': (context) => const SearchFoodPage(),
+        '/foodPage': (context) => const FoodPage(),
+        '/addFoodPage': (context) => const AddFoodPage(),
+        '/analyticsPage': (context) => const AnalyticsPage(),
        },
     );
   }

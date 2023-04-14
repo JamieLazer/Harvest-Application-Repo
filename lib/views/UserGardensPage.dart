@@ -127,6 +127,24 @@ class _UserGardensState extends State<UserGardensList> {
                         Navigator.pushNamed(context, '/foodPage', arguments: args);
                       },
                     ),
+                    leading: IconButton(
+                      color: secondaryColour, 
+                      icon: const Icon(Icons.analytics_outlined), 
+                      onPressed: () async {
+                        var conn = await MySqlConnection.connect(settings);
+                        //Make a request for the food in this garden
+                        var results = await conn.query(
+                          'select * from YIELD where LOG_ID = ?',
+                          [gardens[index]["LOG_ID"]]);
+                        //Convert the results of the database query to a list
+                        List foodList = results.toList();
+                        //Create the arguments that we will pass to the next page
+                        GardenInfoArguments args = GardenInfoArguments(
+                          userID, gardens[index]["LOG_ID"], foodList);
+                        //Navigate to the add garden screen using a named route.
+                        Navigator.pushNamed(context, '/analyticsPage', arguments: args);
+                      },
+                    ),
                   ),
                 ),
               ),
