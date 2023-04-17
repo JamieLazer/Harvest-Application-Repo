@@ -16,6 +16,41 @@ class LoginPage extends StatefulWidget {
   }
 }
 
+// This async method connects To the remote mySQL database.
+Future<MySqlConnection> getConnection() async {
+  var settings = ConnectionSettings(
+      host: 'db4free.net',
+      port: 3306,
+      user: 'hardcoded',
+      password: '5Scrummies@SD',
+      db: 'harvestapp');
+  return await MySqlConnection.connect(settings);
+}
+
+Future<bool> login(String email, String password) async {
+  // Establish a connection to the database
+  final conn = await getConnection();
+  try {
+    // Execute a query to check if the user's email and password match
+    final results = await conn.query(
+        'SELECT * FROM USERS WHERE user_email = ? AND user_password = ?',
+        [email, password]);
+
+    // If the query returns exactly one row, the login was successful
+    if (results.length == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    // Handle any exceptions that occur during the query execution
+    return false;
+  } finally {
+    // Close the connection when done
+    await conn.close();
+  }
+}
+
 Widget buildEmail(TextEditingController emailController) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +78,7 @@ Widget buildEmail(TextEditingController emailController) {
               decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   labelText: "Email",
                   labelStyle: loginPageText),
 
@@ -89,7 +124,7 @@ Widget buildPassword(TextEditingController passwordController) {
               decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   labelText: "Password",
                   labelStyle: loginPageText),
 
@@ -112,43 +147,6 @@ Widget buildLoginButton(
     GlobalKey<FormState> formKey,
     BuildContext context) {
 
-  // This async method connects To the remote mySQL database.
-  Future<MySqlConnection> getConnection() async {
-    var settings = ConnectionSettings(
-        host: 'db4free.net',
-        port: 3306,
-        user: 'hardcoded',
-        password: '5Scrummies@SD',
-        db: 'harvestapp');
-    return await MySqlConnection.connect(settings);
-  }
-
-  //
-  Future<bool> login(String email, String password) async {
-    // Establish a connection to the database
-    final conn = await getConnection();
-    try {
-      // Execute a query to check if the user's email and password match
-      final results = await conn.query(
-          'SELECT * FROM USERS WHERE user_email = ? AND user_password = ?',
-          [email, password]);
-
-      // If the query returns exactly one row, the login was successful
-      if (results.length == 1) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      // Handle any exceptions that occur during the query execution
-      print('Error during login: $e');
-      return false;
-    } finally {
-      // Close the connection when done
-      await conn.close();
-    }
-  }
-
   return Column(
     children: <Widget>[
       const SizedBox(height: 50),
@@ -157,7 +155,7 @@ Widget buildLoginButton(
 
           // The program or waits for login() to return a result before continuing.
           bool loginSuccessful =
-              await login(emailController.text, passwordController.text);
+          await login(emailController.text, passwordController.text);
 
 
           // If the login is successful move to the next view.
@@ -181,7 +179,7 @@ Widget buildLoginButton(
             //Create the arguments that we will pass to the next page
             //The arguments we pass to a new page can be any object
             UserInfoArguments args =
-                UserInfoArguments(resultsList[0], gardenResultsList);
+            UserInfoArguments(resultsList[0], gardenResultsList);
             Navigator.pushNamed(context, '/userGardens', arguments: args);
           } else {
             showDialog(
@@ -213,20 +211,20 @@ Widget buildLoginButton(
           children: [
             Expanded(
                 child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Center(
-                    child: Text(
-                      'log in',
-                      style: loginPageText.copyWith(
-                        fontSize: 30,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Center(
+                        child: Text(
+                          'log in',
+                          style: loginPageText.copyWith(
+                            fontSize: 30,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                )
-              ],
-            ))
+                    )
+                  ],
+                ))
           ],
         ),
       ),
@@ -274,41 +272,41 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
-      child: GestureDetector(
-        child: Container(
-            color: Colors.white,
-            width: double.infinity,
-            height: double.infinity,
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding:
+          value: SystemUiOverlayStyle.light,
+          child: GestureDetector(
+            child: Container(
+                color: Colors.white,
+                width: double.infinity,
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding:
                   const EdgeInsets.symmetric(horizontal: 25, vertical: 120),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Log in',
-                        style: loginPageText.copyWith(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Log in',
+                            style: loginPageText.copyWith(
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 50),
+                        buildEmail(emailController),
+                        buildPassword(passwordController),
+                        buildLoginButton(
+                            emailController, passwordController, _formKey, context)
+                      ],
                     ),
-                    const SizedBox(height: 50),
-                    buildEmail(emailController),
-                    buildPassword(passwordController),
-                    buildLoginButton(
-                        emailController, passwordController, _formKey, context)
-                  ],
-                ),
-              ),
-            )),
-      ),
-    ));
+                  ),
+                )),
+          ),
+        ));
   }
 }

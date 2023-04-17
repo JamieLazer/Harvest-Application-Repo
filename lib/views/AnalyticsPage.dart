@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../Arguments/GardenInfoArguments.dart';
-import '../ConnectionSettings.dart';
 import '../styles.dart';
-import 'package:intl/intl.dart';
 
 class AnalyticsPage extends StatelessWidget {
   const AnalyticsPage({super.key});

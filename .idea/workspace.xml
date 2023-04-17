@@ -5,21 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/styles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/styles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/views/AddFoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/views/AddFoodPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/views/AddGardenPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/views/AddGardenPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/views/CreateAccountPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/views/CreateAccountPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/views/FoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/views/FoodPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/views/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/views/LoginPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/views/SearchFoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/views/SearchFoodPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/harvest_application_no_php/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/harvest_application_no_php/lib/views/UserGardensPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/AnalyticsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/AnalyticsPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/LoginPage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,13 +45,25 @@
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter Test.tests in LoginPage_test.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/harvest_application_no_php/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in ConnectionSettings_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/ConnectionSettings_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in LoginPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in LoginPage_test.dart" />
+        <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
         <item itemvalue="Flutter.main.dart" />
       </list>
     </recent_temporary>
