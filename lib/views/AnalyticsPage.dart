@@ -53,8 +53,10 @@ class _AnalyticsState extends State<Analytics> {
   int userID = 0;
   int gardenID = 0;
   List food = [];
-  List _chartData = [];
+  List _LineChartData = [];
+  List<PieData> _PieChartData = [];
   TooltipBehavior _tooltipBehavior = TooltipBehavior();
+  SelectionBehavior _selectionBehavior = SelectionBehavior();
 
   //Constructor
   _AnalyticsState(int passedUserID, int passedGardenID, List passedFood) {
@@ -65,67 +67,118 @@ class _AnalyticsState extends State<Analytics> {
 
   @override
   void initState(){
-    _chartData = getChartData();
+    _LineChartData = getChartData()[0];
+    _PieChartData = getChartData()[1];
+
+    //This enables tooltips in the chart widget
     _tooltipBehavior = TooltipBehavior(enable: true);
+    // Enables the selection
+    _selectionBehavior = SelectionBehavior(enable: true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var LegendOverflowMode;
-    return SafeArea(
-      child: Scaffold(
-        body: SfCartesianChart(
-          title: ChartTitle(text: "Yearly Yield Analysis"),
-          tooltipBehavior: _tooltipBehavior, //This enables tooltips in the chart widget
-          legend: Legend(
-            isVisible: true, 
-            // Overflowing legend content will be wraped
-                overflowMode: LegendItemOverflowMode.wrap
-          ),
-          series: <ChartSeries>[
-          LineSeries<YieldData, double>(
-            name: "Total Yield",
-            dataSource: _chartData[0], 
-            xValueMapper: (YieldData yield, _) => yield.year, 
-            yValueMapper: (YieldData yield, _) => yield.yield,
-            enableTooltip: true),
-          LineSeries<YieldData, double>(
-            name: "Fruit Yield",
-            dataSource: _chartData[1], 
-            xValueMapper: (YieldData yield, _) => yield.year, 
-            yValueMapper: (YieldData yield, _) => yield.yield,
-            enableTooltip: true),
-          LineSeries<YieldData, double>(
-            name: "Vegetable Yield",
-            dataSource: _chartData[2], 
-            xValueMapper: (YieldData yield, _) => yield.year, 
-            yValueMapper: (YieldData yield, _) => yield.yield,
-            enableTooltip: true),
-          LineSeries<YieldData, double>(
-            name: "Flower Yield",
-            dataSource: _chartData[3], 
-            xValueMapper: (YieldData yield, _) => yield.year, 
-            yValueMapper: (YieldData yield, _) => yield.yield,
-            enableTooltip: true),
-          LineSeries<YieldData, double>(
-            name: "Herb Yield",
-            dataSource: _chartData[4], 
-            xValueMapper: (YieldData yield, _) => yield.year, 
-            yValueMapper: (YieldData yield, _) => yield.yield,
-            enableTooltip: true),
-          ],
-          primaryXAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
-          primaryYAxis: NumericAxis(labelFormat: '{value}g')
-        )
-      )
+    return Column(
+      children: [ 
+        const Padding(
+          padding: EdgeInsets.only(top: 15), //apply padding to all four sides
+          child: Text("Overview", style: TextStyle(
+            fontSize: 20, 
+            color: Colors.black,
+            decoration: TextDecoration.none,
+            fontFamily: 'AbeeZee',
+            fontWeight: FontWeight.normal,)),
+        ),
+        Flexible(
+          flex: 5,
+          child: 
+            Scaffold(
+              body: SfCartesianChart(
+                //title: ChartTitle(text: "Yearly Yield Analysis"),
+                tooltipBehavior: _tooltipBehavior, 
+                legend: Legend(
+                  isVisible: false, 
+                  // Overflowing legend content will be wraped
+                  overflowMode: LegendItemOverflowMode.wrap,
+                ),
+                series: <ChartSeries>[
+                  LineSeries<YieldData, double>(
+                    name: "Fruit Yield",
+                    dataSource: _LineChartData[1], 
+                    xValueMapper: (YieldData yield, _) => yield.year, 
+                    yValueMapper: (YieldData yield, _) => yield.yield,
+                    enableTooltip: true),
+                  LineSeries<YieldData, double>(
+                    name: "Vegetable Yield",
+                    dataSource: _LineChartData[2], 
+                    xValueMapper: (YieldData yield, _) => yield.year, 
+                    yValueMapper: (YieldData yield, _) => yield.yield,
+                    enableTooltip: true),
+                  LineSeries<YieldData, double>(
+                    name: "Flower Yield",
+                    dataSource: _LineChartData[3], 
+                    xValueMapper: (YieldData yield, _) => yield.year, 
+                    yValueMapper: (YieldData yield, _) => yield.yield,
+                    enableTooltip: true),
+                  LineSeries<YieldData, double>(
+                    name: "Herb Yield",
+                    dataSource: _LineChartData[4], 
+                    xValueMapper: (YieldData yield, _) => yield.year, 
+                    yValueMapper: (YieldData yield, _) => yield.yield,
+                    enableTooltip: true),
+                  LineSeries<YieldData, double>(
+                    name: "Total Yield",
+                    dataSource: _LineChartData[0], 
+                    xValueMapper: (YieldData yield, _) => yield.year, 
+                    yValueMapper: (YieldData yield, _) => yield.yield,
+                    enableTooltip: true,
+                    selectionBehavior: _selectionBehavior),
+                ],
+                primaryXAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
+                primaryYAxis: NumericAxis(labelFormat: '{value}g')
+              )
+            ),
+        ),
+        Flexible(
+          flex: 5,
+          child: 
+            Scaffold(
+              body: SfCircularChart(
+                series: <CircularSeries>[
+                  // Render pie chart
+                  PieSeries<PieData, String>(
+                    dataSource: _PieChartData,
+                    xValueMapper: (PieData data, _) => data.name,
+                    yValueMapper: (PieData data, _) => data.yield,
+                    //which attribute is used for labelling?
+                    dataLabelMapper: (PieData data, _) => data.name,
+                    dataLabelSettings: const DataLabelSettings(
+                      isVisible: true, 
+                      labelPosition: ChartDataLabelPosition.outside,
+                      // Renders background rectangle and fills it with series color
+                      useSeriesColor: true
+                    )
+                  )
+                ]
+              )
+            ),
+        ),      
+      ]
       );
   }
 
   List getChartData() {
 
     //This will store the data for the graph
-    final List chartData = [];
+    final List LineChartData = [];
+    final List<PieData> PieChartData = [
+      PieData('Fruit', 0),
+      PieData('Vegetable', 0),
+      PieData('Herb', 0),
+      PieData('Flower', 0)
+    ];
     final List<YieldData> totalData = [];
     final List<YieldData> fruitData = [];
     final List<YieldData> vegetableData = [];
@@ -157,18 +210,22 @@ class _AnalyticsState extends State<Analytics> {
         if (food[j]["SUPERTYPE"] == "Fruit" && year[i] == y){
           fruitYield += food[j]["YIELD_KG"];
           totalYield += food[j]["YIELD_KG"];
+          PieChartData[0].yield += food[j]["YIELD_KG"];
         }
         else if (food[j]["SUPERTYPE"] == "Vegetable" && year[i] == y){
           vegetableYield += food[j]["YIELD_KG"];
           totalYield += food[j]["YIELD_KG"];
+          PieChartData[1].yield += food[j]["YIELD_KG"];
         }
         else if (food[j]["SUPERTYPE"] == "Flower" && year[i] == y){
           flowerYield += food[j]["YIELD_KG"];
           totalYield += food[j]["YIELD_KG"];
+          PieChartData[2].yield += food[j]["YIELD_KG"];
         }
         else if (food[j]["SUPERTYPE"] == "Herb" && year[i] == y){
           herbYield += food[j]["YIELD_KG"];
           totalYield += food[j]["YIELD_KG"];
+          PieChartData[3].yield += food[j]["YIELD_KG"];
         }
       }
 
@@ -178,31 +235,6 @@ class _AnalyticsState extends State<Analytics> {
       flowerData.add(YieldData(year[i], flowerYield));
       herbData.add(YieldData(year[i], herbYield));
 
-      //The four additions below are just for testing. the database did not have enough years
-      totalData.add(YieldData(year[i] + 1, totalYield + 22));
-      fruitData.add(YieldData(year[i] + 1, fruitYield - 9));
-      vegetableData.add(YieldData(year[i] + 1, vegetableYield + 11));
-      flowerData.add(YieldData(year[i] + 1, flowerYield + 13));
-      herbData.add(YieldData(year[i] + 1, herbYield - 5));
-
-      totalData.add(YieldData(year[i] + 2, totalYield + 53));
-      fruitData.add(YieldData(year[i] + 2, fruitYield + 45));
-      vegetableData.add(YieldData(year[i] + 2, vegetableYield + 20));
-      flowerData.add(YieldData(year[i] + 2, flowerYield + 10));
-      herbData.add(YieldData(year[i] + 2, herbYield + 51));
-
-      totalData.add(YieldData(year[i] + 3, totalYield + 35));
-      fruitData.add(YieldData(year[i] + 3, fruitYield + 100));
-      vegetableData.add(YieldData(year[i] + 3, vegetableYield + 120));
-      flowerData.add(YieldData(year[i] + 3, flowerYield + 96));
-      herbData.add(YieldData(year[i] + 3, herbYield + 40));
-
-      totalData.add(YieldData(year[i] + 4, totalYield + 153));
-      fruitData.add(YieldData(year[i] + 4, fruitYield + 165));
-      vegetableData.add(YieldData(year[i] + 4, vegetableYield + 92));
-      flowerData.add(YieldData(year[i] + 4, flowerYield + 100));
-      herbData.add(YieldData(year[i] + 4, herbYield + 87));
-
       //Reset counts
       totalYield = 0;
       fruitYield = 0;
@@ -211,13 +243,18 @@ class _AnalyticsState extends State<Analytics> {
       herbYield = 0;
     }
 
-    chartData.add(totalData);
-    chartData.add(fruitData);
-    chartData.add(vegetableData);
-    chartData.add(flowerData);
-    chartData.add(herbData);
+    totalData.sort((a, b) => a.year.compareTo(b.year));
+    totalData.sort((a, b) => a.year.compareTo(b.year));
+    totalData.sort((a, b) => a.year.compareTo(b.year));
+    totalData.sort((a, b) => a.year.compareTo(b.year));
 
-    return chartData;
+    LineChartData.add(totalData);
+    LineChartData.add(fruitData);
+    LineChartData.add(vegetableData);
+    LineChartData.add(flowerData);
+    LineChartData.add(herbData);
+
+    return [LineChartData, PieChartData];
   }
 
 }
@@ -226,4 +263,20 @@ class YieldData{
   YieldData(this.year, this.yield);
   final double year;
   final double yield;
+}
+
+class PieData {
+  PieData(this.name, this.yield);
+  String name;
+  double yield;
+
+  // Creating the getter method
+  double get getYield {
+    return yield;
+  }
+ 
+  // // Creating the setter method
+  // set setName(String name) {
+  //   geekName = name;
+  // }
 }

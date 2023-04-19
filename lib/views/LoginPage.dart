@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
-
 import '../ConnectionSettings.dart';
 import '../Arguments/UserInfoArguments.dart';
 import 'CreateAccountPage.dart';
@@ -152,7 +151,6 @@ Widget buildLoginButton(
       const SizedBox(height: 50),
       OutlinedButton(
         onPressed: () async {
-
           // The program or waits for login() to return a result before continuing.
           bool loginSuccessful =
           await login(emailController.text, passwordController.text);

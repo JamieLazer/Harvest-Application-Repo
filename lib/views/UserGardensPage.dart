@@ -134,7 +134,7 @@ class _UserGardensState extends State<UserGardensList> {
                         var conn = await MySqlConnection.connect(settings);
                         //Make a request for the food in this garden
                         var results = await conn.query(
-                          'select * from YIELD where LOG_ID = ?',
+                          'select * from YIELD where LOG_ID = ? order by HARVEST_DATE ASC',
                           [gardens[index]["LOG_ID"]]);
                         //Convert the results of the database query to a list
                         List foodList = results.toList();

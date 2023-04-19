@@ -40,6 +40,7 @@ dependencies:
   mysql1: ^0.20.0
   email_validator: '^2.1.16'
   fluttertoast: ^8.2.1
+  random_date: ^0.0.7
 
 dev_dependencies:
   flutter_test:
