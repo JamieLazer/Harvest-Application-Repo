@@ -1,8 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
-
 import '../styles.dart';
 import 'LoginPage.dart';
 

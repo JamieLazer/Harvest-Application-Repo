@@ -1,13 +1,17 @@
 import 'package:dartfactory/views/AddFoodPage.dart';
 import 'package:dartfactory/views/AnalyticsPage.dart';
+import 'package:dartfactory/views/FoodPieChartPage.dart';
+import 'package:dartfactory/views/HistoricalLineGraphPage.dart';
 import 'package:dartfactory/views/SearchFoodPage.dart';
 import 'package:dartfactory/views/AddGardenPage.dart';
 import 'package:dartfactory/views/CreateAccountPage.dart';
 import 'package:dartfactory/views/FoodPage.dart';
 import 'package:dartfactory/views/LoginPage.dart';
 import 'package:dartfactory/views/UserGardensPage.dart';
+import 'package:dartfactory/views/SupertypePieChartPage.dart';
 import 'package:flutter/material.dart';
-
+import 'views/SubtypePieChartPage.dart';
+import 'views/TypePieChartPage.dart';
 import 'views/WelcomePage.dart';
 
 void main() {
@@ -31,6 +35,11 @@ class MyApp extends StatelessWidget {
         '/foodPage': (context) => const FoodPage(),
         '/addFoodPage': (context) => const AddFoodPage(),
         '/analyticsPage': (context) => const AnalyticsPage(),
+        '/supertypePieChartPage': (context) => const SupertypePieChartPage(),
+        '/typePieChartPage': (context) => const TypePieChartPage(),
+        '/subtypePieChartPage': (context) => const SubtypePieChartPage(),
+        '/foodPieChartPage': (context) => const FoodPieChartPage(),
+        '/historicalLineGraphPage': (context) => const HistoricalLineGraphPage(),
        },
     );
   }

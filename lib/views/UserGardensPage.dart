@@ -2,7 +2,6 @@ import 'package:dartfactory/ConnectionSettings.dart';
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
-
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
 

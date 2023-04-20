@@ -1,7 +1,6 @@
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
-
 import '../ConnectionSettings.dart';
 import '../Arguments/UserInfoArguments.dart';
 
