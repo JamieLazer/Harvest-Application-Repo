@@ -89,7 +89,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: Text(
-                  'How many kilograms did you harvest?',
+                  'How many grams did you harvest?',
                   style: blackText.copyWith(fontSize: 20),
                 )),
             Container(
@@ -101,7 +101,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
                     
                   ),
                   focusedBorder: UnderlineInputBorder(),
-                  hintText: 'kg',
+                  hintText: 'g',
                 ),
                 // The validator receives the text that the user has entered.
                 validator: (value) {

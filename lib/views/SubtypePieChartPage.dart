@@ -82,6 +82,10 @@ class _SubtypePieChartState extends State<SubtypePieChart> {
 
   @override
   Widget build(BuildContext context) {
+    double sum=0;
+    for(int i=0;i<_PieChartData.length;i++){
+      sum+=_PieChartData[i].yield;
+    }
     return SafeArea(
       child:
         Padding(
@@ -95,7 +99,7 @@ class _SubtypePieChartState extends State<SubtypePieChart> {
                   alignment: ChartAlignment.center,
                 ),
                 title: ChartTitle(
-                  text: 'Yield Subtype Analysis',
+                  text: 'Yield breakdown by Subtype(%)',
                   // Aligns the chart title to left
                   alignment: ChartAlignment.center,
                   textStyle: const TextStyle(
@@ -118,11 +122,12 @@ class _SubtypePieChartState extends State<SubtypePieChart> {
                     },
                     dataSource: _PieChartData,
                     xValueMapper: (PieData data, _) => data.name,
-                    yValueMapper: (PieData data, _) => data.yield,
+                    yValueMapper: (PieData data, _) => double.parse(((data.yield/sum)*100).toStringAsFixed(2)),//((data.yield/sum)*100).toStringAsFixed(2) as num,
                     dataLabelSettings: const DataLabelSettings(
                       isVisible: true,
                       // Positioning the data label
                       labelPosition: ChartDataLabelPosition.inside,
+
                     )
                   )
                 ]
