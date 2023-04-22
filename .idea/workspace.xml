@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test/LoginPage_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Restored lost LoginPage unit tests">
+      <change afterPath="$PROJECT_DIR$/test/CreateAccountPage_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/CreateAccountPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/CreateAccountPage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,26 +43,44 @@
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RunManager" selected="Flutter Test.tests in LoginPage_test.dart">
-    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/harvest_application_no_php/lib/main.dart" />
-      <method v="2" />
-    </configuration>
-    <configuration name="tests in ConnectionSettings_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/ConnectionSettings_test.dart" />
+  <component name="RunManager" selected="Flutter Test.Valid Password Validation Test">
+    <configuration name="Empty Email Validation Test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Empty Email Validation Test" />
+      <option name="testFile" value="$PROJECT_DIR$/test/CreateAccountPage_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in LoginPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
+    <configuration name="Empty Password Validation Test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Empty Password Validation Test" />
+      <option name="testFile" value="$PROJECT_DIR$/test/CreateAccountPage_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Short Password Validation Test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Short Password Validation Test" />
+      <option name="testFile" value="$PROJECT_DIR$/test/CreateAccountPage_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Valid Email Validation Test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Valid Email Validation Test" />
+      <option name="testFile" value="$PROJECT_DIR$/test/CreateAccountPage_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Valid Password Validation Test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Valid Password Validation Test" />
+      <option name="testFile" value="$PROJECT_DIR$/test/CreateAccountPage_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.tests in LoginPage_test.dart" />
-        <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
-        <item itemvalue="Flutter.main.dart" />
+        <item itemvalue="Flutter Test.Valid Password Validation Test" />
+        <item itemvalue="Flutter Test.Short Password Validation Test" />
+        <item itemvalue="Flutter Test.Empty Password Validation Test" />
+        <item itemvalue="Flutter Test.Valid Email Validation Test" />
+        <item itemvalue="Flutter Test.Empty Email Validation Test" />
       </list>
     </recent_temporary>
   </component>
@@ -74,6 +93,14 @@
       <option name="presentableId" value="Default" />
       <updated>1680287005229</updated>
     </task>
+    <task id="LOCAL-00001" summary="Restored lost LoginPage unit tests">
+      <created>1682167593064</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682167593064</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -98,5 +125,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Restored lost LoginPage unit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restored lost LoginPage unit tests" />
   </component>
 </project>

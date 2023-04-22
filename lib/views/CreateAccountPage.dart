@@ -69,7 +69,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginPage()),
+                                builder: (context) => const LoginPage()),
                           );
                         },
                         child: Text(
