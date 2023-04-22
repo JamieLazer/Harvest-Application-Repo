@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Added a test to AddFoodPage_test.dart to see if error message pops up if input is empty.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/LoginPage_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/LoginPage_test.dart" afterDir="false" />
-    </list>
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="More LoginPage tests." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,13 +39,7 @@
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RunManager" selected="Flutter Test.tests in LoginPage_test.dart">
-    <configuration name="Page shows &quot;My Gardens&quot; as title" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Page shows &quot;My Gardens&quot; as title" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UserGardensPage_test.dart" />
-      <option name="useRegexp" value="true" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Flutter Test.tests in GardenInfoArguments_test.dart">
     <configuration name="buildEmail widget" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testName" value="buildEmail widget" />
       <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
@@ -66,6 +57,11 @@
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in GardenInfoArguments_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/GardenInfoArguments_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <configuration name="tests in LoginPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
       <option name="useRegexp" value="false" />
@@ -73,11 +69,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in GardenInfoArguments_test.dart" />
         <item itemvalue="Flutter Test.tests in LoginPage_test.dart" />
         <item itemvalue="Flutter Test.buildLoginButton widget" />
         <item itemvalue="Flutter Test.buildEmail widget" />
         <item itemvalue="Flutter Test.tests in AddFoodPage_test.dart" />
-        <item itemvalue="Flutter Test.Page shows &quot;My Gardens&quot; as title" />
       </list>
     </recent_temporary>
   </component>
@@ -125,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682179558215</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="More LoginPage tests.">
+      <created>1682181766438</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682181766438</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -157,6 +160,7 @@
     <MESSAGE value="Commented out a buggy test on CreateAccountPage_test.dart will restore it later." />
     <MESSAGE value="Added const modifiers for slight improvement in performance" />
     <MESSAGE value="Added a test to AddFoodPage_test.dart to see if error message pops up if input is empty." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a test to AddFoodPage_test.dart to see if error message pops up if input is empty." />
+    <MESSAGE value="More LoginPage tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="More LoginPage tests." />
   </component>
 </project>
