@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Commented out a buggy test on CreateAccountPage_test.dart will restore it later.">
-      <change afterPath="$PROJECT_DIR$/test/UserGardensPage_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Added const modifiers for slight improvement in performance">
+      <change afterPath="$PROJECT_DIR$/test/AddFoodPage_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,16 +41,10 @@
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RunManager" selected="Flutter Test.Page shows &quot;My Gardens&quot; as title">
+  <component name="RunManager" selected="Flutter Test.tests in AddFoodPage_test.dart">
     <configuration name="Add garden button is present" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testName" value="Add garden button is present" />
       <option name="testFile" value="$PROJECT_DIR$/test/UserGardensPage_test.dart" />
-      <option name="useRegexp" value="true" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Create Account Form Test" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Create Account Form Test" />
-      <option name="testFile" value="$PROJECT_DIR$/test/CreateAccountPage_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
@@ -60,6 +52,11 @@
       <option name="testName" value="Page shows &quot;My Gardens&quot; as title" />
       <option name="testFile" value="$PROJECT_DIR$/test/UserGardensPage_test.dart" />
       <option name="useRegexp" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in AddFoodPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/AddFoodPage_test.dart" />
+      <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="tests in CreateAccountPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
@@ -74,11 +71,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in AddFoodPage_test.dart" />
         <item itemvalue="Flutter Test.Page shows &quot;My Gardens&quot; as title" />
         <item itemvalue="Flutter Test.Add garden button is present" />
         <item itemvalue="Flutter Test.tests in UserGardensPage_test.dart" />
         <item itemvalue="Flutter Test.tests in CreateAccountPage_test.dart" />
-        <item itemvalue="Flutter Test.Create Account Form Test" />
       </list>
     </recent_temporary>
   </component>
@@ -112,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682176121877</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added const modifiers for slight improvement in performance">
+      <created>1682179001741</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682179001741</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,6 +146,7 @@
     <MESSAGE value="Restored lost LoginPage unit tests" />
     <MESSAGE value="Some CreateAccountPage unit tests. Something is dodgy though..." />
     <MESSAGE value="Commented out a buggy test on CreateAccountPage_test.dart will restore it later." />
-    <option name="LAST_COMMIT_MESSAGE" value="Commented out a buggy test on CreateAccountPage_test.dart will restore it later." />
+    <MESSAGE value="Added const modifiers for slight improvement in performance" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added const modifiers for slight improvement in performance" />
   </component>
 </project>
