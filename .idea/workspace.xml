@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="More LoginPage tests." />
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="GardenInfoArguments_test.dart test">
+      <change afterPath="$PROJECT_DIR$/test/UserInfoArguments_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682181766438</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="GardenInfoArguments_test.dart test">
+      <created>1682182227539</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682182227539</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,6 +171,7 @@
     <MESSAGE value="Added const modifiers for slight improvement in performance" />
     <MESSAGE value="Added a test to AddFoodPage_test.dart to see if error message pops up if input is empty." />
     <MESSAGE value="More LoginPage tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="More LoginPage tests." />
+    <MESSAGE value="GardenInfoArguments_test.dart test" />
+    <option name="LAST_COMMIT_MESSAGE" value="GardenInfoArguments_test.dart test" />
   </component>
 </project>
