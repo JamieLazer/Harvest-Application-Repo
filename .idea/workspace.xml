@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/LoginPage_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/AnalyticsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/AnalyticsPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/LoginPage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,5 +75,28 @@
       <updated>1680287005229</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/login_page_unit_tests" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
