@@ -42,10 +42,10 @@ class AddFoodForm extends StatefulWidget {
 
   //Constructor
   AddFoodForm(int passedUserID, int passedGardenID, List passedFoodList, String passedFoodName, {super.key}) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.foodList = passedFoodList;
-    this.foodName = passedFoodName;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    foodList = passedFoodList;
+    foodName = passedFoodName;
   }
 
   @override
@@ -62,10 +62,10 @@ class _AddFoodFormState extends State<AddFoodForm> {
 
   //Constructor
   _AddFoodFormState(int passedUserID, int passedGardenID, List passedFoodList, String passedFoodName) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.foodList = passedFoodList;
-    this.foodName = passedFoodName;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    foodList = passedFoodList;
+    foodName = passedFoodName;
   }
 
   //This variable stores the weight of the harvest
@@ -80,7 +80,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
   Widget build(BuildContext context) {
     //we are using a form to allow for input validation
     return Padding(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       child: Form(
         key: _formKey,
         child: ListView(
@@ -96,7 +96,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
               padding: const EdgeInsets.all(15),
               child: TextFormField(
                 controller: weightController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     
                   ),
@@ -119,7 +119,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: secondaryColour,
                     ),
-                    child: Text('Add to Garden',
+                    child: const Text('Add to Garden',
                         style: welcomePageText),
                     onPressed: () async {
                       //Validate returns true if the form is valid, or false otherwise.

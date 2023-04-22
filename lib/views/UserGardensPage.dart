@@ -6,7 +6,7 @@ import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
 
 class UserGardensPage extends StatelessWidget {
-  const UserGardensPage({super.key});
+  const UserGardensPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
