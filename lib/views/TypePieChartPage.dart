@@ -82,6 +82,10 @@ class _TypePieChartState extends State<TypePieChart> {
 
   @override
   Widget build(BuildContext context) {
+    double sum=0;
+    for(int i=0;i<_PieChartData.length;i++){
+      sum+=_PieChartData[i].yield;
+    }
     return SafeArea(
       child:
         Padding(
@@ -95,7 +99,7 @@ class _TypePieChartState extends State<TypePieChart> {
                   alignment: ChartAlignment.center,
                 ),
                 title: ChartTitle(
-                  text: 'Yield Type Analysis',
+                  text: 'Yield breakdown by Type(%)',
                   // Aligns the chart title to left
                   alignment: ChartAlignment.center,
                   textStyle: const TextStyle(
@@ -118,7 +122,7 @@ class _TypePieChartState extends State<TypePieChart> {
                     },
                     dataSource: _PieChartData,
                     xValueMapper: (PieData data, _) => data.name,
-                    yValueMapper: (PieData data, _) => data.yield,
+                    yValueMapper: (PieData data, _) => double.parse(((data.yield/sum)*100).toStringAsFixed(2)),
                     dataLabelSettings: const DataLabelSettings(
                       isVisible: true,
                       // Positioning the data label

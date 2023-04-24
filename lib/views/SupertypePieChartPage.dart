@@ -73,13 +73,17 @@ class _SupertypePieChartState extends State<SupertypePieChart> {
 
   @override
   Widget build(BuildContext context) {
+    double sum=0;
+    for(int i=0;i<_PieChartData.length;i++){
+      sum+=_PieChartData[i].yield;
+    }
     return SafeArea(
       child:
         Padding(
               padding: const EdgeInsets.only(top: 70, bottom: 70),
               child: SfCircularChart(
                 title: ChartTitle(
-                  text: 'Yield Supertype Analysis',
+                  text: 'Yield breakdown by Supertype(%)',
                   // Aligns the chart title to left
                   alignment: ChartAlignment.center,
                   textStyle: const TextStyle(
@@ -108,10 +112,12 @@ class _SupertypePieChartState extends State<SupertypePieChart> {
                       Navigator.pushNamed(context, '/typePieChartPage', arguments: args);
                     },
                     dataSource: _PieChartData,
+
                     xValueMapper: (PieData data, _) => data.name,
-                    yValueMapper: (PieData data, _) => data.yield,
+                    yValueMapper : (PieData data, _) => double.parse(((data.yield/sum)*100).toStringAsFixed(2)),
                     dataLabelSettings: const DataLabelSettings(
                       isVisible: true,
+
                       // Positioning the data label
                       labelPosition: ChartDataLabelPosition.inside,
                     )

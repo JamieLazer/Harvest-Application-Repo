@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="GardenInfoArguments_test.dart test">
-      <change afterPath="$PROJECT_DIR$/test/UserInfoArguments_test.dart" afterDir="false" />
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/SupertypePieChartPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/SupertypePieChartPage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,52 +34,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
-  }
-}</component>
-  <component name="RunManager" selected="Flutter Test.tests in GardenInfoArguments_test.dart">
-    <configuration name="buildEmail widget" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="buildEmail widget" />
-      <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
-      <option name="useRegexp" value="true" />
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager" selected="Flutter.main.dart">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="buildLoginButton widget" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="buildLoginButton widget" />
-      <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
-      <option name="useRegexp" value="true" />
-      <method v="2" />
-    </configuration>
-    <configuration name="tests in AddFoodPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/AddFoodPage_test.dart" />
+    <configuration name="main.dart" type="FlutterTestConfigType" factoryName="Flutter Test" singleton="false" temporary="true">
+      <option name="testFile" value="$PROJECT_DIR$/lib/main.dart" />
       <option name="useRegexp" value="false" />
+      <option name="additionalArgs" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in GardenInfoArguments_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/GardenInfoArguments_test.dart" />
+    <configuration name="tests in ConnectionSettings_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/ConnectionSettings_test.dart" />
       <option name="useRegexp" value="false" />
+      <option name="additionalArgs" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in LoginPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
-      <option name="useRegexp" value="false" />
-      <method v="2" />
-    </configuration>
+    <list>
+      <item itemvalue="Flutter.main.dart" />
+      <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
+      <item itemvalue="Flutter Test.main.dart" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.tests in GardenInfoArguments_test.dart" />
-        <item itemvalue="Flutter Test.tests in LoginPage_test.dart" />
-        <item itemvalue="Flutter Test.buildLoginButton widget" />
-        <item itemvalue="Flutter Test.buildEmail widget" />
-        <item itemvalue="Flutter Test.tests in AddFoodPage_test.dart" />
+        <item itemvalue="Flutter.main.dart" />
+        <item itemvalue="Flutter Test.main.dart" />
+        <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -89,89 +80,6 @@
       <option name="presentableId" value="Default" />
       <updated>1680287005229</updated>
     </task>
-    <task id="LOCAL-00001" summary="Restored lost LoginPage unit tests">
-      <created>1682167593064</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1682167593064</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Some CreateAccountPage unit tests. Something is dodgy though...">
-      <created>1682173041100</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1682173041100</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Commented out a buggy test on CreateAccountPage_test.dart will restore it later.">
-      <created>1682176121877</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1682176121877</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Added const modifiers for slight improvement in performance">
-      <created>1682179001741</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1682179001741</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Added a test to AddFoodPage_test.dart to see if error message pops up if input is empty.">
-      <created>1682179558215</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1682179558215</updated>
-    </task>
-    <task id="LOCAL-00006" summary="More LoginPage tests.">
-      <created>1682181766438</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1682181766438</updated>
-    </task>
-    <task id="LOCAL-00007" summary="GardenInfoArguments_test.dart test">
-      <created>1682182227539</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1682182227539</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/login_page_unit_tests" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Restored lost LoginPage unit tests" />
-    <MESSAGE value="Some CreateAccountPage unit tests. Something is dodgy though..." />
-    <MESSAGE value="Commented out a buggy test on CreateAccountPage_test.dart will restore it later." />
-    <MESSAGE value="Added const modifiers for slight improvement in performance" />
-    <MESSAGE value="Added a test to AddFoodPage_test.dart to see if error message pops up if input is empty." />
-    <MESSAGE value="More LoginPage tests." />
-    <MESSAGE value="GardenInfoArguments_test.dart test" />
-    <option name="LAST_COMMIT_MESSAGE" value="GardenInfoArguments_test.dart test" />
   </component>
 </project>
