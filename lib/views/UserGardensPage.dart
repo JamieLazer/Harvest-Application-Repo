@@ -4,7 +4,8 @@ import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
-import 'views/WelcomePage.dart';
+import 'package:dartfactory/views/WelcomePage.dart';
+
 
 class UserGardensPage extends StatelessWidget {
   const UserGardensPage({Key? key}) : super(key: key);
@@ -148,14 +149,15 @@ class _UserGardensState extends State<UserGardensList> {
                   ),
                 ),
               ),
+        //logout button
         floatingActionButton: Positioned(
-  bottom: 20,
-  right: 20,
-  child: OutlinedButton(
-    onPressed: () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomePage()),
+             bottom: 20,
+              right: 20,
+      child: OutlinedButton(
+           onPressed: () {
+            Navigator.pushReplacement(
+             context,
+           MaterialPageRoute(builder: (context) => const WelcomePage()),
       );
     },
     style: OutlinedButton.styleFrom(
