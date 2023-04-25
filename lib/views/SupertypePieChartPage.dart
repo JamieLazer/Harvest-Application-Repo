@@ -73,17 +73,18 @@ class _SupertypePieChartState extends State<SupertypePieChart> {
 
   @override
   Widget build(BuildContext context) {
+    final rowHeight = ((MediaQuery.of(context).size.height) / 3) / _PieChartData.length;
     double sum=0;
     for(int i=0;i<_PieChartData.length;i++){
       sum+=_PieChartData[i].yield;
     }
-    return SafeArea(
-      child:
-        Padding(
-              padding: const EdgeInsets.only(top: 70, bottom: 70),
+    return Column(
+      children: [
+        Flexible(
+          flex: 5,
               child: SfCircularChart(
                 title: ChartTitle(
-                  text: 'Yield breakdown by Supertype(%)',
+                  text: 'Yield breakdown by Supertype (%)',
                   // Aligns the chart title to left
                   alignment: ChartAlignment.center,
                   textStyle: const TextStyle(
@@ -124,8 +125,27 @@ class _SupertypePieChartState extends State<SupertypePieChart> {
                   )
                 ]
               )
+        ),
+        Flexible(
+          flex: 5,
+          child: DataTable(
+            dataRowHeight: rowHeight,
+            columns: const [
+              DataColumn(label: Text('Supertype')),
+              DataColumn(label: Text('Yield (g)')),
+            ],
+            rows: List.generate(
+              _PieChartData.length, (index) => DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(_PieChartData[index].name)),
+                  DataCell(Text(_PieChartData[index].yield.toString())),
+                ],
+              )
             ),
-        );      
+          )
+        ),
+      ]
+    );      
   }
 
 }

@@ -1,11 +1,11 @@
 import 'package:dartfactory/GetPieChartData.dart';
+import 'package:dartfactory/LineData.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/GraphArguments.dart';
 import '../GetHistoricalLineGraphData.dart';
 import '../PieData.dart';
-import '../YieldData.dart';
 import '../styles.dart';
 
 class AnalyticsPage extends StatelessWidget {
@@ -110,38 +110,8 @@ class _AnalyticsState extends State<Analytics> {
                   overflowMode: LegendItemOverflowMode.wrap,
                   position: LegendPosition.bottom,
                 ),
-                series: <ChartSeries>[
-                  LineSeries<YieldData, double>(
-                    name: "Vegetable",
-                    dataSource: _LineChartData[2], 
-                    xValueMapper: (YieldData yield, _) => yield.year, 
-                    yValueMapper: (YieldData yield, _) => yield.yield,
-                    ),
-                  LineSeries<YieldData, double>(
-                    name: "Fruit",
-                    dataSource: _LineChartData[1], 
-                    xValueMapper: (YieldData yield, _) => yield.year, 
-                    yValueMapper: (YieldData yield, _) => yield.yield,
-                    ),
-                  LineSeries<YieldData, double>(
-                    name: "Herb",
-                    dataSource: _LineChartData[4], 
-                    xValueMapper: (YieldData yield, _) => yield.year, 
-                    yValueMapper: (YieldData yield, _) => yield.yield,
-                    ),
-                  LineSeries<YieldData, double>(
-                    name: "Flower",
-                    dataSource: _LineChartData[3], 
-                    xValueMapper: (YieldData yield, _) => yield.year, 
-                    yValueMapper: (YieldData yield, _) => yield.yield,
-                    ),
-                  LineSeries<YieldData, double>(
-                    name: "Total",
-                    dataSource: _LineChartData[0], 
-                    xValueMapper: (YieldData yield, _) => yield.year, 
-                    yValueMapper: (YieldData yield, _) => yield.yield,
-                  ),
-                ],
+                //This allows us to not have to specify how many lines there will be
+                series: getLineSeries(_LineChartData),
                 primaryXAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
                 primaryYAxis: NumericAxis(labelFormat: '{value}g')
               )
@@ -179,4 +149,25 @@ class _AnalyticsState extends State<Analytics> {
       ]
       );
   }
+  List<LineSeries<LineData, num>> getLineSeries(List _LineChartData) {
+    List<LineSeries<LineData, num>> lineSeries = [];
+    for (int i = 0; i < _LineChartData.length; i++) {
+      lineSeries.add(LineSeries<LineData, double>(
+        dataSource: _LineChartData[i],
+        xValueMapper: (LineData yield, _) => yield.year,
+        yValueMapper: (LineData yield, _) => yield.yield,
+        // When the pie segment is tapped, navigate to the next page
+        // onPointTap: (ChartPointDetails details){
+        //   String focus = _LineChartData[i].name;
+        //   //Create the arguments that we will pass to the next page
+        //   GraphArguments args = GraphArguments(
+        //   userID, gardenID, food, focus);
+        //   //Navigate to the pie chart page using a named route.
+        //   Navigator.pushNamed(context, '/foodPieChartPage', arguments: args);
+        // },
+        )
+      );
+    }
+    return lineSeries;
+}
 }

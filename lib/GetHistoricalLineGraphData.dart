@@ -1,14 +1,14 @@
-import 'YieldData.dart';
+import 'LineData.dart';
 
 List GetHistoricalLineGraphData(List food) {
 
     //This will store the data for the graph
     final List LineChartData = [];
-    final List<YieldData> totalData = [];
-    final List<YieldData> fruitData = [];
-    final List<YieldData> vegetableData = [];
-    final List<YieldData> flowerData = [];
-    final List<YieldData> herbData = [];
+    final List<LineData> totalData = [];
+    final List<LineData> fruitData = [];
+    final List<LineData> vegetableData = [];
+    final List<LineData> flowerData = [];
+    final List<LineData> herbData = [];
     //This will store the years
     List year = [];
     //This will store the total yield in a specific year
@@ -50,11 +50,11 @@ List GetHistoricalLineGraphData(List food) {
         }
       }
 
-      totalData.add(YieldData(year[i], totalYield));
-      fruitData.add(YieldData(year[i], fruitYield));
-      vegetableData.add(YieldData(year[i], vegetableYield));
-      flowerData.add(YieldData(year[i], flowerYield));
-      herbData.add(YieldData(year[i], herbYield));
+      vegetableData.add(LineData(year[i], vegetableYield, "Vegetable"));
+      fruitData.add(LineData(year[i], fruitYield, "Fruit"));
+      herbData.add(LineData(year[i], herbYield, "Herb"));
+      flowerData.add(LineData(year[i], flowerYield, "Flower"));
+      totalData.add(LineData(year[i], totalYield, "Total"));
 
       //Reset counts
       totalYield = 0;
@@ -64,11 +64,11 @@ List GetHistoricalLineGraphData(List food) {
       herbYield = 0;
     }
 
-    LineChartData.add(totalData);
-    LineChartData.add(fruitData);
     LineChartData.add(vegetableData);
-    LineChartData.add(flowerData);
+    LineChartData.add(fruitData);
     LineChartData.add(herbData);
+    LineChartData.add(flowerData);
+    LineChartData.add(totalData);
 
     return LineChartData;
   }

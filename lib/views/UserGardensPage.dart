@@ -151,29 +151,28 @@ class _UserGardensState extends State<UserGardensList> {
               ),
         //logout button
         floatingActionButton: Positioned(
-             bottom: 20,
-              right: 20,
-      child: OutlinedButton(
-           onPressed: () {
-            Navigator.pushReplacement(
-             context,
-           MaterialPageRoute(builder: (context) => const WelcomePage()),
-      );
-    },
-    style: OutlinedButton.styleFrom(
-      primary: Colors.white, // Text color
-      backgroundColor: Colors.white, // Button background color
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    ),
-    child: Text(
-      'Logout',
-      style: TextStyle(color: Colors.green),
-    ),
-  ),
-),
-
+          bottom: 20,
+          right: 20,
+          child: OutlinedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const WelcomePage()),
+              );
+            },
+            style: OutlinedButton.styleFrom(
+              primary: Colors.white, // Text color
+              backgroundColor: Colors.white, // Button background color
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            child: Text(
+              'Logout',
+              style: TextStyle(color: Colors.green),
+            ),
+          ),
+        ),
       ),
     );
   }

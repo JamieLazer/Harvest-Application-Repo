@@ -82,57 +82,77 @@ class _TypePieChartState extends State<TypePieChart> {
 
   @override
   Widget build(BuildContext context) {
+    final rowHeight = ((MediaQuery.of(context).size.height) / 3) / _PieChartData.length;
     double sum=0;
     for(int i=0;i<_PieChartData.length;i++){
       sum+=_PieChartData[i].yield;
     }
-    return SafeArea(
-      child:
-        Padding(
-              padding: const EdgeInsets.only(top: 70, bottom: 70),
-              child: SfCircularChart(
-                legend: Legend(
+    return Column(
+      children: [
+        Flexible(
+          flex: 5,
+          child: SfCircularChart(
+            legend: Legend(
+              isVisible: true,
+              // Overflowing legend content will be wraped
+              overflowMode: LegendItemOverflowMode.wrap,
+              position: LegendPosition.bottom,
+              alignment: ChartAlignment.center,
+            ),
+            title: ChartTitle(
+              text: 'Yield breakdown by Type (%)',
+              // Aligns the chart title to left
+              alignment: ChartAlignment.center,
+              textStyle: const TextStyle(
+                color: Colors.black,
+                decoration: TextDecoration.none,
+                fontFamily: 'AbeeZee',
+                fontWeight: FontWeight.normal,)
+            ),
+            series: <CircularSeries>[
+              // Render pie chart
+              PieSeries<PieData, String>(
+                // When the pie segment is tapped, navigate to the next page
+                onPointTap: (ChartPointDetails details){
+                  String focus = details.dataPoints![details.pointIndex!].x;
+                  //Create the arguments that we will pass to the next page
+                  GraphArguments args = GraphArguments(
+                    userID, gardenID, food, focus);
+                  //Navigate to the pie chart page using a named route.
+                  Navigator.pushNamed(context, '/subtypePieChartPage', arguments: args);
+                },
+                dataSource: _PieChartData,
+                xValueMapper: (PieData data, _) => data.name,
+                yValueMapper: (PieData data, _) => double.parse(((data.yield/sum)*100).toStringAsFixed(2)),
+                dataLabelSettings: const DataLabelSettings(
                   isVisible: true,
-                  // Overflowing legend content will be wraped
-                  overflowMode: LegendItemOverflowMode.wrap,
-                  position: LegendPosition.bottom,
-                  alignment: ChartAlignment.center,
-                ),
-                title: ChartTitle(
-                  text: 'Yield breakdown by Type(%)',
-                  // Aligns the chart title to left
-                  alignment: ChartAlignment.center,
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    decoration: TextDecoration.none,
-                    fontFamily: 'AbeeZee',
-                    fontWeight: FontWeight.normal,)
-                ),
-                series: <CircularSeries>[
-                  // Render pie chart
-                  PieSeries<PieData, String>(
-                    // When the pie segment is tapped, navigate to the next page
-                    onPointTap: (ChartPointDetails details){
-                      String focus = details.dataPoints![details.pointIndex!].x;
-                      //Create the arguments that we will pass to the next page
-                      GraphArguments args = GraphArguments(
-                        userID, gardenID, food, focus);
-                      //Navigate to the pie chart page using a named route.
-                      Navigator.pushNamed(context, '/subtypePieChartPage', arguments: args);
-                    },
-                    dataSource: _PieChartData,
-                    xValueMapper: (PieData data, _) => data.name,
-                    yValueMapper: (PieData data, _) => double.parse(((data.yield/sum)*100).toStringAsFixed(2)),
-                    dataLabelSettings: const DataLabelSettings(
-                      isVisible: true,
-                      // Positioning the data label
-                      labelPosition: ChartDataLabelPosition.inside,
-                    )
-                  )
-                ]
+                  // Positioning the data label
+                  labelPosition: ChartDataLabelPosition.inside,
+                )
+              )
+            ]
+          )
+        ),
+        Flexible(
+          flex: 5,
+          child: DataTable(
+            dataRowHeight: rowHeight,
+            columns: const [
+              DataColumn(label: Text('Type')),
+              DataColumn(label: Text('Yield (g)')),
+            ],
+            rows: List.generate(
+              _PieChartData.length, (index) => DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(_PieChartData[index].name)),
+                  DataCell(Text(_PieChartData[index].yield.toString())),
+                ],
               )
             ),
-        );      
+          )
+        ),
+      ]
+    ); 
   }
 
 }
