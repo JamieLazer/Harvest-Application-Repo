@@ -161,7 +161,6 @@ class _UserGardensState extends State<UserGardensList> {
               );
             },
             style: OutlinedButton.styleFrom(
-              primary: Colors.white, // Text color
               backgroundColor: Colors.white, // Button background color
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
