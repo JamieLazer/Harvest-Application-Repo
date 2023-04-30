@@ -92,6 +92,7 @@ class _UserGardensState extends State<UserGardensList> {
               )
             //We use ListView.Builder so that we don't have to know the number of gardens beforehand
             : ListView.builder(
+                key: Key("listBuilder"),
                 itemCount: gardens.length,
                 itemBuilder: (context, index) => Card(
                   //Design of each list item

@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Harvest-Application-Repo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/userGardensPage_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/SupertypePieChartPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/SupertypePieChartPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov.info" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,39 +36,66 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager" selected="Flutter.main.dart">
-    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+  <component name="RunManager" selected="Flutter Test.add a garden">
+    <configuration name="Check for Title" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Check for Title" />
+      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
+      <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="main.dart" type="FlutterTestConfigType" factoryName="Flutter Test" singleton="false" temporary="true">
-      <option name="testFile" value="$PROJECT_DIR$/lib/main.dart" />
+    <configuration default="true" type="FlutterTestConfigType" factoryName="Flutter Test">
+      <option name="testFile" value="" />
+      <option name="useRegexp" value="false" />
+      <option name="additionalArgs" value="--coverage" />
+      <method v="2" />
+    </configuration>
+    <configuration name="add a garden" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="add a garden" />
+      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
+      <option name="useRegexp" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="check for title" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="check for title" />
+      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
+      <option name="useRegexp" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in userGardensPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
       <option name="useRegexp" value="false" />
       <option name="additionalArgs" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in ConnectionSettings_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/ConnectionSettings_test.dart" />
-      <option name="useRegexp" value="false" />
-      <option name="additionalArgs" value="" />
+    <configuration name="title is displaced" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="title is displaced" />
+      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
+      <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Flutter.main.dart" />
-      <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
-      <item itemvalue="Flutter Test.main.dart" />
+      <item itemvalue="Flutter Test.add a garden" />
+      <item itemvalue="Flutter Test.title is displaced" />
+      <item itemvalue="Flutter Test.tests in userGardensPage_test.dart" />
+      <item itemvalue="Flutter Test.Check for Title" />
+      <item itemvalue="Flutter Test.check for title" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main.dart" />
-        <item itemvalue="Flutter Test.main.dart" />
-        <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
+        <item itemvalue="Flutter Test.add a garden" />
+        <item itemvalue="Flutter Test.tests in userGardensPage_test.dart" />
+        <item itemvalue="Flutter Test.check for title" />
+        <item itemvalue="Flutter Test.Check for Title" />
+        <item itemvalue="Flutter Test.title is displaced" />
       </list>
     </recent_temporary>
   </component>
@@ -81,5 +109,19 @@
       <updated>1680287005229</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="../../../School/2023COMS/3009(SD)/sprint3/coverage/lcov.info" NAME="tests in userGardensPage_test.dart Coverage Results" MODIFIED="1682818028992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="FlutterCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
