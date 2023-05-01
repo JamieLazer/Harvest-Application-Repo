@@ -15,7 +15,7 @@ class FoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-    ModalRoute.of(context)!.settings.arguments as GardenInfoArguments;
+        ModalRoute.of(context)!.settings.arguments as GardenInfoArguments;
     //Extract the garden's info from the arguments
     int userID = arguments.userID;
     int gardenID = arguments.gardenID;
@@ -25,7 +25,10 @@ class FoodPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //This is the title at the top of the screen
-        title: Text('Harvest', style: welcomePageText,),
+        title: Text(
+          'Harvest',
+          style: welcomePageText,
+        ),
         backgroundColor: primaryColour,
         actions: <Widget>[
           Padding(
@@ -37,15 +40,15 @@ class FoodPage extends StatelessWidget {
                   var conn = await MySqlConnection.connect(settings);
 
                   //Make a request for a list of all food items
-                  var results = await conn.query(
-                      'select * from FOOD'
-                  );
+                  var results = await conn.query('select * from FOOD');
                   //Convert the results of the database query to a list
                   List resultsList = results.toList();
                   //Create the arguments that we will pass to the next page
-                  GardenInfoArguments args = GardenInfoArguments(userID, gardenID, resultsList);
+                  GardenInfoArguments args =
+                      GardenInfoArguments(userID, gardenID, resultsList);
                   //Navigate to the add food screen using a named route.
-                  Navigator.pushNamed(context, '/searchFoodPage', arguments: args);
+                  Navigator.pushNamed(context, '/searchFoodPage',
+                      arguments: args);
                 },
                 //Specifies the design and size of the icon
                 child: const Icon(
@@ -85,62 +88,79 @@ class _FoodListState extends State<FoodList> {
   int userID = 0;
   int gardenID = 0;
   List food = [];
-  DateTime date=DateTime.now();
+  DateTime date = DateTime.now();
 
   //Constructor
   _FoodListState(int passedUserID, int passedGardenID, List passedFood) {
     this.userID = passedUserID;
     this.gardenID = passedGardenID;
     this.food = passedFood;
-
   }
 
   @override
   Widget build(BuildContext context) {
-   
-   // food.sort((a, b) => b["HARVEST_DATE"].compareTo(a["HARVEST_DATE"]));
+    // food.sort((a, b) => b["HARVEST_DATE"].compareTo(a["HARVEST_DATE"]));
 
     return Scaffold(
-      //First check if the user has any food in the garden
-      //If they don't display the message below
+        //First check if the user has any food in the garden
+        //If they don't display the message below
         body: food.isEmpty
             ? const Center(
-          child: Text("You have not added any crops yet", style: blackText,),
-        )
-        //We use ListView.Builder so that we don't have to know the number of gardens beforehand
+                child: Text(
+                  "You have not added any crops yet",
+                  style: blackText,
+                ),
+              )
+            //We use ListView.Builder so that we don't have to know the number of gardens beforehand
             : ListView.separated(
-          //reverse: true,
-          itemCount: food.length,
-          itemBuilder: (context, index) => Card(
-            //Design of each list item
-            child: ListTile(
-              //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
-              //The maximum and minimum values you can set it to are 4 and -4
-              visualDensity: VisualDensity(vertical: 4),
-              //This determines the text in the list tile
-              title: Text(food[index]["YIELD_NAME"], style: secondaryColourText,),
-              trailing: Text('${food[index]["YIELD_KG"]} g', style: secondaryColourText,),
-              subtitle: Text('This was harvested on ${food[index]["HARVEST_DATE"].toString().substring(0,11)}', style: blackText.copyWith( color: Colors.black54),),
-            )
-            ,
-          ), separatorBuilder: (BuildContext context, int index) {
-          if (food[index]["HARVEST_DATE"].toString().substring(0,11)==food[index+1]["HARVEST_DATE"].toString().substring(0,11) ) {
-            // Don't show a separator if the dates are the same
-            return SizedBox(height: 0);
-          } else {
-            // Show the date for new date grouping
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,//This puts the date into the center of the screen
-              children: [
-                SizedBox(height: 16),
-                Text(food[index]["HARVEST_DATE"].toString().substring(0,11),style: blackText.copyWith(color: Colors.black54),),
-                SizedBox(height: 8),
-              ],
-            );
-          }
-        },
-        )
-    );
+                //reverse: true,
+                itemCount: food.length,
+                itemBuilder: (context, index) => Card(
+                  //Design of each list item
+                  child: ListTile(
+                    //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
+                    //The maximum and minimum values you can set it to are 4 and -4
+                    visualDensity: VisualDensity(vertical: 4),
+                    //This determines the text in the list tile
+                    title: Text(
+                      food[index]["YIELD_NAME"],
+                      style: secondaryColourText,
+                    ),
+                    trailing: Text(
+                      '${food[index]["YIELD_KG"]} g',
+                      style: secondaryColourText,
+                    ),
+                    subtitle: Text(
+                      '${food[index]["HARVEST_DATE"].toString().substring(0, 11)}',
+                      style: blackText.copyWith(color: Colors.black54),
+                    ),
+                  ),
+                ),
+                separatorBuilder: (BuildContext context, int index) {
+                  if (food[index]["HARVEST_DATE"].toString().substring(0, 11) ==
+                      food[index + 1]["HARVEST_DATE"]
+                          .toString()
+                          .substring(0, 11)) {
+                    // Don't show a separator if the dates are the same
+                    return SizedBox(height: 0);
+                  } else {
+                    // Show the date for new date grouping
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .center, //This puts the date into the center of the screen
+                      children: [
+                        SizedBox(height: 16),
+                        Text(
+                          food[index]["HARVEST_DATE"]
+                              .toString()
+                              .substring(0, 11),
+                          style: blackText.copyWith(color: Colors.black54),
+                        ),
+                        SizedBox(height: 8),
+                      ],
+                    );
+                  }
+                },
+              ));
   }
 }
-
