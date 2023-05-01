@@ -7,6 +7,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: Key("container"),
       decoration: const BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/images/welcome.gif"),

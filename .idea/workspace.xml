@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test/userGardensPage_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/welcome_page_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/lcov.info" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/WelcomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/WelcomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/AddFoodPage_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/AddFoodPage_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/userGardensPage_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/userGardensPage_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,11 +45,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager" selected="Flutter Test.add a garden">
-    <configuration name="Check for Title" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Check for Title" />
-      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
-      <option name="useRegexp" value="true" />
+  <component name="RunManager" selected="Flutter Test.animation (1)">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="FlutterTestConfigType" factoryName="Flutter Test">
@@ -58,44 +56,50 @@
       <option name="additionalArgs" value="--coverage" />
       <method v="2" />
     </configuration>
-    <configuration name="add a garden" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="add a garden" />
+    <configuration name="animation (1)" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="animation" />
+      <option name="testFile" value="$PROJECT_DIR$/test/welcome_page_test.dart" />
+      <option name="useRegexp" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="animation" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="animation" />
+      <option name="testFile" value="$PROJECT_DIR$/test/animation_test.dart" />
+      <option name="useRegexp" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="check if list of gardens show" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="check if list of gardens show" />
       <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="check for title" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="check for title" />
+    <configuration name="check if navigation to add garden works" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="check if navigation to add garden works" />
       <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in userGardensPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
+    <configuration name="tests in animation_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/animation_test.dart" />
       <option name="useRegexp" value="false" />
-      <option name="additionalArgs" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="title is displaced" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="title is displaced" />
-      <option name="testFile" value="$PROJECT_DIR$/test/userGardensPage_test.dart" />
-      <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Flutter Test.add a garden" />
-      <item itemvalue="Flutter Test.title is displaced" />
-      <item itemvalue="Flutter Test.tests in userGardensPage_test.dart" />
-      <item itemvalue="Flutter Test.Check for Title" />
-      <item itemvalue="Flutter Test.check for title" />
+      <item itemvalue="Flutter.main.dart" />
+      <item itemvalue="Flutter Test.check if list of gardens show" />
+      <item itemvalue="Flutter Test.check if navigation to add garden works" />
+      <item itemvalue="Flutter Test.animation" />
+      <item itemvalue="Flutter Test.tests in animation_test.dart" />
+      <item itemvalue="Flutter Test.animation (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.add a garden" />
-        <item itemvalue="Flutter Test.tests in userGardensPage_test.dart" />
-        <item itemvalue="Flutter Test.check for title" />
-        <item itemvalue="Flutter Test.Check for Title" />
-        <item itemvalue="Flutter Test.title is displaced" />
+        <item itemvalue="Flutter Test.animation (1)" />
+        <item itemvalue="Flutter Test.animation" />
+        <item itemvalue="Flutter Test.tests in animation_test.dart" />
+        <item itemvalue="Flutter Test.check if navigation to add garden works" />
+        <item itemvalue="Flutter Test.check if list of gardens show" />
       </list>
     </recent_temporary>
   </component>

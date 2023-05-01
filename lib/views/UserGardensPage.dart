@@ -26,10 +26,12 @@ class UserGardensPage extends StatelessWidget {
         title: const Text('My Gardens',
           style: welcomePageText
           ),
+        key: Key("myGardenskey"),
         backgroundColor: primaryColour,
         automaticallyImplyLeading: false, //remove back
         actions: <Widget>[
           IconButton(
+            key: Key("addGardenIcon"),
             icon: const Icon(Icons.add),
                 onPressed: () async {
                   //What happens when the + is tapped
@@ -151,28 +153,24 @@ class _UserGardensState extends State<UserGardensList> {
                 ),
               ),
         //logout button
-        floatingActionButton: Positioned(
-          bottom: 20,
-          right: 20,
-          child: OutlinedButton(
+          floatingActionButton: FloatingActionButton(
             onPressed: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const WelcomePage()),
               );
             },
-            style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.white, // Button background color
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
             ),
             child: Text(
               'Logout',
               style: TextStyle(color: Colors.green),
             ),
           ),
-        ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }

@@ -1,11 +1,11 @@
+
 import 'package:dartfactory/views/UserGardensPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 Future<void> main() async {
-  testWidgets("add a garden", (WidgetTester tester) async {
-
+  testWidgets("no gardens", (WidgetTester tester) async {
     //Here I pumped the widget directly without having a variable, see navigation test below
     await tester.pumpWidget(
         MaterialApp(
@@ -21,29 +21,22 @@ Future<void> main() async {
     expect(textWidget, findsOneWidget);
     expect(tester.widget<Text>(textWidget).data, "You have not added any gardens yet");
   });
-}
-
-Future<void>main2()async {
-
- /* late MockUserGardens mockUserGardens;
-  setUp(() {
-    mockUserGardens=MockUserGardens();
-  });*/
-
-  testWidgets("", (WidgetTester tester) async{
-    await tester.pumpWidget(UserGardensPage());
-    expect(find.text("My Gardens"), findsOneWidget);
+  testWidgets("check if list of gardens show", (WidgetTester tester) async{
+    const listkey=Key("listBuilder");
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        key:listkey,
+        body: UserGardensList(2,[]),
+      ),
+    ));
+    expect(find.byKey(listkey), findsOneWidget);
   });
-  testWidgets("", (WidgetTester tester) async {
-    await tester.pumpWidget(UserGardensPage());
-    expect(find.byType(ListView() as Type), findsOneWidget);
-  });
+
+
+
+
 }
 
-class MockUserGardens extends Mock implements UserGardensPage {
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
-    // Implementation of the toString method
-    return "MockMyClass";
-  }
-}
+
+
+
