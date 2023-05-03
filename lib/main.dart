@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'views/SubtypePieChartPage.dart';
 import 'views/TypePieChartPage.dart';
 import 'views/WelcomePage.dart';
+import 'views/ProfilePage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/createAccount': (context) => const CreateAccountPage(),
         '/userGardens': (context) => const UserGardensPage(),
+        '/profile': (context) => const ProfilePage(),
         '/addGarden': (context) => const AddGardenPage(),
         '/loginPage': (context) => const LoginPage(),
         '/searchFoodPage': (context) => const SearchFoodPage(),

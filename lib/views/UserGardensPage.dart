@@ -1,11 +1,68 @@
 import 'package:dartfactory/ConnectionSettings.dart';
 import 'package:dartfactory/styles.dart';
+import 'package:dartfactory/views/ProfilePage.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/views/WelcomePage.dart';
+// import 'package:side_menu_controller/side_menu_controller.dart';
 
+class SideMenu extends StatelessWidget {
+  const SideMenu({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: primaryColour,
+            ),
+            child: Text('Name Surname'),
+          ),
+          ListTile(
+            title: const Text('Gardens'),
+            onTap: () {
+              // Close the drawer
+              Navigator.pop(context);
+
+            },
+          ),
+          ListTile(
+            title: const Text('Profile'),
+            onTap: () {
+              // Close the drawer
+              Navigator.pop(context);
+
+              // To the Profile Page
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+              
+            },
+          ),
+          ListTile(
+            title: const Text('Log Out'),
+            onTap: () {
+              // Close the drawer
+              Navigator.pop(context);
+
+              // Back to Welcome
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const WelcomePage()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class UserGardensPage extends StatelessWidget {
   const UserGardensPage({Key? key}) : super(key: key);
@@ -28,6 +85,16 @@ class UserGardensPage extends StatelessWidget {
           ),
         backgroundColor: primaryColour,
         automaticallyImplyLeading: false, //remove back
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
@@ -43,7 +110,14 @@ class UserGardensPage extends StatelessWidget {
       ),
       //The body is filled with the UserGardensList class below
       //gardens has been passed to the UserGardenList to ensure we can use this variable in that widget
-      body: UserGardensList(userID, gardens),
+      body: Column(
+        children: [
+          Expanded(
+            child: UserGardensList(userID, gardens),
+          ),
+        ],
+      ),
+      drawer: const SideMenu(),
     );
   }
 }
@@ -149,29 +223,6 @@ class _UserGardensState extends State<UserGardensList> {
                   ),
                 ),
               ),
-        //logout button
-        floatingActionButton: Positioned(
-          bottom: 20,
-          right: 20,
-          child: OutlinedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const WelcomePage()),
-              );
-            },
-            style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.white, // Button background color
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-            ),
-            child: Text(
-              'Logout',
-              style: TextStyle(color: Colors.green),
-            ),
-          ),
-        ),
       ),
     );
   }
