@@ -2,6 +2,7 @@ import 'package:dartfactory/views/CreateAccountPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:dartfactory/views/LoginPage.dart';
 
 void main() {
   testWidgets('Create Account Form Test', (WidgetTester tester) async {
@@ -89,6 +90,20 @@ void main() {
   test('Valid Password Validation Test', () {
     final result = validatePassword('test123');
     expect(result, null);
+  });
+  
+  testWidgets('Clicking Login In Here navigates to LoginPage',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: CreateAccountPage(),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Log In Here'));
+    await tester.pumpAndSettle();
+    expect(find.byType(LoginPage), findsOneWidget);
   });
 }
 

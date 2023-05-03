@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:dartfactory/views/CreateAccountPage.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
@@ -134,5 +135,18 @@ void main() {
       // check if the login button is present
       expect(find.text('log in'), findsOneWidget);
     });
+  });
+  testWidgets('Clicking Sign Up Here navigates to CreateAccountPage',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: LoginPage(),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Sign Up Here'));
+    await tester.pumpAndSettle();
+    expect(find.byType(CreateAccountPage), findsOneWidget);
   });
 }
