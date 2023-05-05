@@ -1,3 +1,5 @@
+
+
 import 'package:dartfactory/Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/main.dart';
 import 'package:dartfactory/views/FoodPage.dart';
@@ -8,32 +10,33 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   testWidgets("no gardens", (WidgetTester tester) async {
-    //Here I pumped the widget directly without having a variable, see navigation test below
-    await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Text(
-              "You have not added any gardens yet",
-              key: Key("noGarden text"),
-            ),
-          ),
-        )
-    );
-    final textWidget = find.byKey(Key("noGarden text"));
-    expect(textWidget, findsOneWidget);
-    expect(tester
-        .widget<Text>(textWidget)
-        .data, "You have not added any gardens yet");
-  });
-  testWidgets("check if list of gardens show", (WidgetTester tester) async {
-    const listkey = Key("listBuilder");
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        key: listkey,
-        body: UserGardensList(2, []),
-      ),
+    //The test takes UsergardensPage as home, so I had to supply static values for
+    //UserInfoArguments
+    await tester.pumpWidget(const MaterialApp(
+        home: UserGardensPage(),
     ));
-    expect(find.byKey(listkey), findsOneWidget);
+      // Verify that the icon button is present in the app bar
+
+      expect(find.text("You have not added any gardens yet"),findsOneWidget);
+    });
+  testWidgets("Check if title shows as it should", (WidgetTester tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: UserGardensPage(),
+    ));
+    expect(find.text("My Gardens"), findsOneWidget);
+  });
+  testWidgets("Check if drawer button shows as it should", (WidgetTester tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: UserGardensPage(),
+    ));
+    expect(find.byKey(Key("drawerButton")), findsOneWidget);
+  });
+  testWidgets("Check if add button shows as it should", (WidgetTester tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: UserGardensPage(),
+    ));
+    expect(find.byKey(Key("addIconKey")), findsOneWidget);
   });
 
+    
 }
