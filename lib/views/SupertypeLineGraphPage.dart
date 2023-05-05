@@ -3,11 +3,11 @@ import 'package:dartfactory/LineData.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../Arguments/GraphArguments.dart';
-import '../GetHistoricalLineGraphData.dart';
+import '../GetLineGraphData.dart';
 import '../styles.dart';
 
-class HistoricalLineGraphPage extends StatelessWidget {
-  const HistoricalLineGraphPage({super.key});
+class SupertypeLineGraphPage extends StatelessWidget {
+  const SupertypeLineGraphPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,40 +28,39 @@ class HistoricalLineGraphPage extends StatelessWidget {
       ),
       //The body is filled with the foodList class below
       //gardens has been passed to the UserGardenList to ensure we can use this variable in that widget
-      body: HistoricalLineGraph(userID, gardenID, food),
+      body: SupertypeLineGraph(userID, gardenID, food),
     );
   }
 }
 
-class HistoricalLineGraph extends StatefulWidget {
+class SupertypeLineGraph extends StatefulWidget {
   //We have to initialise the variable
     int userID = 0;
     int gardenID = 0;
     List food = [];
 
   //Constructor
-  HistoricalLineGraph(int passedUserID, int passedGardenID, List passedFood, {super.key}) {
+  SupertypeLineGraph(int passedUserID, int passedGardenID, List passedFood, {super.key}) {
     userID = passedUserID;
     gardenID = passedGardenID;
     food = passedFood;
   }
 
   @override
-  State<HistoricalLineGraph> createState() => _HistoricalLineGraphState(userID, gardenID, food);
+  State<SupertypeLineGraph> createState() => _SupertypeLineGraphState(userID, gardenID, food);
 }
 
 //This class holds data related to the list
-class _HistoricalLineGraphState extends State<HistoricalLineGraph> {
+class _SupertypeLineGraphState extends State<SupertypeLineGraph> {
   //We have to initialise the variable
   int userID = 0;
   int gardenID = 0;
   List food = [];
   List _LineChartData = [];
   TooltipBehavior _tooltipBehavior = TooltipBehavior();
-  SelectionBehavior _selectionBehavior = SelectionBehavior();
 
   //Constructor
-  _HistoricalLineGraphState(int passedUserID, int passedGardenID, List passedFood) {
+  _SupertypeLineGraphState(int passedUserID, int passedGardenID, List passedFood) {
     userID = passedUserID;
     gardenID = passedGardenID;
     food = passedFood;
@@ -69,18 +68,15 @@ class _HistoricalLineGraphState extends State<HistoricalLineGraph> {
 
   @override
   void initState(){
-    _LineChartData = GetHistoricalLineGraphData(food);
+    _LineChartData = GetLineGraphData(food, "SUPERTYPE");
     //This enables tooltips in the chart widget
     _tooltipBehavior = TooltipBehavior(enable: true);
-    // Enables the selection
-    _selectionBehavior = SelectionBehavior(enable: true);
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var LegendOverflowMode;
     return SafeArea(
       child:
         Scaffold(
@@ -88,7 +84,7 @@ class _HistoricalLineGraphState extends State<HistoricalLineGraph> {
             Scaffold(
               body: SfCartesianChart(
                 title: ChartTitle(
-                  text: "Historical Yield Analysis", 
+                  text: "Yield breakdown by Supertype", 
                   textStyle: const TextStyle(
                     color: Colors.black,
                     decoration: TextDecoration.none,
@@ -114,11 +110,9 @@ class _HistoricalLineGraphState extends State<HistoricalLineGraph> {
   }
   void updateChart(){
     setState(() {
-    _LineChartData = GetHistoricalLineGraphData(food);
+    _LineChartData = GetLineGraphData(food, "SUPERTYPE");
     //This enables tooltips in the chart widget
     _tooltipBehavior = TooltipBehavior(enable: true);
-    // Enables the selection
-    _selectionBehavior = SelectionBehavior(enable: true);
     });
   }
 
@@ -130,19 +124,19 @@ class _HistoricalLineGraphState extends State<HistoricalLineGraph> {
         dataSource: _LineChartData[i],
         xValueMapper: (LineData yield, _) => yield.year,
         yValueMapper: (LineData yield, _) => yield.yield,
-        // When the pie segment is tapped, navigate to the next page
-        // onPointTap: (ChartPointDetails details){
-        //   String focus = _LineChartData[i].name;
-        //   //Create the arguments that we will pass to the next page
-        //   GraphArguments args = GraphArguments(
-        //   userID, gardenID, food, focus);
-        //   //Navigate to the pie chart page using a named route.
-        //   Navigator.pushNamed(context, '/foodPieChartPage', arguments: args);
-        // },
+        // When the line is tapped, navigate to the next page
+        onPointTap: (ChartPointDetails details){
+          String focus = _LineChartData[i][0].name;
+          //Create the arguments that we will pass to the next page
+          GraphArguments args = GraphArguments(
+          userID, gardenID, food, focus);
+          //Navigate to the pie chart page using a named route.
+          Navigator.pushNamed(context, '/typeLineGraphPage', arguments: args);
+        },
         )
       );
     }
     return lineSeries;
-}
+  }
 
 }
