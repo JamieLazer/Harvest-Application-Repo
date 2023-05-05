@@ -31,7 +31,7 @@ Future<void> main() async {
     ));
     expect(find.byKey(Key("drawerButton")), findsOneWidget);
   });
-  testWidgets("Check if add button shows as it should", (WidgetTester tester) async{
+  testWidgets("Check if add icon shows as it should", (WidgetTester tester) async{
     await tester.pumpWidget(const MaterialApp(
       home: UserGardensPage(),
     ));
