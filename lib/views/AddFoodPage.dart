@@ -145,7 +145,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
 
                         //Request the updated food list for this garden from the database
                         var updatedFood = await conn.query(
-                            'select * from YIELD where LOG_ID = ?ORDER BY HARVEST_DATE DESC', [gardenID]);
+                            'select * from YIELD where LOG_ID = ? ORDER BY HARVEST_DATE DESC', [gardenID]);
                         //Convert the results of the database query to a list
                         List updatedFoodList = updatedFood.toList();
 

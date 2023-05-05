@@ -100,7 +100,7 @@ class _FoodPieChartState extends State<FoodPieChart> {
               alignment: ChartAlignment.center,
             ),
             title: ChartTitle(
-              text: 'Food breakdown (%)',
+              text: 'Food Breakdown (%)',
               // Aligns the chart title to left
               alignment: ChartAlignment.center,
               textStyle: const TextStyle(

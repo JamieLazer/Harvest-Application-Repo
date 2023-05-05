@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/GraphArguments.dart';
-import '../GetHistoricalLineGraphData.dart';
+import '../GetLineGraphData.dart';
 import '../PieData.dart';
 import '../styles.dart';
 
@@ -58,10 +58,9 @@ class _AnalyticsState extends State<Analytics> {
   int userID = 0;
   int gardenID = 0;
   List food = [];
-  List _LineChartData = [];
+  List<List<LineData>> _LineChartData = [];
   List<PieData> _PieChartData = [];
   TooltipBehavior _tooltipBehavior = TooltipBehavior();
-  SelectionBehavior _selectionBehavior = SelectionBehavior();
 
   //Constructor
   _AnalyticsState(int passedUserID, int passedGardenID, List passedFood) {
@@ -72,13 +71,12 @@ class _AnalyticsState extends State<Analytics> {
 
   @override
   void initState(){
-    _LineChartData = GetHistoricalLineGraphData(food);
+    _LineChartData = GetLineGraphData(food, "SUPERTYPE");
     _PieChartData = GetPieChartData(food, "SUPERTYPE");
 
     //This enables tooltips in the chart widget
     _tooltipBehavior = TooltipBehavior(enable: true);
     // Enables the selection
-    _selectionBehavior = SelectionBehavior(enable: true);
     super.initState();
   }
 
@@ -101,7 +99,7 @@ class _AnalyticsState extends State<Analytics> {
                   GraphArguments args = GraphArguments(
                     userID, gardenID, food);
                     //Navigate to the pie chart page using a named route.
-                    Navigator.pushNamed(context, '/historicalLineGraphPage', arguments: args);
+                    Navigator.pushNamed(context, '/supertypeLineGraphPage', arguments: args);
                 },
                 tooltipBehavior: _tooltipBehavior, 
                 legend: Legend(
@@ -156,15 +154,6 @@ class _AnalyticsState extends State<Analytics> {
         dataSource: _LineChartData[i],
         xValueMapper: (LineData yield, _) => yield.year,
         yValueMapper: (LineData yield, _) => yield.yield,
-        // When the pie segment is tapped, navigate to the next page
-        // onPointTap: (ChartPointDetails details){
-        //   String focus = _LineChartData[i].name;
-        //   //Create the arguments that we will pass to the next page
-        //   GraphArguments args = GraphArguments(
-        //   userID, gardenID, food, focus);
-        //   //Navigate to the pie chart page using a named route.
-        //   Navigator.pushNamed(context, '/foodPieChartPage', arguments: args);
-        // },
         )
       );
     }
