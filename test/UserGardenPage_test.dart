@@ -25,7 +25,7 @@ Future<void> main() async {
         .widget<Text>(textWidget)
         .data, "You have not added any gardens yet");
   });
-  testWidgets("check if list of gardens show", (WidgetTester tester) async {
+  testWidgets("check if list of gardens show ", (WidgetTester tester) async {
     const listkey = Key("listBuilder");
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
