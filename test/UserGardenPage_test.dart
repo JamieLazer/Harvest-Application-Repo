@@ -1,6 +1,6 @@
 
 
-import 'package:dartfactory/Arguments/UserInfoArguments.dart';
+/*import 'package:dartfactory/Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/main.dart';
 import 'package:dartfactory/views/FoodPage.dart';
 import 'package:dartfactory/views/LoginPage.dart';
@@ -39,4 +39,4 @@ Future<void> main() async {
   });
 
     
-}
+}*/
