@@ -1,6 +1,5 @@
 import 'package:dartfactory/ConnectionSettings.dart';
 import 'package:dartfactory/styles.dart';
-import 'package:dartfactory/views/ProfilePage.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
@@ -13,53 +12,102 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: primaryColour,
-            ),
-            child: Text('Name Surname'),
-          ),
-          ListTile(
-            title: const Text('Gardens'),
-            onTap: () {
-              // Close the drawer
-              Navigator.pop(context);
+    //Extract the arguments passed to this page as a UserInfoArguments
+    final arguments =
+    ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
+    //Extract the user's ID and gardens from the arguments
+    int userID = arguments.userID;
+    List userNames = [];
 
-            },
-          ),
-          ListTile(
-            title: const Text('Profile'),
-            onTap: () {
-              // Close the drawer
-              Navigator.pop(context);
+    return FutureBuilder(
+      future: MySqlConnection.connect(settings).then((conn) => conn.query(
+          'select user_fname, user_lname from USERS where user_id = ?;',
+          [userID])),
+      builder: (context, AsyncSnapshot<Results> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            // Show error message
+            return const Center(child: Text('An error occurred.'));
+          } else {
+            //Convert the results of the database query to a list
+            userNames = snapshot.data!.toList();
+            return Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: primaryColour,
+                    ),
+                    child: Column(
+                      children: [
+                        const CircleAvatar(
+                          radius: 50,
+                          child: Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "${userNames[0]["user_fname"]} ${userNames[0]["user_lname"]}",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
-              // To the Profile Page
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-              
-            },
-          ),
-          ListTile(
-            title: const Text('Log Out'),
-            onTap: () {
-              // Close the drawer
-              Navigator.pop(context);
+                  ListTile(
+                    title: const Text('Change Password'),
+                    onTap: () {
+                      // Close the drawer
+                      Navigator.pop(context);
 
-              // Back to Welcome
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const WelcomePage()),
-              );
-            },
-          ),
-        ],
-      ),
+                      // Navigate to the change password page
+                      Navigator.pushNamed(context, '/changePassword');
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Garden Collaboration Requests'),
+                    onTap: () {
+                      // Close the drawer
+                      Navigator.pop(context);
+
+                      // Navigate to the collaboration requests page
+                      Navigator.pushNamed(
+                          context, '/collaborationRequests');
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Log Out'),
+                    onTap: () {
+                      // Close the drawer
+                      Navigator.pop(context);
+
+                      // Back to Welcome
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomePage()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          }
+        } else {
+          // Show loading spinner
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }
@@ -69,8 +117,8 @@ class UserGardensPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Extract the arguments passed to this page as a UserInfoArguments
-    final arguments =
+      //Extract the arguments passed to this page as a UserInfoArguments
+      final arguments =
         ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
     //Extract the user's ID and gardens from the arguments
     List gardens = arguments.gardens;

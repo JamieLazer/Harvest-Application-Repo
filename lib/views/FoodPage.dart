@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:dartfactory/styles.dart';
-//import 'package:grouped_list/grouped_list.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 
@@ -25,11 +22,11 @@ class FoodPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //This is the title at the top of the screen
-        title: Text('Harvest', style: welcomePageText,),
+        title: const Text('Harvest', style: welcomePageText,),
         backgroundColor: primaryColour,
         actions: <Widget>[
           Padding(
-              padding: EdgeInsets.only(right: 16.0),
+              padding: const EdgeInsets.only(right: 16.0),
               //This adds the + icon on the top right of the appbar
               child: GestureDetector(
                 //What happens when the + is tapped
@@ -70,9 +67,9 @@ class FoodList extends StatefulWidget {
 
   //Constructor
   FoodList(int passedUserID, int passedGardenID, List passedFood, {super.key}) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.food = passedFood;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    food = passedFood;
   }
 
   @override
@@ -89,57 +86,62 @@ class _FoodListState extends State<FoodList> {
 
   //Constructor
   _FoodListState(int passedUserID, int passedGardenID, List passedFood) {
-    this.userID = passedUserID;
-    this.gardenID = passedGardenID;
-    this.food = passedFood;
+    userID = passedUserID;
+    gardenID = passedGardenID;
+    food = passedFood;
 
   }
 
   @override
   Widget build(BuildContext context) {
-   
-   // food.sort((a, b) => b["HARVEST_DATE"].compareTo(a["HARVEST_DATE"]));
+
+    // food.sort((a, b) => b["HARVEST_DATE"].compareTo(a["HARVEST_DATE"]));
 
     return Scaffold(
       //First check if the user has any food in the garden
       //If they don't display the message below
-        body: food.isEmpty
-            ? const Center(
-          child: Text("You have not added any crops yet", style: blackText,),
-        )
-        //We use ListView.Builder so that we don't have to know the number of gardens beforehand
-            : ListView.separated(
-          //reverse: true,
-          itemCount: food.length,
-          itemBuilder: (context, index) => Card(
-            //Design of each list item
-            child: ListTile(
-              //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
-              //The maximum and minimum values you can set it to are 4 and -4
-              visualDensity: VisualDensity(vertical: 4),
-              //This determines the text in the list tile
-              title: Text(food[index]["YIELD_NAME"], style: secondaryColourText,),
-              trailing: Text('${food[index]["YIELD_KG"]} g', style: secondaryColourText,),
-              subtitle: Text('This was harvested on ${food[index]["HARVEST_DATE"].toString().substring(0,11)}', style: blackText.copyWith( color: Colors.black54),),
-            )
-            ,
-          ), separatorBuilder: (BuildContext context, int index) {
-          if (food[index]["HARVEST_DATE"].toString().substring(0,11)==food[index+1]["HARVEST_DATE"].toString().substring(0,11) ) {
-            // Don't show a separator if the dates are the same
-            return SizedBox(height: 0);
-          } else {
-            // Show the date for new date grouping
+      body: food.isEmpty
+          ? const Center(
+        child: Text(
+          "You have not added any crops yet",
+          style: blackText,
+        ),
+      )
+      //We use ListView.Builder so that we don't have to know the number of gardens beforehand
+          : ListView.builder(
+        itemCount: food.length,
+        itemBuilder: (context, index) {
+          if (index == 0 || food[index]["HARVEST_DATE"].toString().substring(0, 11) !=
+              food[index - 1]["HARVEST_DATE"].toString().substring(0, 11)) {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,//This puts the date into the center of the screen
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 16),
-                Text(food[index]["HARVEST_DATE"].toString().substring(0,11),style: blackText.copyWith(color: Colors.black54),),
-                SizedBox(height: 8),
+                const SizedBox(height: 16),
+                Text(
+                  food[index]["HARVEST_DATE"].toString().substring(0, 11),
+                  style: blackText.copyWith(color: Colors.black54),
+                ),
+                const SizedBox(height: 8),
+                Card(
+                  child: ListTile(
+                    visualDensity: const VisualDensity(vertical: 4),
+                    title: Text(food[index]["YIELD_NAME"], style: secondaryColourText,),
+                    trailing: Text('${food[index]["YIELD_KG"]} g', style: secondaryColourText,),
+                  ),
+                ),
               ],
+            );
+          } else {
+            return Card(
+              child: ListTile(
+                visualDensity: const VisualDensity(vertical: 4),
+                title: Text(food[index]["YIELD_NAME"], style: secondaryColourText,),
+                trailing: Text('${food[index]["YIELD_KG"]} g', style: secondaryColourText,),
+              ),
             );
           }
         },
-        )
+      ),
     );
   }
 }
