@@ -65,15 +65,13 @@ class SideMenu extends StatelessWidget {
                   ),
 
                   ListTile(
-                    title: const Text('Change Password'),
+                    title: const Text('Profile'),
                     onTap: () {
-                      // Close the drawer
                       Navigator.pop(context);
-
-                      // Navigate to the change password page
-                      Navigator.pushNamed(context, '/changePassword');
+                      Navigator.pushNamed(context, '/profile', arguments: userID);
                     },
                   ),
+
                   ListTile(
                     title: const Text('Garden Collaboration Requests'),
                     onTap: () {
@@ -117,9 +115,9 @@ class UserGardensPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      //Extract the arguments passed to this page as a UserInfoArguments
-      final arguments =
-        ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
+    //Extract the arguments passed to this page as a UserInfoArguments
+    final arguments =
+    ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
     //Extract the user's ID and gardens from the arguments
     List gardens = arguments.gardens;
     int userID = arguments.userID;
@@ -129,8 +127,8 @@ class UserGardensPage extends StatelessWidget {
       appBar: AppBar(
         //This is the title at the top of the screen
         title: const Text('My Gardens',
-          style: welcomePageText
-          ),
+            style: welcomePageText
+        ),
         backgroundColor: primaryColour,
         automaticallyImplyLeading: false, //remove back
         leading: Builder(
@@ -146,14 +144,14 @@ class UserGardensPage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
-                onPressed: () async {
-                  //What happens when the + is tapped
-                  //Create the arguments that we will pass to the next page
-                  UserInfoArguments args = UserInfoArguments(arguments.userID, arguments.gardens);
-                  //Navigate to the add garden screen using a named route.
-                  Navigator.pushNamed(context, '/addGarden', arguments: args);
-                },
-            ),
+            onPressed: () async {
+              //What happens when the + is tapped
+              //Create the arguments that we will pass to the next page
+              UserInfoArguments args = UserInfoArguments(arguments.userID, arguments.gardens);
+              //Navigate to the add garden screen using a named route.
+              Navigator.pushNamed(context, '/addGarden', arguments: args);
+            },
+          ),
         ],
       ),
       //The body is filled with the UserGardensList class below
@@ -207,70 +205,70 @@ class _UserGardensState extends State<UserGardensList> {
         backgroundColor: Colors.white10,
         body: gardens.isEmpty
             ? const Center(
-                child: Text(
-                  "You have not added any gardens yet",
-                  style: blackText,
-                ),
-              )
-            //We use ListView.Builder so that we don't have to know the number of gardens beforehand
+          child: Text(
+            "You have not added any gardens yet",
+            style: blackText,
+          ),
+        )
+        //We use ListView.Builder so that we don't have to know the number of gardens beforehand
             : ListView.builder(
-                itemCount: gardens.length,
-                itemBuilder: (context, index) => Card(
-                  //Design of each list item
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-                  // elevation: 0.01,
-                  color: tertiaryColour.withOpacity(0.5),
-                  child: ListTile(
-                    //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
-                    //The maximum and minimum values you can set it to are 4 and -4
-                    visualDensity: const VisualDensity(vertical: 4),
-                    tileColor: Colors.transparent,
-                    //This determines the text in the list tile
-                    title: Text(
-                      gardens[index]["LOG_NAME"],
-                      style: blackText.copyWith(color: secondaryColour),
-                    ),
-                    trailing: IconButton(
-                      color: secondaryColour, 
-                      icon: const Icon(Icons.arrow_forward_ios_rounded), 
-                      onPressed: () async {
-                        var conn = await MySqlConnection.connect(settings);
-                        //Make a request for the food in this garden
-                        var results = await conn.query(
-                            'select * from YIELD where LOG_ID = ? ORDER BY HARVEST_DATE DESC',
-                          [gardens[index]["LOG_ID"]]);
-                        //Convert the results of the database query to a list
-                        List foodList = results.toList();
-                        //Create the arguments that we will pass to the next page
-                        GardenInfoArguments args = GardenInfoArguments(
-                          userID, gardens[index]["LOG_ID"], foodList);
-                        //Navigate to the add garden screen using a named route.
-                        Navigator.pushNamed(context, '/foodPage', arguments: args);
-                      },
-                    ),
-                    leading: IconButton(
-                      color: secondaryColour, 
-                      icon: const Icon(Icons.analytics_outlined), 
-                      onPressed: () async {
-                        var conn = await MySqlConnection.connect(settings);
-                        //Make a request for the food in this garden
-                        var results = await conn.query(
-                          'select * from YIELD where LOG_ID = ? order by HARVEST_DATE ASC',
-                          [gardens[index]["LOG_ID"]]);
-                        //Convert the results of the database query to a list
-                        List foodList = results.toList();
-                        //Create the arguments that we will pass to the next page
-                        GardenInfoArguments args = GardenInfoArguments(
-                          userID, gardens[index]["LOG_ID"], foodList);
-                        //Navigate to the add garden screen using a named route.
-                        Navigator.pushNamed(context, '/analyticsPage', arguments: args);
-                      },
-                    ),
-                  ),
-                ),
+          itemCount: gardens.length,
+          itemBuilder: (context, index) => Card(
+            //Design of each list item
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(7.0),
+            ),
+            // elevation: 0.01,
+            color: tertiaryColour.withOpacity(0.5),
+            child: ListTile(
+              //Setting the visualDensity to a positive number will increase the ListTile height, whereas a negative number will decrease the height
+              //The maximum and minimum values you can set it to are 4 and -4
+              visualDensity: const VisualDensity(vertical: 4),
+              tileColor: Colors.transparent,
+              //This determines the text in the list tile
+              title: Text(
+                gardens[index]["LOG_NAME"],
+                style: blackText.copyWith(color: secondaryColour),
               ),
+              trailing: IconButton(
+                color: secondaryColour,
+                icon: const Icon(Icons.arrow_forward_ios_rounded),
+                onPressed: () async {
+                  var conn = await MySqlConnection.connect(settings);
+                  //Make a request for the food in this garden
+                  var results = await conn.query(
+                      'select * from YIELD where LOG_ID = ? ORDER BY HARVEST_DATE DESC',
+                      [gardens[index]["LOG_ID"]]);
+                  //Convert the results of the database query to a list
+                  List foodList = results.toList();
+                  //Create the arguments that we will pass to the next page
+                  GardenInfoArguments args = GardenInfoArguments(
+                      userID, gardens[index]["LOG_ID"], foodList);
+                  //Navigate to the add garden screen using a named route.
+                  Navigator.pushNamed(context, '/foodPage', arguments: args);
+                },
+              ),
+              leading: IconButton(
+                color: secondaryColour,
+                icon: const Icon(Icons.analytics_outlined),
+                onPressed: () async {
+                  var conn = await MySqlConnection.connect(settings);
+                  //Make a request for the food in this garden
+                  var results = await conn.query(
+                      'select * from YIELD where LOG_ID = ? order by HARVEST_DATE ASC',
+                      [gardens[index]["LOG_ID"]]);
+                  //Convert the results of the database query to a list
+                  List foodList = results.toList();
+                  //Create the arguments that we will pass to the next page
+                  GardenInfoArguments args = GardenInfoArguments(
+                      userID, gardens[index]["LOG_ID"], foodList);
+                  //Navigate to the add garden screen using a named route.
+                  Navigator.pushNamed(context, '/analyticsPage', arguments: args);
+                },
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
