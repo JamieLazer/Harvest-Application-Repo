@@ -1,3 +1,4 @@
+import 'package:dartfactory/Arguments/DetailsArguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
@@ -176,8 +177,7 @@ Widget buildLoginButton(
 
             //Create the arguments that we will pass to the next page
             //The arguments we pass to a new page can be any object
-            UserInfoArguments args =
-            UserInfoArguments(resultsList[0], gardenResultsList);
+            DetailsArguments args=DetailsArguments(resultsList[0], gardenResultsList, resultsList[1], resultsList[2]);
             Navigator.pushNamed(context, '/userGardens', arguments: args);
           } else {
             showDialog(

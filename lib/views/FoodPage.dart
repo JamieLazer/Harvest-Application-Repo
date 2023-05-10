@@ -1,3 +1,4 @@
+import 'package:dartfactory/Arguments/inviteHelper.dart';
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +36,14 @@ class FoodPage extends StatelessWidget {
 
                   //Make a request for a list of all food items
                   var results = await conn.query(
-                      'select * from FOOD'
+                      'select user_fname,user_lname,user_email from USERS Order by user_fname,user_lname ASC' //'select * from FOOD'
                   );
                   //Convert the results of the database query to a list
                   List resultsList = results.toList();
                   //Create the arguments that we will pass to the next page
-                  GardenInfoArguments args = GardenInfoArguments(userID, gardenID, resultsList);
+                  InviteHelper args = InviteHelper(userID, gardenID, resultsList);
                   //Navigate to the add food screen using a named route.
-                  Navigator.pushNamed(context, '/searchFoodPage', arguments: args);
+                  Navigator.pushNamed(context, '/userPage', arguments: args);
                 },
                 //Specifies the design and size of the icon
                 child: const Icon(
@@ -50,6 +51,7 @@ class FoodPage extends StatelessWidget {
                   size: 26.0,
                 ),
               )),
+
         ],
       ),
       //The body is filled with the foodList class below
