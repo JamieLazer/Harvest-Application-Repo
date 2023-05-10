@@ -2,10 +2,9 @@ import 'package:dartfactory/Arguments/Invite.dart';
 import 'package:dartfactory/Arguments/inviteHelper.dart';
 import 'package:dartfactory/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
-import '../Arguments/GardenInfoArguments.dart';
-import '../Arguments/LogFoodArguments.dart';
-import '../ConnectionSettings.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -179,6 +178,7 @@ class _UserListState extends State<UserList> {
                               child: Text('Confirm'),
                               onPressed: () async{
                                 await invite.sendInvite();
+                                Navigator.of(context).pop();
 
                               },
                             ),
@@ -201,3 +201,4 @@ class _UserListState extends State<UserList> {
     );
   }
 }
+
