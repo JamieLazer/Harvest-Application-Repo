@@ -8,6 +8,35 @@ import '../ConnectionSettings.dart';
 List userNames = [];
 List gardens = [];
 
+class UserDatabase {
+  static final UserDatabase _singleton = UserDatabase._internal();
+  late MySqlConnection _conn;
+  late Map<Object?, List<dynamic>> _userNamesCache;
+
+  factory UserDatabase() {
+    return _singleton;
+  }
+
+  UserDatabase._internal() {
+    _userNamesCache = {};
+    MySqlConnection.connect(settings).then((conn) => _conn = conn);
+  }
+
+  Future<List<dynamic>> getUserNames(Object? userID) async {
+    if (_userNamesCache.containsKey(userID)) {
+      // Use cached value
+      return _userNamesCache[userID]!;
+    } else {
+      // Fetch from database and cache the result
+      final result = await _conn.query(
+          'select user_fname, user_lname from USERS where user_id = ?;', [userID]);
+      final userNames = result.toList();
+      _userNamesCache[userID] = userNames;
+      return userNames;
+    }
+  }
+}
+
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);
 
@@ -15,16 +44,14 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-    ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
+        ModalRoute.of(context)!.settings.arguments;
     //Extract the user's ID and gardens from the arguments
-    int userID = arguments.userID;
-    List userNames = [];
+    Object? userID = arguments;
+    final userDB = UserDatabase();
 
     return FutureBuilder(
-      future: MySqlConnection.connect(settings).then((conn) => conn.query(
-          'select user_fname, user_lname from USERS where user_id = ?;',
-          [userID])),
-      builder: (context, AsyncSnapshot<Results> snapshot) {
+      future: userDB.getUserNames(userID),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.connectionState == ConnectionState.done) {
@@ -33,7 +60,7 @@ class SideMenu extends StatelessWidget {
             return const Center(child: Text('An error occurred.'));
           } else {
             //Convert the results of the database query to a list
-            userNames = snapshot.data!.toList();
+            final userNames = snapshot.data!;
             return Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -71,7 +98,8 @@ class SideMenu extends StatelessWidget {
                       Navigator.pop(context);
 
                       //Return to usergardens
-
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                     },
                   ),
                   ListTile(
@@ -98,6 +126,8 @@ class SideMenu extends StatelessWidget {
                   ListTile(
                     title: const Text('Log Out'),
                     onTap: () {
+
+
                       // Close the drawer
                       Navigator.pop(context);
 
@@ -123,86 +153,64 @@ class SideMenu extends StatelessWidget {
 }
 
 class ProfilePage extends StatelessWidget {
-   const ProfilePage({super.key});
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //Extract the arguments passed to this page as a UserInfoArguments
-    final arguments =
-    ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
-    //Extract the user's ID and gardens from the arguments
-    int userID = arguments.userID;
-    gardens = arguments.gardens;
+    final arguments = ModalRoute.of(context)!.settings.arguments;
+    Object? userID = arguments;
+    final userDB = UserDatabase();
 
-    return FutureBuilder<Results>(
-      future: MySqlConnection.connect(settings).then((conn) =>
-          conn.query('select user_fname, user_lname from USERS where user_id = ?;',
-              [userID])),
-      builder: (context, AsyncSnapshot<Results> snapshot) {
+    return FutureBuilder(
+      future: userDB.getUserNames(userID),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
-            // Show error message
             return const Center(child: Text('An error occurred.'));
           } else {
-            //Convert the results of the database query to a list
-            List userNames = snapshot.data!.toList();
-
-            return Padding(
-              padding: const EdgeInsets.all(10),
-              child: Scaffold(
-                backgroundColor: Colors.white,
-                appBar: AppBar(
-                  title: const Text(
-                    'My Profile',
-                    style: welcomePageText,
-                  ),
-                  backgroundColor: primaryColour,
-                  automaticallyImplyLeading: false, //remove back
-                  leading: Builder(
-                    builder: (BuildContext context) {
-                      return IconButton(
-                        icon: const Icon(Icons.menu),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                      );
-                    },
-                  ),
+            final userNames = snapshot.data!;
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text(
+                  'My Profile',
+                  style: welcomePageText,
                 ),
-                drawer: const SideMenu(),
-                body: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(
-                        radius: 50,
-                        child: Icon(
-                          Icons.person,
-                          size: 50,
-                          color: Colors.white,
-                        ),
+                backgroundColor: primaryColour,
+              ),
+              drawer: const SideMenu(),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(
+                      radius: 50,
+                      child: Icon(
+                        Icons.person,
+                        size: 50,
+                        color: Colors.white,
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        "${userNames[0]} ${userNames[1]}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "${userNames[0]["user_fname"]} ${userNames[0]["user_lname"]}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
             );
           }
+        } else {
+          return const Center(child: CircularProgressIndicator());
         }
-        // Return null when connectionState is not waiting or done
-        return Container();
       },
     );
   }
-
 }
+

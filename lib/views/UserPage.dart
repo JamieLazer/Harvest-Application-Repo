@@ -180,6 +180,7 @@ class _UserListState extends State<UserList> {
                                 await invite.sendInvite();
                                 Navigator.of(context).pop();
 
+
                               },
                             ),
                             TextButton(child: Text("Cancel"),
