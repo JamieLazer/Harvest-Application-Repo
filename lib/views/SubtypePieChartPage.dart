@@ -5,6 +5,7 @@ import '../../../Arguments/GraphArguments.dart';
 import '../../../PieData.dart';
 import '../../../styles.dart';
 import '../../../GetPieChartData.dart';
+import '../TimeFilter.dart';
 
 class SubtypePieChartPage extends StatelessWidget {
   const SubtypePieChartPage({super.key});
@@ -61,6 +62,10 @@ class _SubtypePieChartState extends State<SubtypePieChart> {
   List food = [];
   String focus = '';
   List<PieData> _PieChartData = [];
+  bool _flag1m = true;
+  bool _flag6m = true;
+  bool _flag1y = true;
+  bool _flagAll = false; // This flag must be false so the "All" button is in a different colour
 
   //Constructor
   _SubtypePieChartState(int passedUserID, int passedGardenID, List passedFood, String passedFocus) {
@@ -82,7 +87,7 @@ class _SubtypePieChartState extends State<SubtypePieChart> {
 
   @override
   Widget build(BuildContext context) {
-    final rowHeight = ((MediaQuery.of(context).size.height) / 3) / _PieChartData.length;
+    final rowHeight = ((MediaQuery.of(context).size.height) / 4) / _PieChartData.length;
     double sum=0;
     for(int i=0;i<_PieChartData.length;i++){
       sum+=_PieChartData[i].yield;
@@ -133,8 +138,106 @@ class _SubtypePieChartState extends State<SubtypePieChart> {
             ]
           )
         ),
+        // This holds the time filter buttons
         Flexible(
-          flex: 5,
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                // When the button is pressed, it changes color
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _flag1m ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag6m = true;
+                  _flag1y = true;
+                  _flagAll = true;
+                  _flag1m = false;
+                  
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "TYPE", focus);
+                  List foodTimeFiltered = TimeFilter(foodFiltered, "1m");
+                  // Clear the pie chart data and generate it again using the correct time filter
+                  _PieChartData = [];
+                  _PieChartData = GetPieChartData(foodTimeFiltered, "SUBTYPE");
+                }),  
+                child: const Text("1m", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flag6m ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag1y = true;
+                  _flagAll = true;
+                  _flag6m = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "TYPE", focus);
+                  List foodTimeFiltered = TimeFilter(foodFiltered, "6m");
+                  // Clear the pie chart data and generate it again using the correct time filter
+                  _PieChartData = [];
+                  _PieChartData = GetPieChartData(foodTimeFiltered, "SUBTYPE");
+                }), 
+                child: const Text("6m", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flag1y ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag6m = true;
+                  _flagAll = true;
+                  _flag1y = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "TYPE", focus);
+                  List foodTimeFiltered = TimeFilter(foodFiltered, "1y");
+                  // Clear the pie chart data and generate it again using the correct time filter
+                  _PieChartData = [];
+                  _PieChartData = GetPieChartData(foodTimeFiltered, "SUBTYPE");
+                }), 
+                child: const Text("1y", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flagAll ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag6m = true;
+                  _flag1y = true;
+                  _flagAll = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "TYPE", focus);
+                  
+                  // Clear the pie chart data and generate it again using the correct time filter
+                  _PieChartData = [];
+                  _PieChartData = GetPieChartData(foodFiltered, "SUBTYPE");
+                }), 
+                child: const Text("All", style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          )
+        ),
+        // This holds the table under the graph
+        Flexible(
+          flex: 4,
           child: DataTable(
             dataRowHeight: rowHeight,
             columns: const [
@@ -154,5 +257,4 @@ class _SubtypePieChartState extends State<SubtypePieChart> {
       ]
     );      
   }
-
 }

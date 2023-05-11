@@ -99,7 +99,7 @@ class _TypeLineGraphState extends State<TypeLineGraph> {
                     fontFamily: 'AbeeZee',
                     fontWeight: FontWeight.normal,)
                 ),
-                tooltipBehavior: _tooltipBehavior, 
+                // tooltipBehavior: _tooltipBehavior, 
                 legend: Legend(
                   isVisible: true, 
                   // Overflowing legend content will be wraped
