@@ -12,6 +12,7 @@ import 'package:dartfactory/views/LoginPage.dart';
 import 'package:dartfactory/views/TypeLineGraphPage.dart';
 import 'package:dartfactory/views/UserGardensPage.dart';
 import 'package:dartfactory/views/SupertypePieChartPage.dart';
+import 'package:dartfactory/views/UserPage.dart';
 import 'package:flutter/material.dart';
 import 'views/SubtypePieChartPage.dart';
 import 'views/TypePieChartPage.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         '/typeLineGraphPage': (context) => const TypeLineGraphPage(),
         '/subtypeLineGraphPage': (context) => const SubtypeLineGraphPage(),
         '/foodLineGraphPage': (context) => const FoodLineGraphPage(),
+        '/userPage':(context)=> const UserPage(),
        },
     );
   }

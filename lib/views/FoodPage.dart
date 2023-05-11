@@ -1,3 +1,4 @@
+import 'package:dartfactory/Arguments/inviteHelper.dart';
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
@@ -26,30 +27,47 @@ class FoodPage extends StatelessWidget {
         backgroundColor: primaryColour,
         actions: <Widget>[
           Padding(
-              padding: const EdgeInsets.only(right: 16.0),
-              //This adds the + icon on the top right of the appbar
-              child: GestureDetector(
-                //What happens when the + is tapped
-                onTap: () async {
-                  var conn = await MySqlConnection.connect(settings);
-
-                  //Make a request for a list of all food items
-                  var results = await conn.query(
-                      'select * from FOOD'
-                  );
-                  //Convert the results of the database query to a list
-                  List resultsList = results.toList();
-                  //Create the arguments that we will pass to the next page
-                  GardenInfoArguments args = GardenInfoArguments(userID, gardenID, resultsList);
-                  //Navigate to the add food screen using a named route.
-                  Navigator.pushNamed(context, '/searchFoodPage', arguments: args);
-                },
-                //Specifies the design and size of the icon
-                child: const Icon(
-                  Icons.add,
-                  size: 26.0,
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    var conn=await MySqlConnection.connect(settings);
+                    var results = await conn.query('select * from FOOD');
+                    List resultsList = results.toList();
+                    GardenInfoArguments args = GardenInfoArguments(userID, gardenID, resultsList);
+                    Navigator.pushNamed(context, '/searchFoodPage', arguments: args);
+                  },
+                  child: const Icon(
+                    Icons.add,
+                    size: 26.0,
+                  ),
                 ),
-              )),
+                const SizedBox(width: 8), // Add some spacing between the buttons
+                GestureDetector(
+                  onTap: () async {
+                    var conn = await MySqlConnection.connect(settings);
+
+                    //Make a request for a list of all food items
+                    var results = await conn.query(
+                        'select user_fname,user_lname,user_email from USERS Order by user_fname,user_lname ASC' //'select * from FOOD'
+                    );
+                    //Convert the results of the database query to a list
+                    List resultsList = results.toList();
+                    //Create the arguments that we will pass to the next page
+                    InviteHelper args = InviteHelper(userID, gardenID, resultsList);
+                    //Navigate to the add food screen using a named route.
+                    Navigator.pushNamed(context, '/userPage', arguments: args);
+                  },
+                  child: const Icon(
+                    Icons.share,
+                    size: 26.0,
+                  ),
+                ),
+              ],
+            ),
+          )
+
         ],
       ),
       //The body is filled with the foodList class below
