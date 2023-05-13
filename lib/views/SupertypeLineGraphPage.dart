@@ -3,7 +3,11 @@ import 'package:dartfactory/LineData.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../Arguments/GraphArguments.dart';
-import '../GetLineGraphData.dart';
+import '../GetLineGraphData1m.dart';
+import '../GetLineGraphData1y.dart';
+import '../GetLineGraphData6m.dart';
+import '../GetLineGraphDataAll.dart';
+import '../TimeFilter.dart';
 import '../styles.dart';
 
 class SupertypeLineGraphPage extends StatelessWidget {
@@ -57,7 +61,10 @@ class _SupertypeLineGraphState extends State<SupertypeLineGraph> {
   int gardenID = 0;
   List food = [];
   List _LineChartData = [];
-  TooltipBehavior _tooltipBehavior = TooltipBehavior();
+  bool _flag1m = true;
+  bool _flag6m = true;
+  bool _flag1y = true;
+  bool _flagAll = false; // This flag must be false so the "All" button is in a different colour
 
   //Constructor
   _SupertypeLineGraphState(int passedUserID, int passedGardenID, List passedFood) {
@@ -68,61 +75,141 @@ class _SupertypeLineGraphState extends State<SupertypeLineGraph> {
 
   @override
   void initState(){
-    _LineChartData = GetLineGraphData(food, "SUPERTYPE");
-    //This enables tooltips in the chart widget
-    _tooltipBehavior = TooltipBehavior(enable: true);
+    _LineChartData = GetLineGraphDataAll(food, "SUPERTYPE");
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child:
-        Scaffold(
-          body: 
-            Scaffold(
-              body: SfCartesianChart(
-                title: ChartTitle(
-                  text: "Yield breakdown by Supertype", 
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    decoration: TextDecoration.none,
-                    fontFamily: 'AbeeZee',
-                    fontWeight: FontWeight.normal,)
-                ),
-                // tooltipBehavior: _tooltipBehavior, 
-                legend: Legend(
-                  isVisible: true, 
-                  // Overflowing legend content will be wraped
-                  overflowMode: LegendItemOverflowMode.wrap,
-                  position: LegendPosition.bottom,
-                  // Toogles the series visibility on tapping the legend item
-                  toggleSeriesVisibility: true
-                ),
-                series: getLineSeries(_LineChartData),
-                primaryXAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
-                primaryYAxis: NumericAxis(labelFormat: '{value}g')
-              )
+    return Column(
+      children: [
+        Flexible(
+          flex: 9,
+          child: SfCartesianChart(
+            title: ChartTitle(
+              text: "Yield breakdown by Supertype", 
+              textStyle: const TextStyle(
+              color: Colors.black,
+              decoration: TextDecoration.none,
+              fontFamily: 'AbeeZee',
+              fontWeight: FontWeight.normal,)
             ),
-        ),    
-      );
-  }
-  void updateChart(){
-    setState(() {
-    _LineChartData = GetLineGraphData(food, "SUPERTYPE");
-    //This enables tooltips in the chart widget
-    _tooltipBehavior = TooltipBehavior(enable: true);
-    });
+            // tooltipBehavior: _tooltipBehavior, 
+            legend: Legend(
+              isVisible: true, 
+              // Overflowing legend content will be wraped
+              overflowMode: LegendItemOverflowMode.wrap,
+              position: LegendPosition.bottom,
+              // Toogles the series visibility on tapping the legend item
+              toggleSeriesVisibility: true
+            ),
+            series: getLineSeries(_LineChartData),
+            primaryXAxis: DateTimeAxis(edgeLabelPlacement: EdgeLabelPlacement.shift, labelRotation: 90),
+            primaryYAxis: NumericAxis(labelFormat: '{value}g')
+          )
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                // When the button is pressed, it changes color
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _flag1m ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag6m = true;
+                  _flag1y = true;
+                  _flagAll = true;
+                  _flag1m = false;
+                      
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = TimeFilter(foodCopy, "1m");
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphData1m(foodFiltered, "SUPERTYPE");
+                }),  
+                child: const Text("1m", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flag6m ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag1y = true;
+                  _flagAll = true;
+                  _flag6m = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = TimeFilter(foodCopy, "6m");
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphData6m(foodFiltered, "SUPERTYPE");
+                }), 
+                child: const Text("6m", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flag1y ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag6m = true;
+                  _flagAll = true;
+                  _flag1y = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = TimeFilter(foodCopy, "1y");
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphData1y(foodFiltered, "SUPERTYPE");
+                }), 
+                child: const Text("1y", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flagAll ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag6m = true;
+                  _flag1y = true;
+                  _flagAll = false;
+
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphDataAll(food, "SUPERTYPE");
+                }), 
+                child: const Text("All", style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          )
+        ) 
+      ]   
+    );
   }
 
-  List<LineSeries<LineData, num>> getLineSeries(List _LineChartData) {
-    List<LineSeries<LineData, num>> lineSeries = [];
+  List<LineSeries<LineData, DateTime>> getLineSeries(List _LineChartData) {
+    List<LineSeries<LineData, DateTime>> lineSeries = [];
     for (int i = 0; i < _LineChartData.length; i++) {
-      lineSeries.add(LineSeries<LineData, double>(
+      lineSeries.add(LineSeries<LineData, DateTime>(
+        animationDuration: 0,
         name: _LineChartData[i][0].name,
         dataSource: _LineChartData[i],
-        xValueMapper: (LineData yield, _) => yield.year,
+        xValueMapper: (LineData yield, _) => yield.time,
         yValueMapper: (LineData yield, _) => yield.yield,
         // When the line is tapped, navigate to the next page
         onPointTap: (ChartPointDetails details){
@@ -133,7 +220,7 @@ class _SupertypeLineGraphState extends State<SupertypeLineGraph> {
           //Navigate to the pie chart page using a named route.
           Navigator.pushNamed(context, '/typeLineGraphPage', arguments: args);
         },
-        )
+      )
       );
     }
     return lineSeries;

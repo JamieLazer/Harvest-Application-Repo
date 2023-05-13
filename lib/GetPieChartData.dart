@@ -3,7 +3,7 @@ import 'PieData.dart';
 List<PieData> GetPieChartData(List food, String category) {
 
     //This will store the data for the graph
-    final List<PieData> PieChartData = [];
+    List<PieData> PieChartData = [];
 
     List categories = [];
 
@@ -14,6 +14,12 @@ List<PieData> GetPieChartData(List food, String category) {
         PieChartData.add(PieData(food[i][category], 0));
       }
     }
+
+    // Sort the categories alphabetically
+    categories.sort();
+    categories = List.from(categories.reversed);
+    PieChartData.sort((a, b) => a.name.compareTo(b.name));
+    PieChartData = List.from(PieChartData.reversed);
 
     //For each type
     for(int i = 0; i < categories.length; i++){
