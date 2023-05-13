@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/views/WelcomePage.dart';
+import 'ProfilePage.dart';
 // import 'package:side_menu_controller/side_menu_controller.dart';
 
 class SideMenu extends StatelessWidget {
@@ -20,6 +21,7 @@ class SideMenu extends StatelessWidget {
     List userNames = [];
 
     return FutureBuilder(
+      //fetching user names
       future: MySqlConnection.connect(settings).then((conn) => conn.query(
           'select user_fname, user_lname from USERS where user_id = ?;',
           [userID])),
@@ -33,6 +35,8 @@ class SideMenu extends StatelessWidget {
           } else {
             //Convert the results of the database query to a list
             userNames = snapshot.data!.toList();
+
+            //drawer widget: side menu
             return Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -43,6 +47,7 @@ class SideMenu extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        //profile photo
                         const CircleAvatar(
                           radius: 50,
                           child: Icon(
@@ -51,31 +56,47 @@ class SideMenu extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
+
                         const SizedBox(height: 10),
+                        
+                        //user names
                         Text(
                           "${userNames[0]["user_fname"]} ${userNames[0]["user_lname"]}",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
+                          style: welcomePageText.copyWith(
+                            fontSize: 20,
+                          )
                         ),
                       ],
                     ),
                   ),
 
+                  //Go to Profile Page
                   ListTile(
-                    title: const Text('Change Password'),
+                    title: Text(
+                        'My Profile',
+                        style: blackText.copyWith(
+                          fontSize: 14.5,
+                        ),
+                    ),
                     onTap: () {
                       // Close the drawer
                       Navigator.pop(context);
 
-                      // Navigate to the change password page
-                      Navigator.pushNamed(context, '/changePassword');
+                      // Navigate to the profile page
+                     Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfilePage()),
+                      );
                     },
                   ),
+
                   ListTile(
-                    title: const Text('Garden Collaboration Requests'),
+                    title: Text('Garden Collaboration Requests',
+                      style: blackText.copyWith(
+                        fontSize: 14.5,
+                      ),
+                    ),
                     onTap: () {
                       // Close the drawer
                       Navigator.pop(context);
@@ -85,8 +106,13 @@ class SideMenu extends StatelessWidget {
                           context, '/collaborationRequests');
                     },
                   ),
+
                   ListTile(
-                    title: const Text('Log Out'),
+                    title: Text('Log Out', 
+                      style: blackText.copyWith(
+                        fontSize: 14.5,
+                      ),
+                    ),
                     onTap: () {
                       // Close the drawer
                       Navigator.pop(context);
