@@ -4,7 +4,7 @@ import '../styles.dart';
 import 'WelcomePage.dart';
 import '../Arguments/UserInfoArguments.dart';
 import '../ConnectionSettings.dart';
-import 'NewPasswordPage.dart';
+import './ChangePasswordPage.dart';
 
 List userNames = [];
 List gardens = [];
@@ -132,7 +132,7 @@ class ProfilePage extends StatelessWidget {
 
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/changepassword');
+                          Navigator.pushNamed(context, '/changePassword');
                         },
                         child: Text(
                           'Change Password',

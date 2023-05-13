@@ -18,6 +18,7 @@ import 'views/SubtypePieChartPage.dart';
 import 'views/TypePieChartPage.dart';
 import 'views/WelcomePage.dart';
 import 'views/ProfilePage.dart';
+import 'views/ChangePasswordPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/createAccount': (context) => const CreateAccountPage(),
         '/userGardens': (context) => const UserGardensPage(),
         '/profile': (context) => const ProfilePage(),
+        '/changePassword': (context) => const ChangePassword(),
         '/addGarden': (context) => const AddGardenPage(),
         '/loginPage': (context) => const LoginPage(),
         '/searchFoodPage': (context) => const SearchFoodPage(),
