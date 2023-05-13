@@ -83,11 +83,7 @@ class SideMenu extends StatelessWidget {
                       Navigator.pop(context);
 
                       // Navigate to the profile page
-                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfilePage()),
-                      );
+                      Navigator.pushNamed(context, '/profile');
                     },
                   ),
 
