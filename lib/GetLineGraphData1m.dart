@@ -1,22 +1,28 @@
 import 'LineData.dart';
 
-List<List<LineData>> GetLineGraphData(List food, String category) {
+List<List<LineData>> GetLineGraphData1m(List food, String category) {
 
-    //This will store the years
-    List year = [];
+    //This will store the days
+    List dates = [];
     //This will store the categories we are considering
     List categories = [];
 
+    DateTime now = DateTime.now();
+
+    for(int i  = 0; i < 30; i++){
+      dates.add(DateTime(now.year, now.month, now.day - i));
+    }
+
     for(int i = 0; i < food.length; i++){
-      //If the list of years does not contain the current year, add it
-      if (!year.contains(double.parse(food[i]["HARVEST_DATE"].toString().substring(0,4)))){
-        year.add(double.parse(food[i]["HARVEST_DATE"].toString().substring(0,4)));
-      }
       //If the list of categories does not contain the current category, add it
       if (!categories.contains(food[i][category])){
         categories.add(food[i][category]);
       }
     }
+
+    // Sort the categories alphabetically
+    categories.sort();
+    categories = List.from(categories.reversed);
 
     // //Add a category for the total yield
     // categories.add("Total");
@@ -31,13 +37,13 @@ List<List<LineData>> GetLineGraphData(List food, String category) {
     }
 
     //For each year
-    for(int i = 0; i < year.length; i++){
+    for(int i = 0; i < dates.length; i++){
       //Loop through the databse results
       for(int j = 0; j < food.length; j++){
-        double y = double.parse(food[j]["HARVEST_DATE"].toString().substring(0,4));
+        DateTime date = DateTime(food[j]["HARVEST_DATE"].year, food[j]["HARVEST_DATE"].month, food[j]["HARVEST_DATE"].day);
         for(int k = 0; k < categories.length; k++){
           //Add up the yields
-          if (food[j][category] == categories[k] && year[i] == y){
+          if (food[j][category] == categories[k] && dates[i] == date){
             yield[k] += food[j]["YIELD_KG"];
             // yield[categories.length - 1] += food[j]["YIELD_KG"];
           }
@@ -45,7 +51,7 @@ List<List<LineData>> GetLineGraphData(List food, String category) {
       }
 
       for(int k = 0; k < categories.length; k++){
-        data[k].add(LineData(year[i], yield[k], categories[k]));
+        data[k].add(LineData(dates[i], yield[k], categories[k]));
       }
 
       //Reset counts

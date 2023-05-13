@@ -1,6 +1,6 @@
 class LineData{
-  LineData(this.year, this.yield, this.name);
-  final double year;
+  LineData(this.time, this.yield, this.name);
+  final DateTime time;
   final double yield;
   final String name;
 }

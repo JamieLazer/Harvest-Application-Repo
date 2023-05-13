@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/GraphArguments.dart';
-import '../GetLineGraphData.dart';
+import '../GetLineGraphDataAll.dart';
 import '../PieData.dart';
 import '../styles.dart';
 
@@ -60,7 +60,6 @@ class _AnalyticsState extends State<Analytics> {
   List food = [];
   List<List<LineData>> _LineChartData = [];
   List<PieData> _PieChartData = [];
-  TooltipBehavior _tooltipBehavior = TooltipBehavior();
 
   //Constructor
   _AnalyticsState(int passedUserID, int passedGardenID, List passedFood) {
@@ -71,11 +70,9 @@ class _AnalyticsState extends State<Analytics> {
 
   @override
   void initState(){
-    _LineChartData = GetLineGraphData(food, "SUPERTYPE");
+    _LineChartData = GetLineGraphDataAll(food, "SUPERTYPE");
     _PieChartData = GetPieChartData(food, "SUPERTYPE");
 
-    //This enables tooltips in the chart widget
-    _tooltipBehavior = TooltipBehavior(enable: true);
     // Enables the selection
     super.initState();
   }
@@ -101,7 +98,6 @@ class _AnalyticsState extends State<Analytics> {
                     //Navigate to the pie chart page using a named route.
                     Navigator.pushNamed(context, '/supertypeLineGraphPage', arguments: args);
                 },
-                tooltipBehavior: _tooltipBehavior, 
                 legend: Legend(
                   isVisible: false, 
                   // Overflowing legend content will be wraped
@@ -110,7 +106,7 @@ class _AnalyticsState extends State<Analytics> {
                 ),
                 //This allows us to not have to specify how many lines there will be
                 series: getLineSeries(_LineChartData),
-                primaryXAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
+                primaryXAxis: DateTimeAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
                 primaryYAxis: NumericAxis(labelFormat: '{value}g')
               )
             ),
@@ -147,12 +143,12 @@ class _AnalyticsState extends State<Analytics> {
       ]
       );
   }
-  List<LineSeries<LineData, num>> getLineSeries(List _LineChartData) {
-    List<LineSeries<LineData, num>> lineSeries = [];
+  List<LineSeries<LineData, DateTime>> getLineSeries(List _LineChartData) {
+    List<LineSeries<LineData, DateTime>> lineSeries = [];
     for (int i = 0; i < _LineChartData.length; i++) {
-      lineSeries.add(LineSeries<LineData, double>(
+      lineSeries.add(LineSeries<LineData, DateTime>(
         dataSource: _LineChartData[i],
-        xValueMapper: (LineData yield, _) => yield.year,
+        xValueMapper: (LineData yield, _) => yield.time,
         yValueMapper: (LineData yield, _) => yield.yield,
         )
       );

@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../Arguments/GraphArguments.dart';
 import '../../styles.dart';
-import '../GetLineGraphData.dart';
+import '../GetLineGraphData1m.dart';
+import '../GetLineGraphData1y.dart';
+import '../GetLineGraphData6m.dart';
+import '../GetLineGraphDataAll.dart';
 import '../LineData.dart';
+import '../TimeFilter.dart';
 
 class TypeLineGraphPage extends StatelessWidget {
   const TypeLineGraphPage({super.key});
@@ -61,8 +65,11 @@ class _TypeLineGraphState extends State<TypeLineGraph> {
   List food = [];
   String focus = '';
   List _LineChartData = [];
-  TooltipBehavior _tooltipBehavior = TooltipBehavior();
-
+  bool _flag1m = true;
+  bool _flag6m = true;
+  bool _flag1y = true;
+  bool _flagAll = false; // This flag must be false so the "All" button is in a different colour
+  
   //Constructor
   _TypeLineGraphState(int passedUserID, int passedGardenID, List passedFood, String passedFocus) {
     userID = passedUserID;
@@ -76,54 +83,149 @@ class _TypeLineGraphState extends State<TypeLineGraph> {
     //Create a copy of food
     List foodCopy = [...food];
     List foodFiltered = FilterFoodList(foodCopy, "SUPERTYPE", focus);
-    _LineChartData = GetLineGraphData(foodFiltered, "TYPE");
+    _LineChartData = GetLineGraphDataAll(foodFiltered, "TYPE");
     //This enables tooltips in the chart widget
-    _tooltipBehavior = TooltipBehavior(enable: true);
 
     super.initState();
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child:
-        Scaffold(
-          body: 
-            Scaffold(
-              body: SfCartesianChart(
-                title: ChartTitle(
-                  text: "Yield breakdown by Type", 
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    decoration: TextDecoration.none,
-                    fontFamily: 'AbeeZee',
-                    fontWeight: FontWeight.normal,)
-                ),
-                // tooltipBehavior: _tooltipBehavior, 
-                legend: Legend(
-                  isVisible: true, 
-                  // Overflowing legend content will be wraped
-                  overflowMode: LegendItemOverflowMode.wrap,
-                  position: LegendPosition.bottom,
-                  // Toogles the series visibility on tapping the legend item
-                  toggleSeriesVisibility: true
-                ),
-                series: getLineSeries(_LineChartData),
-                primaryXAxis: NumericAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
-                primaryYAxis: NumericAxis(labelFormat: '{value}g')
-              )
+    return Column(
+      children: [
+        Flexible(
+          flex: 9,
+          child: SfCartesianChart(
+            title: ChartTitle(
+              text: "Yield breakdown by Type", 
+              textStyle: const TextStyle(
+              color: Colors.black,
+              decoration: TextDecoration.none,
+              fontFamily: 'AbeeZee',
+              fontWeight: FontWeight.normal,)
             ),
-        ),    
-      );
+            // tooltipBehavior: _tooltipBehavior, 
+            legend: Legend(
+              isVisible: true, 
+              // Overflowing legend content will be wraped
+              overflowMode: LegendItemOverflowMode.wrap,
+              position: LegendPosition.bottom,
+              // Toogles the series visibility on tapping the legend item
+              toggleSeriesVisibility: true
+            ),
+            series: getLineSeries(_LineChartData),
+            primaryXAxis: DateTimeAxis(edgeLabelPlacement: EdgeLabelPlacement.shift),
+            primaryYAxis: NumericAxis(labelFormat: '{value}g')
+          )
+        ),
+        Flexible(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                // When the button is pressed, it changes color
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _flag1m ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag6m = true;
+                  _flag1y = true;
+                  _flagAll = true;
+                  _flag1m = false;
+  
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "SUPERTYPE", focus);
+                  List foodTimeFiltered = TimeFilter(foodFiltered, "1m");
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphData1m(foodTimeFiltered, "TYPE");
+                }),  
+                child: const Text("1m", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flag6m ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag1y = true;
+                  _flagAll = true;
+                  _flag6m = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "SUPERTYPE", focus);
+                  List foodTimeFiltered = TimeFilter(foodFiltered, "6m");
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphData6m(foodTimeFiltered, "TYPE");
+                }), 
+                child: const Text("6m", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flag1y ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag6m = true;
+                  _flagAll = true;
+                  _flag1y = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "SUPERTYPE", focus);
+                  List foodTimeFiltered = TimeFilter(foodFiltered, "1y");
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphData1y(foodTimeFiltered, "TYPE");
+                }), 
+                child: const Text("1y", style: TextStyle(color: Colors.white)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  // When the button is pressed, it changes color
+                  backgroundColor: _flagAll ? primaryColour : secondaryColour,
+                ),
+                onPressed: () => setState(() {
+                  // Set all the flags of the other buttons to true and the flag of the pressed button to false
+                  _flag1m = true;
+                  _flag6m = true;
+                  _flag1y = true;
+                  _flagAll = false;
+
+                  //Create a copy of food
+                  List foodCopy = [...food];
+                  List foodFiltered = FilterFoodList(foodCopy, "SUPERTYPE", focus);
+
+                  // Clear the line graph data and generate it again using the correct time filter
+                  _LineChartData = [];
+                  _LineChartData = GetLineGraphDataAll(foodFiltered, "TYPE");
+                }), 
+                child: const Text("All", style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          )
+        ) 
+      ]
+    );
   }
 
-  List<LineSeries<LineData, num>> getLineSeries(List _LineChartData) {
-    List<LineSeries<LineData, num>> lineSeries = [];
+  List<LineSeries<LineData, DateTime>> getLineSeries(List _LineChartData) {
+    List<LineSeries<LineData, DateTime>> lineSeries = [];
     for (int i = 0; i < _LineChartData.length; i++) {
-      lineSeries.add(LineSeries<LineData, double>(
+      lineSeries.add(LineSeries<LineData, DateTime>(
+        animationDuration: 0,
         name: _LineChartData[i][0].name,
         dataSource: _LineChartData[i],
-        xValueMapper: (LineData yield, _) => yield.year,
+        xValueMapper: (LineData yield, _) => yield.time,
         yValueMapper: (LineData yield, _) => yield.yield,
         // When the line is tapped, navigate to the next page
         onPointTap: (ChartPointDetails details){

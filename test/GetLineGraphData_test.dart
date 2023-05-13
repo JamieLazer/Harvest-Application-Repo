@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dartfactory/GetLineGraphData.dart';
+import 'package:dartfactory/GetLineGraphDataAll.dart';
 import 'package:dartfactory/LineData.dart';
 
 void main() {
@@ -14,7 +14,7 @@ void main() {
     String category = "CATEGORY";
 
     // Call the function being tested
-    List<List<LineData>> result = GetLineGraphData(food, category);
+    List<List<LineData>> result = GetLineGraphDataAll(food, category);
 
     // Assert that the result is what we expect
     expect(

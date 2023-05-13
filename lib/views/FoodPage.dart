@@ -24,6 +24,13 @@ class FoodPage extends StatelessWidget {
       appBar: AppBar(
         //This is the title at the top of the screen
         title: const Text('Harvest', style: welcomePageText,),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios), 
+          onPressed: () {
+            // The back button takes us back to the user gardens page
+            Navigator.popUntil(context, ModalRoute.withName('/userGardens'));
+          },
+        ),
         backgroundColor: primaryColour,
         actions: <Widget>[
           Padding(
