@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Conflicts checked again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Arguments/Invite.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Arguments/Invite.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Arguments/inviteHelper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Arguments/inviteHelper.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/FoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/FoodPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ProfilePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/LoginPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/UserPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserPage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +35,19 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/images" />
+    </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
@@ -73,6 +88,29 @@
       <option name="presentableId" value="Default" />
       <updated>1680287005229</updated>
     </task>
+    <task id="LOCAL-00001" summary="Conflicts checked again">
+      <created>1683750561458</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1683750561458</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Conflicts checked again" />
+    <option name="LAST_COMMIT_MESSAGE" value="Conflicts checked again" />
   </component>
 </project>

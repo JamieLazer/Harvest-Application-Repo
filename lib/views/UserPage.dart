@@ -4,6 +4,9 @@ import 'package:dartfactory/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:mysql1/mysql1.dart';
+
+import '../ConnectionSettings.dart';
 
 
 class UserPage extends StatelessWidget {
@@ -16,8 +19,9 @@ class UserPage extends StatelessWidget {
     ModalRoute.of(context)!.settings.arguments as InviteHelper;
     //Extract the garden's info from the arguments
     int userID = arguments.userID;
-    int gardenID = arguments.gardenID;
+    String gardenName = arguments.gardenName;
     List users = arguments.users;
+    int gardenId=arguments.gardenId;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -27,7 +31,7 @@ class UserPage extends StatelessWidget {
         backgroundColor: primaryColour,
       ),
       //The body is filled with the AddGardenForm class below
-      body: UserList(userID, gardenID, users),
+      body: UserList(userID, gardenName ,gardenId, users),
     );
   }
 }
@@ -35,31 +39,34 @@ class UserPage extends StatelessWidget {
 class UserList extends StatefulWidget {
   //We have to initialise the variable
   int userID = 0;
-  int gardenID = 0;
+  String gardenName = "";
   List users = [];
+  int gardenId=0;
 
   //Constructor
-  UserList(int passedUserID, int passedGardenID, List passedFood, {super.key}) {
+  UserList(int passedUserID, String passedGardenID,int gardenIDnum, List passedFood, {super.key}) {
     userID = passedUserID;
-    gardenID = passedGardenID;
+    gardenName = passedGardenID;
     users = passedFood;
+    gardenId=gardenIDnum;
   }
 
   @override
-  State<UserList> createState() => _UserListState(userID, gardenID, users);
+  State<UserList> createState() => _UserListState(userID, gardenName,gardenId, users);
 }
 
 class _UserListState extends State<UserList> {
   //We have to initialise the variable
   int userID = 0;
-  int gardenID = 0;
+  String gardenName = "";
   List user = [];
-
+  int gardenId=0;
   //Constructor
-  _UserListState(int passedUserID, int passedGardenID, List passedUsers) {
+  _UserListState(int passedUserID, String passedGardenID,int gardenIDnum, List passedUsers) {
     userID = passedUserID;
-    gardenID = passedGardenID;
+    gardenName = passedGardenID;
     user = passedUsers;
+    gardenId=gardenIDnum;
   }
 
   TextEditingController editingController = TextEditingController();
@@ -71,7 +78,7 @@ class _UserListState extends State<UserList> {
   @override
   void initState() {
     for(int i = 0; i < user.length; i++){
-      //Add every food item in the database to duplicateItems
+      //Add every user  in the database to duplicateItems
       String name=user[i]["user_fname"];
       String surname=user[i]["user_lname"];
       String email=user[i]["user_email"];
@@ -164,9 +171,9 @@ class _UserListState extends State<UserList> {
                   title: Text(items[index], style: blackText.copyWith(
                       fontSize: 16
                   ),),
-                  //What happens when the food is tapped
+                  //What happens when the user is tapped
                   onTap: () async {
-                    Invite invite=Invite(userID, useremails[index], gardenID);
+                    Invite invite=Invite(userID, useremails[index], gardenName,gardenId);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -177,7 +184,15 @@ class _UserListState extends State<UserList> {
                             TextButton(
                               child: Text('Confirm'),
                               onPressed: () async{
-                                await invite.sendInvite();
+                                var conn = await MySqlConnection.connect(settings);
+                                var result=await conn.query(
+                                  "SELECT*FROM INVITATIONS WHERE (RECIPIENT_EMAIL,S_GARDEN_NAME,S_GARDEN_ID,STATUS)=(?,?,?,?)",
+                                  [invite.r_email,invite.sender_log_name,invite.sender_logid,"UNSEEN"]
+                                );
+                                List results=result.toList();
+                                if(results.isEmpty){
+                                  await invite.sendInvite();
+                                }
                                 Navigator.of(context).pop();
 
 
