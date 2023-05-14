@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/views/WelcomePage.dart';
-
 import 'CollaborationRequestsPage.dart';
-// import 'package:side_menu_controller/side_menu_controller.dart';
+import 'ProfilePage.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -25,42 +24,70 @@ class SideMenu extends StatelessWidget {
     String surname=arguments.surname;
     String curr_user_email=arguments.email;
 
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: primaryColour,
-            ),
-            child: Column(
-              children: [
-                const CircleAvatar(
-                  radius: 50,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "${name} ${surname}",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        
 
-          ListTile(
-            title: const Text('Change Password'),
-            onTap: () {
-              // Close the drawer
-              Navigator.pop(context);
+            //drawer widget: side menu
+            return Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: primaryColour,
+                    ),
+                    child: Column(
+                      children: [
+                        //profile photo
+                        const CircleAvatar(
+                          radius: 50,
+                          child: Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+                        
+                        //user names
+                        Text(
+                          ${name} ${surname}",
+                          style: welcomePageText.copyWith(
+                            fontSize: 20,
+                          )
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //Go to Profile Page
+                  ListTile(
+                    title: Text(
+                        'My Profile',
+                        style: blackText.copyWith(
+                          fontSize: 14.5,
+                        ),
+                    ),
+                    onTap: () {
+                      // Close the drawer
+                      Navigator.pop(context);
+
+                      // Navigate to the profile page
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                  ),
+
+                
+
+                  ListTile(
+                    title: Text('Log Out', 
+                      style: blackText.copyWith(
+                        fontSize: 14.5,
+                      ),
+                    ),
+                    onTap: () {
+                      // Close the drawer
+                      Navigator.pop(context);
 
               // Navigate to the change password page
               Navigator.pushNamed(context, '/changePassword');
