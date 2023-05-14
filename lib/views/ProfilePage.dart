@@ -12,6 +12,8 @@ List gardens = [];
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
+
+
   //double tap message
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
@@ -25,6 +27,12 @@ class ProfilePage extends StatelessWidget {
 
    @override
   Widget build(BuildContext context) {
+     final arguments =
+     ModalRoute.of(context)!.settings.arguments as List;
+     //Extract the user's ID and gardens from the arguments
+     String name=arguments[0];
+     String surname=arguments[1];
+     String email=arguments[2];
     return Scaffold(
         backgroundColor: Colors.white,
 
@@ -96,7 +104,7 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(height: 4,),
 
                       Text(
-                        "Name Surname",
+                        "${name} ${surname}",
                         style: blackText.copyWith(
                           fontWeight: FontWeight.w300,
                           color: Colors.black54,
@@ -119,7 +127,7 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(height: 4,),
 
                       Text(
-                        "namesurname@yahoo.com",
+                        "${email}",
                         style: blackText.copyWith(
                           fontWeight: FontWeight.w300,
                           color: Colors.black54,
