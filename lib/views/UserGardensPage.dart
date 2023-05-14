@@ -51,7 +51,7 @@ class SideMenu extends StatelessWidget {
                         
                         //user names
                         Text(
-                          ${name} ${surname}",
+                          "${name} ${surname}",
                           style: welcomePageText.copyWith(
                             fontSize: 20,
                           )
@@ -71,16 +71,17 @@ class SideMenu extends StatelessWidget {
                     onTap: () {
                       // Close the drawer
                       Navigator.pop(context);
+                      List args1=[name,surname,curr_user_email];
 
                       // Navigate to the profile page
-                      Navigator.pushNamed(context, '/profile');
+                      Navigator.pushNamed(context, '/profile',arguments: args1);
                     },
                   ),
 
                 
 
                   ListTile(
-                    title: Text('Log Out', 
+                    title: Text('Change password',
                       style: blackText.copyWith(
                         fontSize: 14.5,
                       ),
@@ -98,7 +99,7 @@ class SideMenu extends StatelessWidget {
               onTap: () {
                 // Close the drawer
                 Navigator.pop(context);
-                List args = [curr_user_email,user_id,curr_user_email];
+                List args = [curr_user_email,user_id];
                 Navigator.push(
                   context,
                   MaterialPageRoute(

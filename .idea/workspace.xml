@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/lib/Arguments/inviteHelper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Arguments/inviteHelper.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/FoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/FoodPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/LoginPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ProfilePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/UserPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserPage.dart" afterDir="false" />
     </list>

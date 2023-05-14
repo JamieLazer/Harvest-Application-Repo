@@ -192,6 +192,26 @@ class _UserListState extends State<UserList> {
                                 List results=result.toList();
                                 if(results.isEmpty){
                                   await invite.sendInvite();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          behavior: SnackBarBehavior.floating,
+                                          content:Container(
+                                            constraints: BoxConstraints(maxWidth: 280),
+                                            child: Text("Invitation sent successfully \u{1F603}"),
+                                          )
+                                      )
+                                  );
+                                }
+                                else{
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        behavior: SnackBarBehavior.floating,
+                                        content:Container(
+                                          constraints: BoxConstraints(maxWidth: 280),
+                                          child: Text("Invitation already sent \u{1F603}"),
+                                        )
+                                        )
+                                  );
                                 }
                                 Navigator.of(context).pop();
 
