@@ -1,4 +1,5 @@
 import 'package:dartfactory/Arguments/DetailsArguments.dart';
+import 'package:dartfactory/Arguments/ProfileDetailsArguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mysql1/mysql1.dart';
@@ -174,10 +175,9 @@ Widget buildLoginButton(
                 .query('select * from LOG where USER_ID = ?', [resultsList[0]]);
             //Convert the results of the database query to a list
             List gardenResultsList = gardenResults.toList();
-
             //Create the arguments that we will pass to the next page
             //The arguments we pass to a new page can be any object
-            DetailsArguments args=DetailsArguments(resultsList[0], gardenResultsList, resultsList[1], resultsList[2]);
+            ProfileDetailsArguments args=ProfileDetailsArguments(resultsList[0], gardenResultsList, resultsList[1], resultsList[2],resultsList[3]);
             Navigator.pushNamed(context, '/userGardens', arguments: args);
           } else {
             showDialog(

@@ -1,3 +1,4 @@
+import 'package:dartfactory/Arguments/gardenInfoArgumentsv2.dart';
 import 'package:dartfactory/Arguments/inviteHelper.dart';
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
@@ -13,11 +14,12 @@ class FoodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-    ModalRoute.of(context)!.settings.arguments as GardenInfoArguments;
+    ModalRoute.of(context)!.settings.arguments as gardenInfoArgs;
     //Extract the garden's info from the arguments
     int userID = arguments.userID;
     int gardenID = arguments.gardenID;
     List food = arguments.food;
+    String gardenName=arguments.gardenName;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -55,14 +57,14 @@ class FoodPage extends StatelessWidget {
                   onTap: () async {
                     var conn = await MySqlConnection.connect(settings);
 
-                    //Make a request for a list of all food items
+                    //Make a request for a list of all Users
                     var results = await conn.query(
-                        'select user_fname,user_lname,user_email from USERS Order by user_fname,user_lname ASC' //'select * from FOOD'
+                        'select user_fname,user_lname,user_email from USERS where user_id not in(?)Order by user_fname,user_lname ASC',[userID] //'select * from FOOD'
                     );
                     //Convert the results of the database query to a list
                     List resultsList = results.toList();
                     //Create the arguments that we will pass to the next page
-                    InviteHelper args = InviteHelper(userID, gardenID, resultsList);
+                    InviteHelper args = InviteHelper(userID, gardenName,gardenID, resultsList);
                     //Navigate to the add food screen using a named route.
                     Navigator.pushNamed(context, '/userPage', arguments: args);
                   },
