@@ -38,13 +38,14 @@ class SideMenu extends StatelessWidget {
                     child: Column(
                       children: [
                         //profile photo
-                        const CircleAvatar(
+                        CircleAvatar(
                           radius: 50,
                           child: Icon(
                             Icons.person,
                             size: 50,
                             color: Colors.white,
                           ),
+                          backgroundColor: secondaryColour,
                         ),
 
                         const SizedBox(height: 10),
@@ -78,24 +79,12 @@ class SideMenu extends StatelessWidget {
                     },
                   ),
 
-                
-
-                  ListTile(
-                    title: Text('Change password',
-                      style: blackText.copyWith(
-                        fontSize: 14.5,
-                      ),
-                    ),
-                    onTap: () {
-                      // Close the drawer
-                      Navigator.pop(context);
-
-              // Navigate to the change password page
-              Navigator.pushNamed(context, '/changePassword');
-            },
-          ),
           ListTile(
-              title: const Text('Garden Collaboration Requests'),
+              title: Text('Garden Collaboration Requests', 
+              style: blackText.copyWith(
+                  fontSize: 14.5,
+                ),
+              ),
               onTap: () {
                 // Close the drawer
                 Navigator.pop(context);
@@ -110,7 +99,11 @@ class SideMenu extends StatelessWidget {
                 );
               }),
           ListTile(
-            title: const Text('Log Out'),
+            title: Text('Log Out', 
+            style: blackText.copyWith(
+                fontSize: 14.5,
+              ),
+            ),
             onTap: () {
               // Close the drawer
               Navigator.pop(context);
