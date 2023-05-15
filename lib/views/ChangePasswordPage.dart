@@ -41,9 +41,8 @@ class _ChangePasswordState extends State<ChangePassword> {
       try {
         // Execute a query to check if the password matches
         final results = await conn.query(
-            'select user_password from USERS where user_email = ?',
+            "select user_password from USERS where user_email = '?'",
                           [email]);
-
         // If the query returns exactly one row, the login was successful
         if (results.toString() != pswd) {
           return 'Password is not correct';
@@ -73,7 +72,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +89,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
 
@@ -109,7 +108,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: primaryColour, width: 1.5)),
-                        errorBorder: OutlineInputBorder(
+                        errorBorder: const OutlineInputBorder(
                             borderSide: BorderSide(width: 1.5)),
                         labelStyle: blackText),
                     validator: (value) {
@@ -118,7 +117,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
 
@@ -133,7 +132,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
 
@@ -152,13 +151,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                         focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: primaryColour, width: 1.5)),
-                        errorBorder: OutlineInputBorder(
+                        errorBorder: const OutlineInputBorder(
                             borderSide: BorderSide(width: 1.5)),
                         labelStyle: blackText),
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
 
@@ -173,7 +172,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
 
@@ -192,7 +191,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         focusedBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: primaryColour, width: 1.5)),
-                        errorBorder: OutlineInputBorder(
+                        errorBorder: const OutlineInputBorder(
                             borderSide: BorderSide(width: 1.5)),
                         labelStyle: blackText),
                         validator: (value) {
@@ -206,7 +205,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
 

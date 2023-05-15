@@ -159,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/changePassword');
+                          Navigator.pushNamed(context, '/changePassword', arguments: arguments);
                         },
                         child: Text(
                           'Change Password',
