@@ -71,21 +71,21 @@ class _UserListState extends State<UserList> {
 
   TextEditingController editingController = TextEditingController();
 
-  final availableusers = <String>[];
-  final useremails=<String>[];
-  var items = <String>[];
+  final availableusers = [];
+  var items = [];
 
   @override
   void initState() {
     for(int i = 0; i < user.length; i++){
-      //Add every user  in the database to duplicateItems
+      //Add every user in the database to duplicateItems
       String name=user[i]["user_fname"];
       String surname=user[i]["user_lname"];
       String email=user[i]["user_email"];
-      useremails.add(email);
-      availableusers.add("${name} ${surname}");
+      availableusers.add(["${name} ${surname}", email]);
     }
+
     //Sort the list alphabetically
+    availableusers.sort((a, b) => a[0].compareTo(b[0]));
 
     //Create a copy of duplicateItems
     for(int i = 0; i < availableusers.length; i++){
@@ -96,49 +96,36 @@ class _UserListState extends State<UserList> {
 
   //This method shortens the list of food based on what a user types into the search
   void filterSearchResults(String query) {
-  List<String> dummySearchList = <String>[];
-  List<String> dummyUserEmails = <String>[];
-
-  for (int i = 0; i < availableusers.length; i++) {
-    dummySearchList.add(availableusers.elementAt(i));
-    dummyUserEmails.add(useremails.elementAt(i));
-  }
-
-  if (query.isNotEmpty) {
-    List<String> dummyListData = <String>[];
-    List<String> dummyUserEmailsData = <String>[];
-
-    query = query.toLowerCase();
-    for (var i = 0; i < dummySearchList.length; i++) {
-      String itemCopy = dummySearchList[i].toLowerCase();
-      if (itemCopy.startsWith(query)) {
-        dummyListData.add(dummySearchList[i]);
-        dummyUserEmailsData.add(dummyUserEmails[i]);
+    List dummySearchList = [];
+    for(int i = 0; i < availableusers.length; i++){
+      dummySearchList.add(availableusers.elementAt(i));
+    }
+    if(query.isNotEmpty) {
+      List dummyListData = [];
+      query = query.toLowerCase();
+      for (var item in dummySearchList) {
+        String itemCopy = item[0].toLowerCase();
+        if(itemCopy.startsWith(query)) {
+          dummyListData.add(item);
+        }
       }
+      setState(() {
+        items.clear();
+        for(int i = 0; i < dummyListData.length; i++){
+          items.add(dummyListData[i]);
+        }
+      });
+      return;
+    } else {
+      setState(() {
+        items.clear();
+        for(int i = 0; i < availableusers.length; i++){
+          items.add(availableusers.elementAt(i));
+        }
+      });
     }
 
-    setState(() {
-      items.clear();
-      useremails.clear();
-
-      for (int i = 0; i < dummyListData.length; i++) {
-        items.add(dummyListData[i]);
-        useremails.add(dummyUserEmailsData[i]);
-      }
-    });
-  } else {
-    setState(() {
-      items.clear();
-      useremails.clear();
-
-      for (int i = 0; i < availableusers.length; i++) {
-        items.add(availableusers.elementAt(i));
-        useremails.add(useremails.elementAt(i));
-      }
-    });
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -181,18 +168,18 @@ class _UserListState extends State<UserList> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(items[index], style: blackText.copyWith(
+                  title: Text(items[index][0], style: blackText.copyWith(
                       fontSize: 16
                   ),),
                   //What happens when the user is tapped
                   onTap: () async {
-                    Invite invite=Invite(userID, useremails[index], gardenName,gardenId);
+                    Invite invite=Invite(userID, items[index][1], gardenName, gardenId);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text('Confirm Invite'),
-                          content: Text('Send invite to ${items[index]} to share the garden'),
+                          content: Text('Send invite to ${items[index][0]} to share the garden'),
                           actions: <Widget>[
                             TextButton(
                               child: Text('Confirm'),
