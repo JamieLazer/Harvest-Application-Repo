@@ -151,7 +151,7 @@ class _AddFoodFormState extends State<AddFoodForm> {
 
                         //Create the arguments that we will pass to the next page
                         //The arguments we pass to a new page can be any object
-                        GardenInfoArguments args = GardenInfoArguments(userID, gardenID, updatedFoodList);
+                        gardenInfoArgs args = gardenInfoArgs(userID, gardenID, updatedFoodList,gardenName);
 
                         //Navigate back to the user garden screen using a named route and pass the new page the arguments
                         Navigator.pushNamed(context, '/foodPage',arguments: args);
