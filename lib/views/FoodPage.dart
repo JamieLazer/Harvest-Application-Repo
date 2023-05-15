@@ -44,7 +44,7 @@ class FoodPage extends StatelessWidget {
                     var conn=await MySqlConnection.connect(settings);
                     var results = await conn.query('select * from FOOD');
                     List resultsList = results.toList();
-                    GardenInfoArguments args = GardenInfoArguments(userID, gardenID, resultsList);
+                    gardenInfoArgs args = gardenInfoArgs(userID, gardenID, resultsList,gardenName);
                     Navigator.pushNamed(context, '/searchFoodPage', arguments: args);
                   },
                   child: const Icon(
