@@ -96,36 +96,49 @@ class _UserListState extends State<UserList> {
 
   //This method shortens the list of food based on what a user types into the search
   void filterSearchResults(String query) {
-    List<String> dummySearchList = <String>[];
-    for(int i = 0; i < availableusers.length; i++){
-      dummySearchList.add(availableusers.elementAt(i));
-    }
-    if(query.isNotEmpty) {
-      List<String> dummyListData = <String>[];
-      query = query.toLowerCase();
-      for (var item in dummySearchList) {
-        String itemCopy = item.toLowerCase();
-        if(itemCopy.startsWith(query)) {
-          dummyListData.add(item);
-        }
+  List<String> dummySearchList = <String>[];
+  List<String> dummyUserEmails = <String>[];
+
+  for (int i = 0; i < availableusers.length; i++) {
+    dummySearchList.add(availableusers.elementAt(i));
+    dummyUserEmails.add(useremails.elementAt(i));
+  }
+
+  if (query.isNotEmpty) {
+    List<String> dummyListData = <String>[];
+    List<String> dummyUserEmailsData = <String>[];
+
+    query = query.toLowerCase();
+    for (var i = 0; i < dummySearchList.length; i++) {
+      String itemCopy = dummySearchList[i].toLowerCase();
+      if (itemCopy.startsWith(query)) {
+        dummyListData.add(dummySearchList[i]);
+        dummyUserEmailsData.add(dummyUserEmails[i]);
       }
-      setState(() {
-        items.clear();
-        for(int i = 0; i < dummyListData.length; i++){
-          items.add(dummyListData[i]);
-        }
-      });
-      return;
-    } else {
-      setState(() {
-        items.clear();
-        for(int i = 0; i < availableusers.length; i++){
-          items.add(availableusers.elementAt(i));
-        }
-      });
     }
 
+    setState(() {
+      items.clear();
+      useremails.clear();
+
+      for (int i = 0; i < dummyListData.length; i++) {
+        items.add(dummyListData[i]);
+        useremails.add(dummyUserEmailsData[i]);
+      }
+    });
+  } else {
+    setState(() {
+      items.clear();
+      useremails.clear();
+
+      for (int i = 0; i < availableusers.length; i++) {
+        items.add(availableusers.elementAt(i));
+        useremails.add(useremails.elementAt(i));
+      }
+    });
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
