@@ -39,6 +39,7 @@ dependencies:
   mysql1: ^0.20.0
   email_validator: "^2.1.16"
   fluttertoast: ^8.2.1
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:
