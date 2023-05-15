@@ -4,26 +4,95 @@ import 'package:flutter/material.dart';
 import 'package:mysql1/src/single_connection.dart';
 
 import '../Arguments/Invitation.dart';
+import '../Arguments/ProfileDetailsArguments.dart';
 import '../ConnectionSettings.dart';
 import '../styles.dart';
 
-class InvitationsScreen extends StatefulWidget {
-  @override
-  final List list;
-  InvitationsScreen({required this.list});
-  _InvitationsScreenState createState() => _InvitationsScreenState();
+class InvitationsScreen extends StatelessWidget {
+  const InvitationsScreen({super.key});
 
+@override
+  Widget build(BuildContext context) {
+    //Extract the arguments passed to this page as a UserInfoArguments
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
+    //Extract the user's ID and gardens from the arguments
+    int user_id = arguments.userID;
+    String name = arguments.name;
+    String surname = arguments.surname;
+    String curr_user_email = arguments.email;
+    List gardens = arguments.gardens;
 
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Invitations'),
+        backgroundColor: primaryColour,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios), 
+          onPressed: () async {
+            var conn = await MySqlConnection.connect(settings);
+            //Request the users gardens from the database
+            var gardenResults = await conn
+                .query('select * from LOG where USER_ID = ?', [user_id]);
+            //Convert the results of the database query to a list
+            List gardenResultsList = gardenResults.toList();
+            //Create the arguments that we will pass to the next page
+            ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardenResultsList, name, surname, curr_user_email);
+            Navigator.pushNamed(context, '/userGardens', arguments: args);
+          },
+        ),
+      ),
+      body: InvitationsScreen2(user_id, name, surname, curr_user_email, gardens),
+      );
+  }
 }
 
-class _InvitationsScreenState extends State<InvitationsScreen> {
+class InvitationsScreen2 extends StatefulWidget {
+
+  //We have to initialise the variable
+  int user_id = 0;
+  String name = "";
+  String surname = "";
+  String curr_user_email = "";
+  List gardens = [];
+
+  //Constructor
+  InvitationsScreen2(int passedUserID, String passedName, String passedSurname, String passedEmail, List passedGardens, {super.key}) {
+    user_id = passedUserID;
+    name = passedName;
+    surname = passedSurname;
+    gardens = passedGardens;
+    curr_user_email = passedEmail;
+  }
+
+  @override
+  _InvitationsScreenState createState() => _InvitationsScreenState(user_id, name, surname, curr_user_email, gardens);
+}
+
+class _InvitationsScreenState extends State<InvitationsScreen2> {
   List<Invitation> invitations = []; // Assuming Invitation is the model class
   bool isLoading=true;
+
+  //We have to initialise the variable
+  int user_id = 0;
+  String name = "";
+  String surname = "";
+  String curr_user_email = "";
+  List gardens = [];
+
+  //Constructor
+  _InvitationsScreenState(int passedUserID, String passedName, String passedSurname, String passedEmail, List passedGardens) {
+    user_id = passedUserID;
+    name = passedName;
+    surname = passedSurname;
+    gardens = passedGardens;
+    curr_user_email = passedEmail;
+  }
 
 
   void initState() {
     super.initState();
-    fetchInvitations(widget.list.elementAt(0));
+    fetchInvitations(curr_user_email);
   }
 
   Future<void> fetchInvitations(String email) async {
@@ -49,12 +118,8 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //Extract the arguments passed to this page as a UserInfoArguments
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Invitations'),
-      ),
       body: invitations.isEmpty
           ? Center(
         child: Column(
@@ -68,12 +133,12 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
               ),
             ),
             SizedBox(height: 10),
-            Text(
-              "\u{1F600}", // Smiling emoji Unicode representation
-              style: TextStyle(
-                fontSize: 24, // Adjust the font size here
-              ),
-            ),
+            // Text(
+            //   "\u{1F600}", // Smiling emoji Unicode representation
+            //   style: TextStyle(
+            //     fontSize: 24, // Adjust the font size here
+            //   ),
+            // ),
           ],
         ),
       )
@@ -94,14 +159,14 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
                   IconButton(
                     icon: Icon(Icons.check),
                     onPressed: () {
-                      acceptInvitation(invitation);
+                      acceptInvitation(invitation, curr_user_email, user_id);
                        // Function to accept the invitation
                     },
                   ),
                   IconButton(
                     icon: Icon(Icons.close),
                     onPressed: () {
-                      declineInvitation(invitation); // Function to decline the invitation
+                      declineInvitation(invitation, curr_user_email, user_id); // Function to decline the invitation
                     },
                   ),
                 ],
@@ -113,20 +178,20 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
     );
   }
 
-  void acceptInvitation(Invitation invitation) async{
+  void acceptInvitation(Invitation invitation, String email, int id) async{
     var conn = await MySqlConnection.connect(settings);
     conn.query(
-      'CALL ACCEPT_INVITATION(?,?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(0),invitation.gardenId,invitation.gardenName]
+      'CALL ACCEPT_INVITATION(?,?,?,?)',[id, email, invitation.gardenId, invitation.gardenName]
     );
-    fetchInvitations(widget.list.elementAt(0));
+    fetchInvitations(email);
   }
 
-  void declineInvitation(Invitation invitation) async {
+  void declineInvitation(Invitation invitation, String email, int id) async {
     var conn = await MySqlConnection.connect(settings);
     try{conn.query(
-        'CALL DECLINE_INVITATION(?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(0),invitation.gardenId]
+        'CALL DECLINE_INVITATION(?,?,?)',[id,email,invitation.gardenId]
     );
-    fetchInvitations(widget.list.elementAt(0));
+    fetchInvitations(email);
   }
   catch(e){
     print(e);

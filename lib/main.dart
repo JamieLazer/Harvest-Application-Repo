@@ -1,5 +1,6 @@
 import 'package:dartfactory/views/AddFoodPage.dart';
 import 'package:dartfactory/views/AnalyticsPage.dart';
+import 'package:dartfactory/views/CollaborationRequestsPage.dart';
 import 'package:dartfactory/views/FoodLineGraphPage.dart';
 import 'package:dartfactory/views/FoodPieChartPage.dart';
 import 'package:dartfactory/views/SubtypeLineGraphPage.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/subtypeLineGraphPage': (context) => const SubtypeLineGraphPage(),
         '/foodLineGraphPage': (context) => const FoodLineGraphPage(),
         '/userPage':(context)=> const UserPage(),
+        '/invitations':(context)=> const InvitationsScreen(),
        },
     );
   }
