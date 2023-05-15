@@ -71,7 +71,7 @@ class _UserListState extends State<UserList> {
 
   TextEditingController editingController = TextEditingController();
 
-  final availableusers = <String>{};
+  final availableusers = <String>[];
   final useremails=<String>[];
   var items = <String>[];
 
