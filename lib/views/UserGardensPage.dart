@@ -38,12 +38,12 @@ class SideMenu extends StatelessWidget {
                 //profile photo
                 CircleAvatar(
                   radius: 50,
-                  child: Icon(
+                  backgroundColor: secondaryColour,
+                  child: const Icon(
                     Icons.person,
                     size: 50,
                     color: Colors.white,
                   ),
-                  backgroundColor: secondaryColour,
                 ),
 
                 const SizedBox(height: 10),
