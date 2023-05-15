@@ -59,7 +59,7 @@ class FoodPage extends StatelessWidget {
 
                     //Make a request for a list of all Users
                     var results = await conn.query(
-                        'select user_fname,user_lname,user_email from USERS where user_id not in(?)Order by user_fname,user_lname ASC',[userID] //'select * from FOOD'
+                        'select user_fname,user_lname,user_email from USERS where user_id not in(?)Order by user_fname,user_lname ASC',[userID] 
                     );
                     //Convert the results of the database query to a list
                     List resultsList = results.toList();
