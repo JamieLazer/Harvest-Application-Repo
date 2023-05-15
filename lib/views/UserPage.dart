@@ -22,6 +22,7 @@ class UserPage extends StatelessWidget {
     String gardenName = arguments.gardenName;
     List users = arguments.users;
     int gardenId=arguments.gardenId;
+    print(users);
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -44,10 +45,10 @@ class UserList extends StatefulWidget {
   int gardenId=0;
 
   //Constructor
-  UserList(int passedUserID, String passedGardenID,int gardenIDnum, List passedFood, {super.key}) {
+  UserList(int passedUserID, String passedGardenID,int gardenIDnum, List passedUsers, {super.key}) {
     userID = passedUserID;
     gardenName = passedGardenID;
-    users = passedFood;
+    users = passedUsers;
     gardenId=gardenIDnum;
   }
 
@@ -71,7 +72,7 @@ class _UserListState extends State<UserList> {
 
   TextEditingController editingController = TextEditingController();
 
-  final availableusers = <String>{};
+  final availableusers = <String>[];
   final useremails=<String>[];
   var items = <String>[];
 
@@ -173,6 +174,10 @@ class _UserListState extends State<UserList> {
                   ),),
                   //What happens when the user is tapped
                   onTap: () async {
+                    print(index);
+                    print(items.length);
+                    print(useremails);
+                    print(useremails[index]);
                     Invite invite=Invite(userID, useremails[index], gardenName,gardenId);
                     showDialog(
                       context: context,

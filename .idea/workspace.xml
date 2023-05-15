@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Conflicts checked again">
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Accepting Invites Done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Arguments/Invite.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Arguments/Invite.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Arguments/inviteHelper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Arguments/inviteHelper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/AddFoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/AddFoodPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/CollaborationRequestsPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/CollaborationRequestsPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/FoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/FoodPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/LoginPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ProfilePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/UserPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserPage.dart" afterDir="false" />
     </list>

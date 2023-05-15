@@ -94,6 +94,7 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
                   IconButton(
                     icon: Icon(Icons.check),
                     onPressed: () {
+                      print(widget.list);
                       acceptInvitation(invitation);
                       print(gardens); // Function to accept the invitation
                     },
@@ -115,16 +116,20 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
 
   void acceptInvitation(Invitation invitation) async{
     var conn = await MySqlConnection.connect(settings);
-    conn.query(
-      'CALL ACCEPT_INVITATION(?,?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(2),invitation.gardenId,invitation.gardenName]
+    try{conn.query(
+
+      'CALL ACCEPT_INVITATION(?,?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(0),invitation.gardenId,invitation.gardenName]
     );
     fetchInvitations(widget.list.elementAt(0));
+  }
+  catch(e){
+    print(e);}
   }
 
   void declineInvitation(Invitation invitation) async {
     var conn = await MySqlConnection.connect(settings);
     try{conn.query(
-        'CALL DECLINE_INVITATION(?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(2),invitation.gardenId]
+        'CALL DECLINE_INVITATION(?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(0),invitation.gardenId]
     );
     fetchInvitations(widget.list.elementAt(0));
   }

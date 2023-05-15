@@ -100,6 +100,7 @@ class SideMenu extends StatelessWidget {
                 // Close the drawer
                 Navigator.pop(context);
                 List args = [curr_user_email,user_id];
+                print(args);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

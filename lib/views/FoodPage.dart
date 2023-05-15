@@ -13,6 +13,8 @@ class FoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
+    var firsttime=true;
+
     final arguments =
     ModalRoute.of(context)!.settings.arguments as gardenInfoArgs;
     //Extract the garden's info from the arguments
@@ -44,7 +46,7 @@ class FoodPage extends StatelessWidget {
                     var conn=await MySqlConnection.connect(settings);
                     var results = await conn.query('select * from FOOD');
                     List resultsList = results.toList();
-                    GardenInfoArguments args = GardenInfoArguments(userID, gardenID, resultsList);
+                    gardenInfoArgs args = gardenInfoArgs(userID, gardenID, resultsList,gardenName);
                     Navigator.pushNamed(context, '/searchFoodPage', arguments: args);
                   },
                   child: const Icon(
@@ -59,10 +61,11 @@ class FoodPage extends StatelessWidget {
 
                     //Make a request for a list of all Users
                     var results = await conn.query(
-                        'select user_fname,user_lname,user_email from USERS where user_id not in(?)Order by user_fname,user_lname ASC',[userID] //'select * from FOOD'
+                        'select user_fname,user_lname,user_email from USERS where user_id Order by user_fname,user_lname ASC' //'select * from FOOD'
                     );
                     //Convert the results of the database query to a list
                     List resultsList = results.toList();
+
                     //Create the arguments that we will pass to the next page
                     InviteHelper args = InviteHelper(userID, gardenName,gardenID, resultsList);
                     //Navigate to the add food screen using a named route.
