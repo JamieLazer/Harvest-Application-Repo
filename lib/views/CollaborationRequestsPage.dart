@@ -116,7 +116,7 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
   void acceptInvitation(Invitation invitation) async{
     var conn = await MySqlConnection.connect(settings);
     conn.query(
-      'CALL ACCEPT_INVITATION(?,?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(2),invitation.gardenId,invitation.gardenName]
+      'CALL ACCEPT_INVITATION(?,?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(0),invitation.gardenId,invitation.gardenName]
     );
     fetchInvitations(widget.list.elementAt(0));
   }
@@ -124,7 +124,7 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
   void declineInvitation(Invitation invitation) async {
     var conn = await MySqlConnection.connect(settings);
     try{conn.query(
-        'CALL DECLINE_INVITATION(?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(2),invitation.gardenId]
+        'CALL DECLINE_INVITATION(?,?,?)',[widget.list.elementAt(1),widget.list.elementAt(0),invitation.gardenId]
     );
     fetchInvitations(widget.list.elementAt(0));
   }
