@@ -32,7 +32,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+			<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -47,5 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access required to select image</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access required to take photo for profile</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Access required.</string>
 </dict>
 </plist>
