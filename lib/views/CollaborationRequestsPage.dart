@@ -95,7 +95,7 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
                     icon: Icon(Icons.check),
                     onPressed: () {
                       acceptInvitation(invitation);
-                      print(gardens); // Function to accept the invitation
+                       // Function to accept the invitation
                     },
                   ),
                   IconButton(
