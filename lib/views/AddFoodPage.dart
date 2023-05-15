@@ -3,6 +3,7 @@ import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/LogFoodArguments.dart';
+import '../Arguments/gardenInfoArgumentsv2.dart';
 import '../ConnectionSettings.dart';
 
 class AddFoodPage extends StatelessWidget {
