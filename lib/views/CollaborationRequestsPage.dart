@@ -72,6 +72,7 @@ class InvitationsScreen2 extends StatefulWidget {
 class _InvitationsScreenState extends State<InvitationsScreen2> {
   List<Invitation> invitations = []; // Assuming Invitation is the model class
   bool isLoading=true;
+  bool isEmpty = false;
 
   //We have to initialise the variable
   int user_id = 0;
@@ -113,6 +114,9 @@ class _InvitationsScreenState extends State<InvitationsScreen2> {
     setState(() {
       invitations = fetchedInvitations.toList();
       isLoading = false;
+      if(invitations.isEmpty){
+        isEmpty = true;
+      }
     });
   }
 
@@ -120,7 +124,7 @@ class _InvitationsScreenState extends State<InvitationsScreen2> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: invitations.isEmpty
+      body: isEmpty
           ? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
