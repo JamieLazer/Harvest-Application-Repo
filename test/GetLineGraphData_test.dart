@@ -5,11 +5,15 @@ import 'package:dartfactory/LineData.dart';
 void main() {
   test('GetLineGraphData should return valid line graph data', () {
     // Set up test data
+    DateTime d1 = DateTime(2021, 1, 1);
+    DateTime d2 = DateTime(2021, 2, 1);
+    DateTime d3 = DateTime(2022, 1, 1);
+    DateTime d4 = DateTime(2022, 2, 1);
     List food = [
-      {"HARVEST_DATE": "2021-01-01", "YIELD_KG": 10, "CATEGORY": "Apples"},
-      {"HARVEST_DATE": "2021-02-01", "YIELD_KG": 20, "CATEGORY": "Oranges"},
-      {"HARVEST_DATE": "2022-01-01", "YIELD_KG": 30, "CATEGORY": "Apples"},
-      {"HARVEST_DATE": "2022-02-01", "YIELD_KG": 40, "CATEGORY": "Oranges"},
+      {"HARVEST_DATE": d1, "YIELD_KG": 10, "CATEGORY": "Apples"},
+      {"HARVEST_DATE": d2, "YIELD_KG": 20, "CATEGORY": "Oranges"},
+      {"HARVEST_DATE": d3, "YIELD_KG": 30, "CATEGORY": "Apples"},
+      {"HARVEST_DATE": d4, "YIELD_KG": 40, "CATEGORY": "Oranges"},
     ];
     String category = "CATEGORY";
 
