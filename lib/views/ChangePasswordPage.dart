@@ -35,7 +35,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       return await MySqlConnection.connect(settings);
     }
 
-    Future<String?> oldPasswordVerifier(String? pswd) async {
+    Future<bool?> oldPasswordVerifier(String? pswd) async {
       // Establish a connection to the database
       final conn = await getConnection();
       try {
@@ -44,10 +44,11 @@ class _ChangePasswordState extends State<ChangePassword> {
             "select user_password from USERS where user_email = '?'",
                           [email]);
         // If the query returns exactly one row, the login was successful
-        if (results.toString() != pswd) {
-          return 'Password is not correct';
+        // print(results.toString());
+        if (results.toString() == pswd) {
+          return true;
         } else {
-          return null;
+          return false;
         }
       } catch (e) {
         // Handle any exceptions that occur during the query execution
@@ -77,49 +78,47 @@ class _ChangePasswordState extends State<ChangePassword> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "enter old password",
-                    style: blackText.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                        fontSize: 14),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.centerLeft,
+                //   child: Text(
+                //     "enter old password",
+                //     style: blackText.copyWith(
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.black87,
+                //         fontSize: 14),
+                //     textAlign: TextAlign.left,
+                //   ),
+                // ),
 
-                const SizedBox(
-                  height: 2,
-                ),
+                // const SizedBox(
+                //   height: 2,
+                // ),
 
-                //old password
-                Container(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  height: 50,
-                  width: 275,
-                  child: TextFormField(
-                    obscureText: true,
-                    controller: oldPasswordController,
-                    decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: primaryColour, width: 1.5)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: primaryColour, width: 1.5)),
-                        errorBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.5)),
-                        labelStyle: blackText),
-                    validator: (value) {
-                         oldPasswordVerifier(value);
-                    },
-                  ),
-                ),
+                // //old password
+                // Container(
+                //   padding: const EdgeInsets.only(bottom: 10),
+                //   height: 50,
+                //   width: 275,
+                //   child: TextFormField(
+                //     obscureText: true,
+                //     controller: oldPasswordController,
+                //     decoration: InputDecoration(
+                //         enabledBorder: OutlineInputBorder(
+                //             borderSide:
+                //                 BorderSide(color: primaryColour, width: 1.5)),
+                //         focusedBorder: OutlineInputBorder(
+                //             borderSide:
+                //                 BorderSide(color: primaryColour, width: 1.5)),
+                //         errorBorder: const OutlineInputBorder(
+                //             borderSide: BorderSide(width: 1.5)),
+                //         labelStyle: blackText),
+                    
+                //   ),
+                // ),
 
-                const SizedBox(
-                  height: 4,
-                ),
+                // const SizedBox(
+                //   height: 4,
+                // ),
 
                 Align(
                   alignment: Alignment.topLeft,
@@ -152,7 +151,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             borderSide:
                                 BorderSide(color: primaryColour, width: 1.5)),
                         errorBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.5)),
+                            borderSide: BorderSide(width: 2)),
                         labelStyle: blackText),
                   ),
                 ),
@@ -257,7 +256,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         child: Text('Change Password',
                             style: signUpPageText.copyWith(
                               fontSize: 25,
-                              color: primaryColour,
+                              color: Colors.white,
                             )))),
               ],
             ),
