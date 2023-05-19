@@ -11,20 +11,20 @@ import 'CollaborationRequestsPage.dart';
 import 'ProfilePage.dart';
 
 class SideMenu extends StatelessWidget {
+
   const SideMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-        ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
+    ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
     //Extract the user's ID and gardens from the arguments
     int user_id = arguments.userID;
     String name = arguments.name;
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
-
     //drawer widget: side menu
     return Drawer(
       child: ListView(
@@ -122,7 +122,7 @@ class UserGardensPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-        ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
+    ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
     //Extract the user's ID and gardens from the arguments
     int user_id = arguments.userID;
     String name = arguments.name;
@@ -153,7 +153,8 @@ class UserGardensPage extends StatelessWidget {
             onPressed: () async {
               //What happens when the + is tapped
               //Create the arguments that we will pass to the next page
-              ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardens, name, surname, curr_user_email);
+              ProfileDetailsArguments args =
+                  ProfileDetailsArguments(user_id,gardens,name,surname,curr_user_email);
               //Navigate to the add garden screen using a named route.
               Navigator.pushNamed(context, '/addGarden', arguments: args);
             },
