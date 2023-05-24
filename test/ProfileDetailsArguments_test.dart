@@ -8,15 +8,17 @@ void main() {
     final name = 'Ribi';
     final surname = 'TheCat';
     final email = 'ribi@gmail.com';
+    final password = 'pswd';
     test('constructor should set properties correctly', () {
       final ProfileArgs =
-          ProfileDetailsArguments(userID, gardens, name, surname, email);
+          ProfileDetailsArguments(userID, gardens, name, surname, email, password);
 
       expect(ProfileArgs.userID, userID);
       expect(ProfileArgs.gardens, gardens);
       expect(ProfileArgs.name, name);
       expect(ProfileArgs.surname, surname);
       expect(ProfileArgs.email, email);
+      expect(ProfileArgs.password, password);
     });
   });
 }

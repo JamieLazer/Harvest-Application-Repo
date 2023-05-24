@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 import '../styles.dart';
 import '../ConnectionSettings.dart';
-import '../Arguments/UserInfoArguments.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -24,40 +23,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     final arguments = ModalRoute.of(context)!.settings.arguments as List;
     //Extract the user's ID and gardens from the arguments
     String email = arguments[2];
-
-    Future<MySqlConnection> getConnection() async {
-      var settings = ConnectionSettings(
-          host: 'db4free.net',
-          port: 3306,
-          user: 'hardcoded',
-          password: '5Scrummies@SD',
-          db: 'harvestapp');
-      return await MySqlConnection.connect(settings);
-    }
-
-    Future<bool?> oldPasswordVerifier(String? pswd) async {
-      // Establish a connection to the database
-      final conn = await getConnection();
-      try {
-        // Execute a query to check if the password matches
-        final results = await conn.query(
-            "select user_password from USERS where user_email = '?'",
-                          [email]);
-        // If the query returns exactly one row, the login was successful
-        // print(results.toString());
-        if (results.toString() == pswd) {
-          return true;
-        } else {
-          return false;
-        }
-      } catch (e) {
-        // Handle any exceptions that occur during the query execution
-        return null;
-      } finally {
-        // Close the connection when done
-        await conn.close();
-      }
-    }
+    String password = arguments[3];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -78,47 +44,54 @@ class _ChangePasswordState extends State<ChangePassword> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Align(
-                //   alignment: Alignment.centerLeft,
-                //   child: Text(
-                //     "enter old password",
-                //     style: blackText.copyWith(
-                //         fontWeight: FontWeight.bold,
-                //         color: Colors.black87,
-                //         fontSize: 14),
-                //     textAlign: TextAlign.left,
-                //   ),
-                // ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "enter old password",
+                    style: blackText.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: 14),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
 
-                // const SizedBox(
-                //   height: 2,
-                // ),
+                const SizedBox(
+                  height: 2,
+                ),
 
-                // //old password
-                // Container(
-                //   padding: const EdgeInsets.only(bottom: 10),
-                //   height: 50,
-                //   width: 275,
-                //   child: TextFormField(
-                //     obscureText: true,
-                //     controller: oldPasswordController,
-                //     decoration: InputDecoration(
-                //         enabledBorder: OutlineInputBorder(
-                //             borderSide:
-                //                 BorderSide(color: primaryColour, width: 1.5)),
-                //         focusedBorder: OutlineInputBorder(
-                //             borderSide:
-                //                 BorderSide(color: primaryColour, width: 1.5)),
-                //         errorBorder: const OutlineInputBorder(
-                //             borderSide: BorderSide(width: 1.5)),
-                //         labelStyle: blackText),
-                    
-                //   ),
-                // ),
+                //old password
+                Container(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  height: 50,
+                  width: 275,
+                  child: TextFormField(
+                    obscureText: true,
+                    controller: oldPasswordController,
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primaryColour, width: 1.5)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primaryColour, width: 1.5)),
+                        errorBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(width: 1.5)),
+                        labelStyle: blackText),
+                    validator: (value) {
+                          if (value != password) {
+                            return 'This password is incorrect';
+                          }
+                          else {
+                            return null;
+                          }
+                    },
+                  ),
+                  ),
 
-                // const SizedBox(
-                //   height: 4,
-                // ),
+                const SizedBox(
+                  height: 4,
+                ),
 
                 Align(
                   alignment: Alignment.topLeft,
@@ -215,7 +188,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: secondaryColour,
                         ),
-                        onPressed: () async {
+                        onPressed: () async {   
                           // Validate returns true if the form is valid, or false otherwise.
                           if (_formKey.currentState!.validate()) {
                             //If the form is valid
@@ -250,8 +223,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                               await conn.close();
                             }
                           }
-                          //Trying to navigate back to the login page
-                          else if (_formKey.currentState!.validate()) {}
                         },
                         child: Text('Change Password',
                             style: signUpPageText.copyWith(

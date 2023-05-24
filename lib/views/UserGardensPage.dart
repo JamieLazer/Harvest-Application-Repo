@@ -25,6 +25,8 @@ class SideMenu extends StatelessWidget {
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
+    String password = arguments.password;
+
     //drawer widget: side menu
     return Drawer(
       child: ListView(
@@ -69,7 +71,7 @@ class SideMenu extends StatelessWidget {
             onTap: () {
               // Close the drawer
               Navigator.pop(context);
-              List args1 = [name, surname, curr_user_email];
+              List args1 = [name, surname, curr_user_email, password];
 
               // Navigate to the profile page
               Navigator.pushNamed(context, '/profile', arguments: args1);
@@ -88,7 +90,7 @@ class SideMenu extends StatelessWidget {
                 Navigator.pop(context);
                 //Create the arguments that we will pass to the next page
                 //The arguments we pass to a new page can be any object
-                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardens, name, surname, curr_user_email);
+                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardens, name, surname, curr_user_email, password);
                 Navigator.pushNamed(context, '/invitations', arguments: args);
               }),
           ListTile(
@@ -129,6 +131,7 @@ class UserGardensPage extends StatelessWidget {
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
+    String password = arguments.password;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -154,7 +157,7 @@ class UserGardensPage extends StatelessWidget {
               //What happens when the + is tapped
               //Create the arguments that we will pass to the next page
               ProfileDetailsArguments args =
-                  ProfileDetailsArguments(user_id,gardens,name,surname,curr_user_email);
+                  ProfileDetailsArguments(user_id,gardens,name,surname,curr_user_email, password);
               //Navigate to the add garden screen using a named route.
               Navigator.pushNamed(context, '/addGarden', arguments: args);
             },

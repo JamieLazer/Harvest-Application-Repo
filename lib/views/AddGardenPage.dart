@@ -19,6 +19,7 @@ class AddGardenPage extends StatelessWidget {
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
+    String password = arguments.password;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -61,7 +62,7 @@ class AddGardenPage extends StatelessWidget {
                   ),
                 ),
                 child: Center(
-                  child: AddGardenForm(user_id, gardens,name,surname,curr_user_email)
+                  child: AddGardenForm(user_id, gardens,name,surname,curr_user_email, password)
                 ),
               ),
             ),
@@ -80,18 +81,20 @@ class AddGardenForm extends StatefulWidget {
   String name='';
   String surname='';
   String email='';
+  String password='';
 
   //Constructor
-  AddGardenForm(int passedUserID, List passedGardens,String passedName,String passedSurname,String passedEmail, {super.key}) {
+  AddGardenForm(int passedUserID, List passedGardens,String passedName,String passedSurname,String passedEmail, String passedPassword, {super.key}) {
     userID = passedUserID;
     gardens = passedGardens;
     name=passedName;
     surname=passedSurname;
     email=passedEmail;
+    password = passedPassword;
   }
 
   @override
-  State<AddGardenForm> createState() => _AddGardenFormState(userID, gardens,name,surname,email);
+  State<AddGardenForm> createState() => _AddGardenFormState(userID, gardens,name,surname,email, password);
 }
 
 //This class holds data related to the form
@@ -102,11 +105,13 @@ class _AddGardenFormState extends State<AddGardenForm> {
   String name="";
   String surname="";
   String email="";
+  String password="";
   //Constructor
-  _AddGardenFormState(int passedUserID, List passedGardens,String passedName,String passedSurname,String passedEmail,) {
+  _AddGardenFormState(int passedUserID, List passedGardens,String passedName,String passedSurname,String passedEmail, String passedPassword) {
     userID = passedUserID;
     gardens = passedGardens;
     name=passedName;
+    password = passedPassword;
 
   }
 
@@ -200,7 +205,7 @@ class _AddGardenFormState extends State<AddGardenForm> {
 
                             //Create the arguments that we will pass to the next page
                             //The arguments we pass to a new page can be any object
-                            ProfileDetailsArguments args=ProfileDetailsArguments(userID,updatedGardensList,name,surname, email);
+                            ProfileDetailsArguments args=ProfileDetailsArguments(userID,updatedGardensList,name,surname, email, password);
 
                             //Navigate back to the user garden screen using a named route and pass the new page the arguments
                             Navigator.pushNamed(context, '/userGardens',
