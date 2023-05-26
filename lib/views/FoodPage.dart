@@ -157,10 +157,39 @@ class _FoodListState extends State<FoodList> {
                       Card(
                         child: ListTile(
                             visualDensity: const VisualDensity(vertical: 4),
-                            title: Text(food[index]["YIELD_NAME"],
-                                style: secondaryColourText),
-                            trailing: Text('${food[index]["YIELD_KG"]} g',
-                                style: secondaryColourText),
+                            contentPadding: EdgeInsets.only(left: 16, right: 8),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  food[index]["YIELD_NAME"],
+                                  style: secondaryColourText,
+                                ),
+                                Text(
+                                  '${food[index]["YIELD_KG"]} g',
+                                  style: secondaryColourText,
+                                ),
+                              ],
+                            ),
+                            subtitle: Align(
+                              alignment: Alignment.centerRight,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  '${food[index]["harvested_by"]}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
                             onTap: () {
                               // Find the tapped food to get atlas information
                               var tapped = atlas.toList().firstWhere(
@@ -195,7 +224,8 @@ class _FoodListState extends State<FoodList> {
                                                         .width *
                                                     0.8, // Set the width to 80% of the screen width,
                                                 child: SingleChildScrollView(
-                                                  scrollDirection: Axis.horizontal,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
                                                   child: DataTable(columns: [
                                                     DataColumn(
                                                         label: Text("FOOD")),
@@ -207,7 +237,8 @@ class _FoodListState extends State<FoodList> {
                                                         label: Text("HARVEST")),
                                                     DataColumn(
                                                         label: Text("SUN")),
-                                                    DataColumn(label: Text("pH")),
+                                                    DataColumn(
+                                                        label: Text("pH")),
                                                   ], rows: [
                                                     DataRow(cells: [
                                                       DataCell(Text(
@@ -220,8 +251,8 @@ class _FoodListState extends State<FoodList> {
                                                           "${tapped['HARVEST']}")),
                                                       DataCell(Text(
                                                           "${tapped['SUN']}")),
-                                                      DataCell(
-                                                          Text("${tapped['pH']}"))
+                                                      DataCell(Text(
+                                                          "${tapped['pH']}"))
                                                     ])
                                                   ]),
                                                 ),
@@ -229,10 +260,17 @@ class _FoodListState extends State<FoodList> {
                                             ],
                                           ),
                                           ElevatedButton(
-                                            child: Text('Dismiss',style: blackText.copyWith(color: Colors.white),),
-                                            style: ButtonStyle(
-                                                backgroundColor:MaterialStateProperty.all<Color>(secondaryColour,)
+                                            child: Text(
+                                              'Dismiss',
+                                              style: blackText.copyWith(
+                                                  color: Colors.white),
                                             ),
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all<
+                                                        Color>(
+                                              secondaryColour,
+                                            )),
                                             onPressed: () =>
                                                 Navigator.pop(context),
                                           ),
@@ -250,10 +288,39 @@ class _FoodListState extends State<FoodList> {
                   return Card(
                     child: ListTile(
                       visualDensity: const VisualDensity(vertical: 4),
-                      title: Text(food[index]["YIELD_NAME"],
-                          style: secondaryColourText),
-                      trailing: Text('${food[index]["YIELD_KG"]} g',
-                          style: secondaryColourText),
+                      contentPadding: EdgeInsets.only(left: 16, right: 8),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            food[index]["YIELD_NAME"],
+                            style: secondaryColourText,
+                          ),
+                          Text(
+                            '${food[index]["YIELD_KG"]} g',
+                            style: secondaryColourText,
+                          ),
+                        ],
+                      ),
+                      subtitle: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            '${food[index]["harvested_by"]}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                       onTap: () {
                         // Find the tapped food to get atlas information
                         var tapped = atlas.toList().firstWhere((element) =>
@@ -291,7 +358,8 @@ class _FoodListState extends State<FoodList> {
                                               DataColumn(label: Text("FOOD")),
                                               DataColumn(label: Text("SOW")),
                                               DataColumn(label: Text("PLANT")),
-                                              DataColumn(label: Text("HARVEST")),
+                                              DataColumn(
+                                                  label: Text("HARVEST")),
                                               DataColumn(label: Text("SUN")),
                                               DataColumn(label: Text("pH")),
                                             ], rows: [
@@ -302,11 +370,12 @@ class _FoodListState extends State<FoodList> {
                                                     Text("${tapped['SOW']}")),
                                                 DataCell(
                                                     Text("${tapped['PLANT']}")),
-                                                DataCell(
-                                                    Text("${tapped['HARVEST']}")),
+                                                DataCell(Text(
+                                                    "${tapped['HARVEST']}")),
                                                 DataCell(
                                                     Text("${tapped['SUN']}")),
-                                                DataCell(Text("${tapped['pH']}"))
+                                                DataCell(
+                                                    Text("${tapped['pH']}"))
                                               ])
                                             ]),
                                           ),
@@ -314,10 +383,16 @@ class _FoodListState extends State<FoodList> {
                                       ],
                                     ),
                                     ElevatedButton(
-                                      child: Text('Dismiss',style: blackText.copyWith(color: Colors.white),),
-                                      style: ButtonStyle(
-                                        backgroundColor:MaterialStateProperty.all<Color>(secondaryColour,)
+                                      child: Text(
+                                        'Dismiss',
+                                        style: blackText.copyWith(
+                                            color: Colors.white),
                                       ),
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                        secondaryColour,
+                                      )),
                                       onPressed: () => Navigator.pop(context),
                                     ),
                                   ],
@@ -335,3 +410,4 @@ class _FoodListState extends State<FoodList> {
     );
   }
 }
+
