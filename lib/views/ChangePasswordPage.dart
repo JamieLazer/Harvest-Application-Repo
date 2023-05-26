@@ -22,8 +22,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as List;
     //Extract the user's ID and gardens from the arguments
-    String email = arguments[2];
-    String password = arguments[3];
+    String email = arguments[0];
+    String password = arguments[1];
 
     return Scaffold(
       backgroundColor: Colors.white,

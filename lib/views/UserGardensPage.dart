@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/views/WelcomePage.dart';
+import 'ChangePasswordPage.dart';
 import 'CollaborationRequestsPage.dart';
 import 'ProfilePage.dart';
 
@@ -95,6 +96,41 @@ class SideMenu extends StatelessWidget {
               }),
           ListTile(
             title: Text(
+              'Food Atlas',
+              style: blackText.copyWith(
+                fontSize: 14.5,
+              ),
+            ),
+            onTap: () async {
+              // Close the drawer
+              var conn= await MySqlConnection.connect(settings);
+              var results2=await conn.query(
+                  "SELECT*FROM ATLAS ORDER BY FOOD ASC"
+              );
+              List resultList=results2.toList();
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/atlasPage',arguments: resultList);
+
+            },
+          ),
+
+          ListTile(
+            title: Text(
+              'Change Password',
+              style: blackText.copyWith(
+                fontSize: 14.5,
+              ),
+            ),
+            onTap: () {
+              // Close the drawer
+              Navigator.pop(context);
+              List args=[curr_user_email,password];
+              Navigator.pushNamed(context, '/changePassword', arguments: args);
+
+            },
+          ),
+          ListTile(
+            title: Text(
               'Log Out',
               style: blackText.copyWith(
                 fontSize: 14.5,
@@ -111,6 +147,7 @@ class SideMenu extends StatelessWidget {
               );
             },
           ),
+
         ],
       ),
     );
@@ -249,6 +286,10 @@ class _UserGardensState extends State<UserGardensList> {
                         var results = await conn.query(
                             'select * from YIELD where LOG_ID = ? ORDER BY HARVEST_DATE DESC',
                             [gardens[index]["LOG_ID"]]);
+                        var results2=await conn.query(
+                          "SELECT*FROM ATLAS"
+                        );
+                        List atlas=results2.toList();
                         //Convert the results of the database query to a list
                         List foodList = results.toList();
                         //Create the arguments that we will pass to the next page
@@ -256,7 +297,8 @@ class _UserGardensState extends State<UserGardensList> {
                             userID,
                             gardens[index]["LOG_ID"],
                             foodList,
-                            gardens[index]["LOG_NAME"]);
+                            gardens[index]["LOG_NAME"],
+                            atlas);
                         //Navigate to the add garden screen using a named route.
                         Navigator.pushNamed(context, '/foodPage',
                             arguments: args);
