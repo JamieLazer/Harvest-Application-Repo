@@ -260,7 +260,7 @@ class _FoodListState extends State<FoodList> {
                           context: context,
                           builder: (BuildContext context) {
                             return SizedBox(
-                              height: 200,
+                              height: 250,
                               child: Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -276,32 +276,36 @@ class _FoodListState extends State<FoodList> {
                                           ),
                                         ),
                                         Container(
+                                          height: 125,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
                                               0.8, // Set the width to 80% of the screen width,
-                                          child: DataTable(columns: [
-                                            DataColumn(label: Text("FOOD")),
-                                            DataColumn(label: Text("SOW")),
-                                            DataColumn(label: Text("PLANT")),
-                                            DataColumn(label: Text("HARVEST")),
-                                            DataColumn(label: Text("SUN")),
-                                            DataColumn(label: Text("pH")),
-                                          ], rows: [
-                                            DataRow(cells: [
-                                              DataCell(
-                                                  Text("${tapped['FOOD']}")),
-                                              DataCell(
-                                                  Text("${tapped['SOW']}")),
-                                              DataCell(
-                                                  Text("${tapped['PLANT']}")),
-                                              DataCell(
-                                                  Text("${tapped['HARVEST']}")),
-                                              DataCell(
-                                                  Text("${tapped['SUN']}")),
-                                              DataCell(Text("${tapped['pH']}"))
-                                            ])
-                                          ]),
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: DataTable(columns: [
+                                              DataColumn(label: Text("FOOD")),
+                                              DataColumn(label: Text("SOW")),
+                                              DataColumn(label: Text("PLANT")),
+                                              DataColumn(label: Text("HARVEST")),
+                                              DataColumn(label: Text("SUN")),
+                                              DataColumn(label: Text("pH")),
+                                            ], rows: [
+                                              DataRow(cells: [
+                                                DataCell(
+                                                    Text("${tapped['FOOD']}")),
+                                                DataCell(
+                                                    Text("${tapped['SOW']}")),
+                                                DataCell(
+                                                    Text("${tapped['PLANT']}")),
+                                                DataCell(
+                                                    Text("${tapped['HARVEST']}")),
+                                                DataCell(
+                                                    Text("${tapped['SUN']}")),
+                                                DataCell(Text("${tapped['pH']}"))
+                                              ])
+                                            ]),
+                                          ),
                                         ),
                                       ],
                                     ),
