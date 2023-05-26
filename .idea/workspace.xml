@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Fixed settings and dependencies to get profile picture upload working using image_picker.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Arguments/gardenInfoArgumentsv2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Arguments/gardenInfoArgumentsv2.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/AddFoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/AddFoodPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/ChangePasswordPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ChangePasswordPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ProfilePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/FoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/FoodPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +29,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pool-1.5.1/lib/pool.dart" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mysql1-0.20.0/lib/src/prepared_statements/execute_query_handler.dart" root0="SKIP_INSPECTION" />
     <setting file="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mysql1-0.20.0/lib/src/single_connection.dart" root0="SKIP_INSPECTION" />
-    <setting file="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pool-1.5.1/lib/pool.dart" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -37,15 +41,10 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "io.flutter.reload.alreadyRun": "true",
-    "show.migrate.to.gradle.popup": "false"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/images" />
@@ -120,7 +119,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/views/ChangePasswordPage.dart</url>
-          <line>23</line>
+          <line>22</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
