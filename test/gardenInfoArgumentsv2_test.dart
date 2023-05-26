@@ -7,14 +7,16 @@ void main() {
     final gardenID = 123;
     final food = ['grapes', 'apples'];
     final gardenName = 'My Garden';
-
+    final atlas = ['apple', 'hjdhd'];
     test('constructor should set properties correctly', () {
-      final gardenArgs = gardenInfoArgs(userID, gardenID, food, gardenName);
+      final gardenArgs =
+          gardenInfoArgs(userID, gardenID, food, gardenName, atlas);
 
       expect(gardenArgs.userID, userID);
       expect(gardenArgs.gardenID, gardenID);
       expect(gardenArgs.food, food);
       expect(gardenArgs.gardenName, gardenName);
+      expect(gardenArgs.atlas, atlas);
     });
   });
 }
