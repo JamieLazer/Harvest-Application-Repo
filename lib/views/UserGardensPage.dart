@@ -2,6 +2,7 @@ import 'package:dartfactory/Arguments/ProfileDetailsArguments.dart';
 import 'package:dartfactory/Arguments/gardenInfoArgumentsv2.dart';
 import 'package:dartfactory/ConnectionSettings.dart';
 import 'package:dartfactory/styles.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
@@ -9,6 +10,8 @@ import '../Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/views/WelcomePage.dart';
 import 'CollaborationRequestsPage.dart';
 import 'ProfilePage.dart';
+
+final storage = FirebaseStorage.instance;
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -23,6 +26,7 @@ class SideMenu extends StatelessWidget {
     String name = arguments.name;
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
+    String profilePicture = arguments.profilePicture;
     List gardens = arguments.gardens;
 
     //drawer widget: side menu
@@ -69,7 +73,7 @@ class SideMenu extends StatelessWidget {
             onTap: () {
               // Close the drawer
               Navigator.pop(context);
-              List args1 = [name, surname, curr_user_email];
+              List args1 = [user_id, name, surname, curr_user_email, profilePicture];
 
               // Navigate to the profile page
               Navigator.pushNamed(context, '/profile', arguments: args1);
@@ -88,7 +92,7 @@ class SideMenu extends StatelessWidget {
                 Navigator.pop(context);
                 //Create the arguments that we will pass to the next page
                 //The arguments we pass to a new page can be any object
-                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardens, name, surname, curr_user_email);
+                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardens, name, surname, curr_user_email, profilePicture);
                 Navigator.pushNamed(context, '/invitations', arguments: args);
               }),
           ListTile(

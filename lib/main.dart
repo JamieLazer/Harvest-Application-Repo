@@ -21,13 +21,17 @@ import 'views/WelcomePage.dart';
 import 'views/ProfilePage.dart';
 import 'views/ChangePasswordPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'firebase_options.dart';
+import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: '5763E1E8-38A7-450B-8D73-80CB3115DD37');
   runApp(const MyApp());
 }
 
