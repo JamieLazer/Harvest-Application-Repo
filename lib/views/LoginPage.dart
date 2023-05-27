@@ -177,7 +177,7 @@ Widget buildLoginButton(
             List gardenResultsList = gardenResults.toList();
             //Create the arguments that we will pass to the next page
             //The arguments we pass to a new page can be any object
-            ProfileDetailsArguments args=ProfileDetailsArguments(resultsList[0], gardenResultsList, resultsList[1], resultsList[2],resultsList[3], password);
+            ProfileDetailsArguments args=ProfileDetailsArguments(resultsList[0], gardenResultsList, resultsList[1], resultsList[2],resultsList[3], resultsList[4]);
             Navigator.pushNamed(context, '/userGardens', arguments: args);
           } else {
             showDialog(

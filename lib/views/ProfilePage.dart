@@ -1,12 +1,23 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mysql1/mysql1.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+
+import '../ConnectionSettings.dart';
 import '../styles.dart';
 
-List userNames = [];
-List gardens = [];
+int userID = 0;
+String name = ''; //user_fname
+String surname = ''; // user_lname
+String email = ''; //user_email
+String profilePicture = ''; // user_pfp
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -21,27 +32,102 @@ class _ProfilePageState extends State<ProfilePage> {
   File? _imageFile;
   final Completer<File?> _imageFileCompleter = Completer<File?>();
 
-
-  Future<void> _getImage() async {
+  Future<void> fetchProfilePictureFromFirebase() async {
     try {
-      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        _imageFile = File(pickedFile.path);
-        _imageFileCompleter.complete(_imageFile);
+      var conn = await MySqlConnection.connect(settings);
+      var results = await conn.query(
+        'SELECT user_pfp FROM USERS WHERE user_id = ?',
+        [userID],
+      );
+
+      if (results.isNotEmpty) {
+        String? profilePicture = results.first['user_pfp'];
+
+        if (profilePicture != null) {
+          Reference storageReference =
+          FirebaseStorage.instance.ref().child(profilePicture);
+          final fileUrl = await storageReference.getDownloadURL();
+          final fileResponse = await http.get(Uri.parse(fileUrl));
+          if (fileResponse.statusCode == 200) {
+            Uint8List fileBytes = fileResponse.bodyBytes;
+            File imageFile = await _writeBytesToFile(fileBytes);
+            _imageFile = imageFile;
+            _imageFileCompleter.complete(_imageFile);
+            setState(() {});
+          }
+        }
+      } else {
+        // Handle the case when no profile picture is found for the user
+        // You can set a default image or show a placeholder
       }
     } catch (e) {
-      print('Error picking image: $e');
+      print('Error fetching profile picture from Firebase: $e');
     }
+  }
+
+
+  Future<File> _writeBytesToFile(Uint8List bytes) async {
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    String filePath = '$tempPath/profile_picture.jpg';
+    File file = File(filePath);
+    await file.writeAsBytes(bytes);
+    return file;
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    XFile? selected = await _picker.pickImage(source: source);
+
+    setState(() {
+      _imageFile = selected != null ? File(selected.path) : null;
+      uploadProfilePictureToFirebase();
+    });
+  }
+
+  Future<void> uploadProfilePictureToFirebase() async {
+    try {
+      if (_imageFile != null) {
+        File image = _imageFile!;
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+        Reference storageReference = FirebaseStorage.instance.ref().child(fileName);
+
+        String token = await FirebaseAuth.instance.currentUser!.getIdToken();
+
+        SettableMetadata metadata = SettableMetadata(
+          contentType: 'image/jpeg',
+          customMetadata: {
+            'Authorization': 'Bearer $token',
+          },
+        );
+
+        Uint8List fileBytes = await image.readAsBytes();
+
+        await storageReference.putData(fileBytes, metadata);
+
+        // Rest of the code...
+      } else {
+        print('No image selected');
+      }
+    } catch (e) {
+      print('Error uploading profile picture to Firebase: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProfilePictureFromFirebase();
   }
 
   @override
   Widget build(BuildContext context) {
     final arguments =
-    ModalRoute.of(context)!.settings.arguments as List;
-    //Extract the user's ID and gardens from the arguments
-    String name=arguments[0];
-    String surname=arguments[1];
-    String email=arguments[2];
+    ModalRoute.of(context)!.settings.arguments as List<dynamic>;
+    userID = arguments[0];
+    name = arguments[1]; //user_fname
+    surname = arguments[2]; // user_lname
+    email = arguments[3]; //user_email
+    profilePicture = arguments[4]; // user_pfp
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -55,50 +141,69 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //profile picture + gradient
           Container(
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
+            height: 200,
+            decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  Color(0xFF80A87A),
-                  Color(0xFF5D977B),
-                  Color(0xFF43847A),
-                  Color(0xFF337074),
-                  Color(0xFF2F5C69),
-                  Color(0xFF2F4858),
-                ],
+                colors: [primaryColour, secondaryColour],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(12.5),
+            child: Center(
               child: GestureDetector(
-                onDoubleTap: () async {
-                  await _getImage();
-                  setState(() {});
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SafeArea(
+                        child: Wrap(
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.photo_library),
+                              title: const Text('Photo Library'),
+                              onTap: () {
+                                _pickImage(ImageSource.gallery);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.photo_camera),
+                              title: const Text('Camera'),
+                              onTap: () {
+                                _pickImage(ImageSource.camera);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
                 },
-                //profile photo
                 child: FutureBuilder<File?>(
                   future: _imageFileCompleter.future,
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.data != null) {
-                      return CircleAvatar(
-                        radius: 50,
-                        backgroundImage: FileImage(snapshot.data!),
-                      );
-                    } else {
-                      return const CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.white10,
-                        child: Icon(
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData && snapshot.data != null) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.file(
+                            snapshot.data!,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      } else {
+                        return const Icon(
                           Icons.person,
                           size: 50,
                           color: Colors.black54,
-                        ),
-                      );
+                        );
+                      }
+                    } else {
+                      return const CircularProgressIndicator();
                     }
                   },
                 ),
@@ -109,73 +214,72 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "name",
-                      style: blackText.copyWith(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Name",
+                    style: blackText.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    "$name $surname",
+                    style: blackText.copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black54,
+                        fontSize: 14),
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "Email",
+                    style: blackText.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    const SizedBox(height: 4,),
-
-                    Text(
-                        "${name} ${surname}",
-                        style: blackText.copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black54,
-                          fontSize: 14
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-
-                      const SizedBox(height: 12,),
-
-                      Text(
-                        "email",
-                        style: blackText.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                            fontSize: 14
-                          ),
-                        ),
-
-                      const SizedBox(height: 4,),
-
-                      Text(
-                        "${email}",
-                        style: blackText.copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black54,
-                          fontSize: 14
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-
-                      const SizedBox(height: 12,),
-
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/changePassword', arguments: arguments);
-                        },
-                        child: Text(
-                          'Change Password',
-                          style: blackText.copyWith(
-                            fontSize: 14,
-                            color: secondaryColour,
-                            fontWeight: FontWeight.bold
-                          ),
-                        )
-                      )
-                    ]
+                        fontSize: 14),
                   ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    email,
+                    style: blackText.copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black54,
+                        fontSize: 14),
+                    textAlign: TextAlign.left,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/changePassword',
+                          arguments: arguments);
+                    },
+                    child: Text(
+                      'Change Password',
+                      style: blackText.copyWith(
+                        fontSize: 14,
+                        color: secondaryColour,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 }

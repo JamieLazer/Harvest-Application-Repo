@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyA9aPjrZlGVBhNrA62ptbunMfrwnnaCEgE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1061339962450</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.harvestApplicationNoPhp</string>
+	<key>PROJECT_ID</key>
+	<string>harvest-application-6a156</string>
+	<key>STORAGE_BUCKET</key>
+	<string>harvest-application-6a156.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1061339962450:ios:341945bd8a3d9e7cf3538b</string>
+</dict>
+</plist>
