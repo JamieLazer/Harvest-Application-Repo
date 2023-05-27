@@ -22,6 +22,7 @@ class InvitationsScreen extends StatelessWidget {
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
+    String password = arguments.password;
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +38,7 @@ class InvitationsScreen extends StatelessWidget {
             //Convert the results of the database query to a list
             List gardenResultsList = gardenResults.toList();
             //Create the arguments that we will pass to the next page
-            ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardenResultsList, name, surname, curr_user_email);
+            ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardenResultsList, name, surname, curr_user_email, password);
             Navigator.pushNamed(context, '/userGardens', arguments: args);
           },
         ),

@@ -1,5 +1,6 @@
 import 'package:dartfactory/views/AddFoodPage.dart';
 import 'package:dartfactory/views/AnalyticsPage.dart';
+import 'package:dartfactory/views/AtlasViewPage.dart';
 import 'package:dartfactory/views/CollaborationRequestsPage.dart';
 import 'package:dartfactory/views/FoodLineGraphPage.dart';
 import 'package:dartfactory/views/FoodPieChartPage.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         '/foodLineGraphPage': (context) => const FoodLineGraphPage(),
         '/userPage':(context)=> const UserPage(),
         '/invitations':(context)=> const InvitationsScreen(),
+        '/atlasPage':(context)=>  AtlasViewPage(),
        },
     );
   }

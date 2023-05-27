@@ -1,3 +1,4 @@
+import 'package:dartfactory/Arguments/ProfileDetailsArguments.dart';
 import 'package:dartfactory/styles.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,14 @@ class AddGardenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-        ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
-    //Extract the user's gardens from the arguments
+    ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
+    //Extract the user's ID and gardens from the arguments
+    int user_id = arguments.userID;
+    String name = arguments.name;
+    String surname = arguments.surname;
+    String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
-    //Extract the user ID from the arguments
-    int userID = arguments.userID;
+    String password = arguments.password;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -58,7 +62,7 @@ class AddGardenPage extends StatelessWidget {
                   ),
                 ),
                 child: Center(
-                  child: AddGardenForm(userID, gardens)
+                  child: AddGardenForm(user_id, gardens,name,surname,curr_user_email, password)
                 ),
               ),
             ),
@@ -74,15 +78,23 @@ class AddGardenForm extends StatefulWidget {
   //We have to initialise the variables
   int userID = 0;
   List gardens = [];
+  String name='';
+  String surname='';
+  String email='';
+  String password='';
 
   //Constructor
-  AddGardenForm(int passedUserID, List passedGardens, {super.key}) {
+  AddGardenForm(int passedUserID, List passedGardens,String passedName,String passedSurname,String passedEmail, String passedPassword, {super.key}) {
     userID = passedUserID;
     gardens = passedGardens;
+    name=passedName;
+    surname=passedSurname;
+    email=passedEmail;
+    password = passedPassword;
   }
 
   @override
-  State<AddGardenForm> createState() => _AddGardenFormState(userID, gardens);
+  State<AddGardenForm> createState() => _AddGardenFormState(userID, gardens,name,surname,email, password);
 }
 
 //This class holds data related to the form
@@ -90,11 +102,17 @@ class _AddGardenFormState extends State<AddGardenForm> {
   //We have to initialise the variables
   int userID = 0;
   List gardens = [];
-
+  String name="";
+  String surname="";
+  String email="";
+  String password="";
   //Constructor
-  _AddGardenFormState(int passedUserID, List passedGardens) {
+  _AddGardenFormState(int passedUserID, List passedGardens,String passedName,String passedSurname,String passedEmail, String passedPassword) {
     userID = passedUserID;
     gardens = passedGardens;
+    name=passedName;
+    password = passedPassword;
+
   }
 
   //This variable stores the name of the garden
@@ -187,8 +205,7 @@ class _AddGardenFormState extends State<AddGardenForm> {
 
                             //Create the arguments that we will pass to the next page
                             //The arguments we pass to a new page can be any object
-                            UserInfoArguments args =
-                                UserInfoArguments(userID, updatedGardensList);
+                            ProfileDetailsArguments args=ProfileDetailsArguments(userID,updatedGardensList,name,surname, email, password);
 
                             //Navigate back to the user garden screen using a named route and pass the new page the arguments
                             Navigator.pushNamed(context, '/userGardens',

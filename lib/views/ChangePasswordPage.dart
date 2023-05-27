@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 import '../styles.dart';
 import '../ConnectionSettings.dart';
-import '../Arguments/UserInfoArguments.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -23,40 +22,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as List;
     //Extract the user's ID and gardens from the arguments
-    String email = arguments[2];
-
-    Future<MySqlConnection> getConnection() async {
-      var settings = ConnectionSettings(
-          host: 'db4free.net',
-          port: 3306,
-          user: 'hardcoded',
-          password: '5Scrummies@SD',
-          db: 'harvestapp');
-      return await MySqlConnection.connect(settings);
-    }
-
-    Future<String?> oldPasswordVerifier(String? pswd) async {
-      // Establish a connection to the database
-      final conn = await getConnection();
-      try {
-        // Execute a query to check if the password matches
-        final results = await conn.query(
-            "select user_password from USERS where user_email = '?'",
-                          [email]);
-        // If the query returns exactly one row, the login was successful
-        if (results.toString() != pswd) {
-          return 'Password is not correct';
-        } else {
-          return null;
-        }
-      } catch (e) {
-        // Handle any exceptions that occur during the query execution
-        return null;
-      } finally {
-        // Close the connection when done
-        await conn.close();
-      }
-    }
+    String email = arguments[0];
+    String password = arguments[1];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -112,10 +79,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                             borderSide: BorderSide(width: 1.5)),
                         labelStyle: blackText),
                     validator: (value) {
-                         oldPasswordVerifier(value);
+                          if (value != password) {
+                            return 'This password is incorrect';
+                          }
+                          else {
+                            return null;
+                          }
                     },
                   ),
-                ),
+                  ),
 
                 const SizedBox(
                   height: 4,
@@ -152,7 +124,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             borderSide:
                                 BorderSide(color: primaryColour, width: 1.5)),
                         errorBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.5)),
+                            borderSide: BorderSide(width: 2)),
                         labelStyle: blackText),
                   ),
                 ),
@@ -216,7 +188,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: secondaryColour,
                         ),
-                        onPressed: () async {
+                        onPressed: () async {   
                           // Validate returns true if the form is valid, or false otherwise.
                           if (_formKey.currentState!.validate()) {
                             //If the form is valid
@@ -251,13 +223,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                               await conn.close();
                             }
                           }
-                          //Trying to navigate back to the login page
-                          else if (_formKey.currentState!.validate()) {}
                         },
                         child: Text('Change Password',
                             style: signUpPageText.copyWith(
                               fontSize: 25,
-                              color: primaryColour,
+                              color: Colors.white,
                             )))),
               ],
             ),

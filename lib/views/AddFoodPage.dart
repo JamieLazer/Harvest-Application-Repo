@@ -128,12 +128,11 @@ class _AddFoodFormState extends State<AddFoodForm> {
                         //If the form is valid
                         //Establish connection with the database
                         var conn = await MySqlConnection.connect(settings);
-
                         //Request the log name
-                        var gardenNameResult = await conn.query(
-                            'select LOG_NAME from LOG where LOG_ID = ?', [gardenID]);
-                        
-                        //Convert the results of the database query to a list
+
+                           var gardenNameResult = await conn.query(
+                              'select LOG_NAME from LOG where LOG_ID = ? LIMIT 1', [gardenID]);
+                           //Convert the results of the database query to a list
                         List gardenNameResultList = gardenNameResult.toList();
                         
                         String gardenName = gardenNameResultList[0]["LOG_NAME"];
@@ -141,18 +140,25 @@ class _AddFoodFormState extends State<AddFoodForm> {
                         double weight = double.parse(weightController.text);
 
                         //Add the harvest to the YIELD table in the database
-                        await conn.query(
-                            'CALL LOGGER(?, ?, ?, ?)', [foodName, gardenName, weight, userID]);
+                        try{
+                          await conn.query(
+                              'CALL LOGGER(?, ?, ?,?)', [foodName, weight, userID,gardenID],);
+                        }
+                        catch(e){
+                          print("error is here"+ '${e}');
+                        }
 
                         //Request the updated food list for this garden from the database
                         var updatedFood = await conn.query(
                             'select * from YIELD where LOG_ID = ? ORDER BY HARVEST_DATE DESC', [gardenID]);
                         //Convert the results of the database query to a list
                         List updatedFoodList = updatedFood.toList();
-
+                        var atlas=await conn.query(
+                          "SELECT *FROM ATLAS",
+                        );
                         //Create the arguments that we will pass to the next page
                         //The arguments we pass to a new page can be any object
-                        gardenInfoArgs args = gardenInfoArgs(userID, gardenID, updatedFoodList,gardenName);
+                        gardenInfoArgs args = gardenInfoArgs(userID, gardenID, updatedFoodList,gardenName,atlas.toList());
 
                         //Navigate back to the user garden screen using a named route and pass the new page the arguments
                         Navigator.pushNamed(context, '/foodPage',arguments: args);

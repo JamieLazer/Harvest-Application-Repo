@@ -7,23 +7,26 @@ import 'package:flutter/material.dart';
 import '../Arguments/GardenInfoArguments.dart';
 import '../Arguments/UserInfoArguments.dart';
 import 'package:dartfactory/views/WelcomePage.dart';
+import 'ChangePasswordPage.dart';
 import 'CollaborationRequestsPage.dart';
 import 'ProfilePage.dart';
 
 class SideMenu extends StatelessWidget {
+
   const SideMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-        ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
+    ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
     //Extract the user's ID and gardens from the arguments
     int user_id = arguments.userID;
     String name = arguments.name;
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
+    String password = arguments.password;
 
     //drawer widget: side menu
     return Drawer(
@@ -69,7 +72,7 @@ class SideMenu extends StatelessWidget {
             onTap: () {
               // Close the drawer
               Navigator.pop(context);
-              List args1 = [name, surname, curr_user_email];
+              List args1 = [name, surname, curr_user_email, password];
 
               // Navigate to the profile page
               Navigator.pushNamed(context, '/profile', arguments: args1);
@@ -88,9 +91,44 @@ class SideMenu extends StatelessWidget {
                 Navigator.pop(context);
                 //Create the arguments that we will pass to the next page
                 //The arguments we pass to a new page can be any object
-                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardens, name, surname, curr_user_email);
+                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, gardens, name, surname, curr_user_email, password);
                 Navigator.pushNamed(context, '/invitations', arguments: args);
               }),
+          ListTile(
+            title: Text(
+              'Food Atlas',
+              style: blackText.copyWith(
+                fontSize: 14.5,
+              ),
+            ),
+            onTap: () async {
+              // Close the drawer
+              var conn= await MySqlConnection.connect(settings);
+              var results2=await conn.query(
+                  "SELECT*FROM ATLAS ORDER BY FOOD ASC"
+              );
+              List resultList=results2.toList();
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/atlasPage',arguments: resultList);
+
+            },
+          ),
+
+          ListTile(
+            title: Text(
+              'Change Password',
+              style: blackText.copyWith(
+                fontSize: 14.5,
+              ),
+            ),
+            onTap: () {
+              // Close the drawer
+              Navigator.pop(context);
+              List args=[curr_user_email,password];
+              Navigator.pushNamed(context, '/changePassword', arguments: args);
+
+            },
+          ),
           ListTile(
             title: Text(
               'Log Out',
@@ -109,6 +147,7 @@ class SideMenu extends StatelessWidget {
               );
             },
           ),
+
         ],
       ),
     );
@@ -122,10 +161,14 @@ class UserGardensPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Extract the arguments passed to this page as a UserInfoArguments
     final arguments =
-        ModalRoute.of(context)!.settings.arguments as UserInfoArguments;
+    ModalRoute.of(context)!.settings.arguments as ProfileDetailsArguments;
     //Extract the user's ID and gardens from the arguments
+    int user_id = arguments.userID;
+    String name = arguments.name;
+    String surname = arguments.surname;
+    String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
-    int userID = arguments.userID;
+    String password = arguments.password;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -150,8 +193,8 @@ class UserGardensPage extends StatelessWidget {
             onPressed: () async {
               //What happens when the + is tapped
               //Create the arguments that we will pass to the next page
-              UserInfoArguments args =
-                  UserInfoArguments(arguments.userID, arguments.gardens);
+              ProfileDetailsArguments args =
+                  ProfileDetailsArguments(user_id,gardens,name,surname,curr_user_email, password);
               //Navigate to the add garden screen using a named route.
               Navigator.pushNamed(context, '/addGarden', arguments: args);
             },
@@ -163,7 +206,7 @@ class UserGardensPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: UserGardensList(userID, gardens),
+            child: UserGardensList(user_id, gardens),
           ),
         ],
       ),
@@ -243,6 +286,10 @@ class _UserGardensState extends State<UserGardensList> {
                         var results = await conn.query(
                             'select * from YIELD where LOG_ID = ? ORDER BY HARVEST_DATE DESC',
                             [gardens[index]["LOG_ID"]]);
+                        var results2=await conn.query(
+                          "SELECT*FROM ATLAS"
+                        );
+                        List atlas=results2.toList();
                         //Convert the results of the database query to a list
                         List foodList = results.toList();
                         //Create the arguments that we will pass to the next page
@@ -250,7 +297,8 @@ class _UserGardensState extends State<UserGardensList> {
                             userID,
                             gardens[index]["LOG_ID"],
                             foodList,
-                            gardens[index]["LOG_NAME"]);
+                            gardens[index]["LOG_NAME"],
+                            atlas);
                         //Navigate to the add garden screen using a named route.
                         Navigator.pushNamed(context, '/foodPage',
                             arguments: args);
