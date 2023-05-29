@@ -1,5 +1,6 @@
 import 'package:dartfactory/Arguments/ProfileDetailsArguments.dart';
 import 'package:dartfactory/styles.dart';
+import 'package:dartfactory/views/ProfilePage.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:flutter/material.dart';
 import '../ConnectionSettings.dart';
@@ -18,8 +19,9 @@ class AddGardenPage extends StatelessWidget {
     String name = arguments.name;
     String surname = arguments.surname;
     String curr_user_email = arguments.email;
-    List gardens = arguments.gardens;
     String password = arguments.password;
+    List gardens = arguments.gardens;
+    // String password = arguments.password;
 
     //When you push a new screen after a MaterialApp, a back button is automatically added
     return Scaffold(
@@ -205,7 +207,7 @@ class _AddGardenFormState extends State<AddGardenForm> {
 
                             //Create the arguments that we will pass to the next page
                             //The arguments we pass to a new page can be any object
-                            ProfileDetailsArguments args=ProfileDetailsArguments(userID,updatedGardensList,name,surname, email, password);
+                            ProfileDetailsArguments args=ProfileDetailsArguments(userID, password, updatedGardensList,name,surname, email, profilePicture);
 
                             //Navigate back to the user garden screen using a named route and pass the new page the arguments
                             Navigator.pushNamed(context, '/userGardens',

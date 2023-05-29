@@ -17,20 +17,9 @@ class LoginPage extends StatefulWidget {
   }
 }
 
-// This async method connects To the remote mySQL database.
-Future<MySqlConnection> getConnection() async {
-  var settings = ConnectionSettings(
-      host: 'db4free.net',
-      port: 3306,
-      user: 'hardcoded',
-      password: '5Scrummies@SD',
-      db: 'harvestapp');
-  return await MySqlConnection.connect(settings);
-}
-
 Future<bool> login(String email, String password) async {
   // Establish a connection to the database
-  final conn = await getConnection();
+  final conn = await MySqlConnection.connect(settings);
   try {
     // Execute a query to check if the user's email and password match
     final results = await conn.query(
@@ -177,7 +166,7 @@ Widget buildLoginButton(
             List gardenResultsList = gardenResults.toList();
             //Create the arguments that we will pass to the next page
             //The arguments we pass to a new page can be any object
-            ProfileDetailsArguments args=ProfileDetailsArguments(resultsList[0], gardenResultsList, resultsList[1], resultsList[2],resultsList[3], resultsList[4]);
+            ProfileDetailsArguments args=ProfileDetailsArguments(resultsList[0], password, gardenResultsList, resultsList[1], resultsList[2],resultsList[3], resultsList[4]);
             Navigator.pushNamed(context, '/userGardens', arguments: args);
           } else {
             showDialog(

@@ -157,7 +157,7 @@ class _FoodListState extends State<FoodList> {
                       Card(
                         child: ListTile(
                             visualDensity: const VisualDensity(vertical: 4),
-                            contentPadding: EdgeInsets.only(left: 16, right: 8),
+                            contentPadding: const EdgeInsets.only(left: 16, right: 8),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -175,7 +175,7 @@ class _FoodListState extends State<FoodList> {
                                 ? Align(
                                     alignment: Alignment.centerRight,
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 2),
                                       decoration: BoxDecoration(
                                         color: Colors.green,
@@ -183,7 +183,7 @@ class _FoodListState extends State<FoodList> {
                                       ),
                                       child: Text(
                                         '${food[index]["harvested_by"]}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -212,7 +212,7 @@ class _FoodListState extends State<FoodList> {
                                         children: <Widget>[
                                           Column(
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'Food Information',
                                                 style: TextStyle(
                                                   fontSize: 20,
@@ -228,7 +228,7 @@ class _FoodListState extends State<FoodList> {
                                                 child: SingleChildScrollView(
                                                   scrollDirection:
                                                       Axis.horizontal,
-                                                  child: DataTable(columns: [
+                                                  child: DataTable(columns: const [
                                                     DataColumn(
                                                         label: Text("FOOD")),
                                                     DataColumn(
@@ -262,11 +262,6 @@ class _FoodListState extends State<FoodList> {
                                             ],
                                           ),
                                           ElevatedButton(
-                                            child: Text(
-                                              'Dismiss',
-                                              style: blackText.copyWith(
-                                                  color: Colors.white),
-                                            ),
                                             style: ButtonStyle(
                                                 backgroundColor:
                                                     MaterialStateProperty.all<
@@ -275,6 +270,11 @@ class _FoodListState extends State<FoodList> {
                                             )),
                                             onPressed: () =>
                                                 Navigator.pop(context),
+                                            child: Text(
+                                              'Dismiss',
+                                              style: blackText.copyWith(
+                                                  color: Colors.white),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -290,7 +290,7 @@ class _FoodListState extends State<FoodList> {
                   return Card(
                     child: ListTile(
                       visualDensity: const VisualDensity(vertical: 4),
-                      contentPadding: EdgeInsets.only(left: 16, right: 8),
+                      contentPadding: const EdgeInsets.only(left: 16, right: 8),
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -308,7 +308,7 @@ class _FoodListState extends State<FoodList> {
                           ? Align(
                               alignment: Alignment.centerRight,
                               child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 2),
                                 decoration: BoxDecoration(
                                   color: Colors.green,
@@ -316,7 +316,7 @@ class _FoodListState extends State<FoodList> {
                                 ),
                                 child: Text(
                                   '${food[index]["harvested_by"]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -343,7 +343,7 @@ class _FoodListState extends State<FoodList> {
                                   children: <Widget>[
                                     Column(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Food Information',
                                           style: TextStyle(
                                             fontSize: 20,
@@ -358,7 +358,7 @@ class _FoodListState extends State<FoodList> {
                                               0.8, // Set the width to 80% of the screen width,
                                           child: SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
-                                            child: DataTable(columns: [
+                                            child: DataTable(columns: const [
                                               DataColumn(label: Text("FOOD")),
                                               DataColumn(label: Text("SOW")),
                                               DataColumn(label: Text("PLANT")),
@@ -387,17 +387,17 @@ class _FoodListState extends State<FoodList> {
                                       ],
                                     ),
                                     ElevatedButton(
-                                      child: Text(
-                                        'Dismiss',
-                                        style: blackText.copyWith(
-                                            color: Colors.white),
-                                      ),
                                       style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all<Color>(
                                         secondaryColour,
                                       )),
                                       onPressed: () => Navigator.pop(context),
+                                      child: Text(
+                                        'Dismiss',
+                                        style: blackText.copyWith(
+                                            color: Colors.white),
+                                      ),
                                     ),
                                   ],
                                 ),

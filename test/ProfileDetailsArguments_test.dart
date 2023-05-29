@@ -3,15 +3,16 @@ import 'package:dartfactory/Arguments/ProfileDetailsArguments.dart';
 
 void main() {
   group('Profile details arguments', () {
-    final userID = 1;
+    const userID = 1;
     final gardens = ['applegarden', 'apricot garden'];
-    final name = 'Ribi';
-    final surname = 'TheCat';
-    final email = 'ribi@gmail.com';
-    final password = 'pswd';
+    const name = 'Ribi';
+    const surname = 'TheCat';
+    const email = 'ribi@gmail.com';
+    const password = 'pswd';
+    const profilePicture = '1010101';
     test('constructor should set properties correctly', () {
       final ProfileArgs =
-          ProfileDetailsArguments(userID, gardens, name, surname, email, password);
+          ProfileDetailsArguments(userID, password, gardens, name, surname, email, profilePicture);
 
       expect(ProfileArgs.userID, userID);
       expect(ProfileArgs.gardens, gardens);
