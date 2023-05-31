@@ -27,6 +27,7 @@ class SideMenu extends StatelessWidget {
     String curr_user_email = arguments.email;
     List gardens = arguments.gardens;
     String password = arguments.password;
+    String profilePicture = arguments.profilePicture;
 
     //drawer widget: side menu
     return Drawer(
@@ -72,7 +73,7 @@ class SideMenu extends StatelessWidget {
             onTap: () {
               // Close the drawer
               Navigator.pop(context);
-              List args1 = [user_id , name, surname, curr_user_email, password];
+              List args1 = [user_id , name, surname, curr_user_email, profilePicture];
 
               // Navigate to the profile page
               Navigator.pushNamed(context, '/profile', arguments: args1);
@@ -91,7 +92,7 @@ class SideMenu extends StatelessWidget {
                 Navigator.pop(context);
                 //Create the arguments that we will pass to the next page
                 //The arguments we pass to a new page can be any object
-                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, password, gardens, name, surname, curr_user_email, password);
+                ProfileDetailsArguments args=ProfileDetailsArguments(user_id, password, gardens, name, surname, curr_user_email, profilePicture);
                 Navigator.pushNamed(context, '/invitations', arguments: args);
               }),
           ListTile(

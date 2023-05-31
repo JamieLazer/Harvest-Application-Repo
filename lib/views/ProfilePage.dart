@@ -32,8 +32,9 @@ class _ProfilePageState extends State<ProfilePage> {
   File? _imageFile;
   final Completer<File?> _imageFileCompleter = Completer<File?>();
 
-  Future<void> fetchProfilePictureFromFirebase() async {
+  Future<void> fetchProfilePicture() async {
     try {
+      print("User ID: $profilePicture");
       var conn = await MySqlConnection.connect(settings);
       var results = await conn.query(
         'SELECT user_pfp FROM USERS WHERE user_id = ?',
@@ -80,43 +81,40 @@ class _ProfilePageState extends State<ProfilePage> {
 
     setState(() {
       _imageFile = selected != null ? File(selected.path) : null;
-      uploadProfilePictureToFirebase();
+      uploadProfilePicture();
     });
   }
 
-  Future<void> uploadProfilePictureToFirebase() async {
+  Future<void> uploadProfilePicture() async {
     try {
       if (_imageFile != null) {
         File image = _imageFile!;
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
         Reference storageReference = FirebaseStorage.instance.ref().child(fileName);
 
-        String token = await FirebaseAuth.instance.currentUser!.getIdToken();
+        UploadTask uploadTask = storageReference.putFile(image);
 
-        SettableMetadata metadata = SettableMetadata(
-          contentType: 'image/jpeg',
-          customMetadata: {
-            'Authorization': 'Bearer $token',
-          },
+        // Wait for the upload to complete
+        await uploadTask;
+
+        var conn = await MySqlConnection.connect(settings);
+        await conn.query(
+            'UPDATE USERS SET user_pfp = ? WHERE user_id = ?',
+            [fileName, userID],
         );
-
-        Uint8List fileBytes = await image.readAsBytes();
-
-        await storageReference.putData(fileBytes, metadata);
-
-        // Rest of the code...
       } else {
         print('No image selected');
       }
     } catch (e) {
       print('Error uploading profile picture to Firebase: $e');
+      print(profilePicture);
     }
   }
 
   @override
   void initState() {
     super.initState();
-    fetchProfilePictureFromFirebase();
+    fetchProfilePicture();
   }
 
   @override
@@ -203,7 +201,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                       }
                     } else {
-                      return const CircularProgressIndicator();
+                      return const Icon(
+                        Icons.person,
+                        size: 50,
+                        color: Colors.black54,
+                      );
                     }
                   },
                 ),

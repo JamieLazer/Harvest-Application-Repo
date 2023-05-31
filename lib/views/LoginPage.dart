@@ -159,6 +159,7 @@ Widget buildLoginButton(
                 [email, password]);
             //Convert the results of the database query to a list
             List resultsList = results.elementAt(0).toList();
+            print(resultsList);
             //Request the users gardens from the database
             var gardenResults = await conn
                 .query('select * from LOG where USER_ID = ?', [resultsList[0]]);
@@ -166,7 +167,7 @@ Widget buildLoginButton(
             List gardenResultsList = gardenResults.toList();
             //Create the arguments that we will pass to the next page
             //The arguments we pass to a new page can be any object
-            ProfileDetailsArguments args=ProfileDetailsArguments(resultsList[0], password, gardenResultsList, resultsList[1], resultsList[2],resultsList[3], resultsList[4]);
+            ProfileDetailsArguments args=ProfileDetailsArguments(resultsList[0], password, gardenResultsList, resultsList[1], resultsList[2],resultsList[3], resultsList[5]);
             Navigator.pushNamed(context, '/userGardens', arguments: args);
           } else {
             showDialog(

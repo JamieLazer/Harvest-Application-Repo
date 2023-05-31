@@ -2,7 +2,7 @@
     package="com.example.harvest_application_no_php">
    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="harvest_application_no_php"
+        android:label="Harvest"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
