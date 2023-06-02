@@ -28,6 +28,7 @@ class SideMenu extends StatelessWidget {
     List gardens = arguments.gardens;
     String password = arguments.password;
     String profilePicture = arguments.profilePicture;
+    print(profilePicture);
 
     //drawer widget: side menu
     return Drawer(

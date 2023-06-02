@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Fixed some issues created during the last merge.">
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="App Icon and name added, among other things.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/LoginPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ProfilePage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
     </list>
@@ -55,16 +46,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "/Users/khayamabusela/Documents/GitHub/Harvest-Application-Repo/android/app/src/main/res/mipmap-xxxhdpi",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/khayamabusela/Documents/GitHub/Harvest-Application-Repo/android/app/src/main/res/mipmap-xxxhdpi&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi" />
@@ -151,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685347752021</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="App Icon and name added, among other things.">
+      <created>1685492378258</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1685492378258</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,7 +168,8 @@
     <MESSAGE value="Users can now change their password." />
     <MESSAGE value="Set up Firebase and added image_cropper dependency." />
     <MESSAGE value="Fixed some issues created during the last merge." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed some issues created during the last merge." />
+    <MESSAGE value="App Icon and name added, among other things." />
+    <option name="LAST_COMMIT_MESSAGE" value="App Icon and name added, among other things." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -182,7 +181,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/views/ProfilePage.dart</url>
-          <line>46</line>
+          <line>48</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

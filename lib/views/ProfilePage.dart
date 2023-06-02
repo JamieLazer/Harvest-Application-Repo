@@ -28,13 +28,13 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final ImagePicker _picker = ImagePicker();
-
   File? _imageFile;
-  final Completer<File?> _imageFileCompleter = Completer<File?>();
+  Completer<File?> _imageFileCompleter = Completer<File?>(); // Declare as an instance variable
 
   Future<void> fetchProfilePicture() async {
     try {
-      print("User ID: $profilePicture");
+      print("User ID: $userID");
+      print("Profile: $profilePicture");
       var conn = await MySqlConnection.connect(settings);
       var results = await conn.query(
         'SELECT user_pfp FROM USERS WHERE user_id = ?',
@@ -42,9 +42,10 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
       if (results.isNotEmpty) {
-        String? profilePicture = results.first['user_pfp'];
+        profilePicture = results.first['user_pfp'];
 
         if (profilePicture != null) {
+          final completer = Completer<File?>();
           Reference storageReference =
           FirebaseStorage.instance.ref().child(profilePicture);
           final fileUrl = await storageReference.getDownloadURL();
@@ -53,9 +54,11 @@ class _ProfilePageState extends State<ProfilePage> {
             Uint8List fileBytes = fileResponse.bodyBytes;
             File imageFile = await _writeBytesToFile(fileBytes);
             _imageFile = imageFile;
-            _imageFileCompleter.complete(_imageFile);
-            setState(() {});
+            completer.complete(_imageFile);
           }
+          setState(() {
+            _imageFileCompleter = completer;
+          });
         }
       } else {
         // Handle the case when no profile picture is found for the user
@@ -65,7 +68,6 @@ class _ProfilePageState extends State<ProfilePage> {
       print('Error fetching profile picture from Firebase: $e');
     }
   }
-
 
   Future<File> _writeBytesToFile(Uint8List bytes) async {
     Directory tempDir = await getTemporaryDirectory();
@@ -99,9 +101,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
         var conn = await MySqlConnection.connect(settings);
         await conn.query(
-            'UPDATE USERS SET user_pfp = ? WHERE user_id = ?',
-            [fileName, userID],
+          'UPDATE USERS SET user_pfp = ? WHERE user_id = ?',
+          [fileName, userID],
         );
+        fetchProfilePicture();
       } else {
         print('No image selected');
       }
@@ -200,6 +203,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.black54,
                         );
                       }
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return CircularProgressIndicator(); // Show a loading indicator while fetching the profile picture
                     } else {
                       return const Icon(
                         Icons.person,
