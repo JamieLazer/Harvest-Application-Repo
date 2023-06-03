@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="App Icon and name added, among other things.">
+    <list default="true" id="6371ccb9-1798-4efd-85f3-ab8b23f40523" name="Changes" comment="Profile picture updates.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/ProfilePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/ProfilePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/UserGardensPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/views/FoodPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/views/FoodPage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +72,12 @@
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="Test login with incorrect email or password" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Test login with incorrect email or password" />
+      <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <configuration name="main.dart" type="FlutterTestConfigType" factoryName="Flutter Test" singleton="false" temporary="true">
       <option name="testFile" value="$PROJECT_DIR$/lib/main.dart" />
       <option name="useRegexp" value="false" />
@@ -85,14 +90,23 @@
       <option name="additionalArgs" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in LoginPage_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/LoginPage_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Flutter.main.dart" />
+      <item itemvalue="Flutter Test.Test login with incorrect email or password" />
+      <item itemvalue="Flutter Test.tests in LoginPage_test.dart" />
       <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
       <item itemvalue="Flutter Test.main.dart" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Flutter.main.dart" />
+        <item itemvalue="Flutter Test.tests in LoginPage_test.dart" />
+        <item itemvalue="Flutter Test.Test login with incorrect email or password" />
         <item itemvalue="Flutter Test.main.dart" />
         <item itemvalue="Flutter Test.tests in ConnectionSettings_test.dart" />
       </list>
@@ -149,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685492378258</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Profile picture updates.">
+      <created>1685748849997</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685748849997</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -169,7 +190,8 @@
     <MESSAGE value="Set up Firebase and added image_cropper dependency." />
     <MESSAGE value="Fixed some issues created during the last merge." />
     <MESSAGE value="App Icon and name added, among other things." />
-    <option name="LAST_COMMIT_MESSAGE" value="App Icon and name added, among other things." />
+    <MESSAGE value="Profile picture updates." />
+    <option name="LAST_COMMIT_MESSAGE" value="Profile picture updates." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

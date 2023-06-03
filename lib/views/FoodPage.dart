@@ -182,7 +182,7 @@ class _FoodListState extends State<FoodList> {
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Text(
-                                        '${food[index]["harvested_by"]}',
+                                        'Harvested by ${food[index]["harvested_by"]}',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
